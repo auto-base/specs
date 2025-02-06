@@ -1,0 +1,53 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/paints-varnishes-material",
+   "$ref": "#/contentSchema/PaintsVarnishesMaterial",
+   "contentSchema": {
+      "PaintsVarnishesMaterial": {
+         "properties": {
+            "Original": {
+               "$ref": "#/contentSchema/PaintsVarnishesMaterial",
+               "description": "Original - исходные значения без применения корректировок"
+            },
+            "SpareCode": {
+               "type": "string",
+               "description": "SpareCode - код детали (det_kod)"
+            },
+            "Name": {
+               "type": "string",
+               "description": "Name - наименование материала"
+            },
+            "Id": {
+               "type": "integer",
+               "description": "Id - идентификатор материала"
+            },
+            "Norma": {
+               "type": "number",
+               "description": "Norma - норма"
+            },
+            "Price": {
+               "type": "number",
+               "description": "Price - цена"
+            },
+            "Amount": {
+               "type": "number",
+               "description": "Amount - количество"
+            },
+            "Removed": {
+               "type": "boolean",
+               "description": "Removed - флаг удаления"
+            },
+            "PerItem": {
+               "type": "boolean",
+               "description": "PerItem - считаем по штучно"
+            },
+            "NotPVM": {
+               "type": "boolean",
+               "description": "NotPVM - флаг того, что материал не является ЛКМ"
+            }
+         },
+         "type": "object",
+         "description": "PaintsVarnishesMaterial - ЛКМ"
+      }
+   }
+}

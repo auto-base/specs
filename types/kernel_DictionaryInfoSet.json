@@ -1,0 +1,33 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/dictionary-info-set",
+   "$ref": "#/contentSchema/DictionaryInfoSet",
+   "contentSchema": {
+      "DictionaryInfoSet": {
+         "properties": {
+            "SparePriceDate": {
+               "$ref": "../types/abdb_Date.json#/contentSchema/Date",
+               "type": "object",
+               "description": "SparePriceDate - дата прайса цен на детали"
+            },
+            "MaterialPriceDate": {
+               "$ref": "../types/abdb_Date.json#/contentSchema/Date",
+               "type": "object",
+               "description": "MaterialPriceDate - дата прайса цен на материалы"
+            },
+            "WorkPriceDate": {
+               "$ref": "../types/abdb_Date.json#/contentSchema/Date",
+               "type": "object",
+               "description": "WorkPriceDate - дата прайса цен на работы"
+            },
+            "GeneralizedDate": {
+               "$ref": "../types/abdb_Date.json#/contentSchema/Date",
+               "type": "object",
+               "description": "GeneralizedDate - обобщенная дата"
+            }
+         },
+         "type": "object",
+         "description": "DictionaryInfoSet - информация по использованным справочникам"
+      }
+   }
+}

@@ -1,0 +1,19 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/ab-manager-error",
+   "$ref": "#/contentSchema/AbManagerError",
+   "contentSchema": {
+      "AbManagerError": {
+         "properties": {
+            "type": {
+               "type": "string"
+            },
+            "message": {
+               "type": "string"
+            }
+         },
+         "type": "object",
+         "description": "AbManagerError - часть ответа от менеджера, содержащая детали ошибки"
+      }
+   }
+}

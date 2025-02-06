@@ -1,0 +1,10 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/sorting-order-direction",
+   "type": "string",
+   "enum": [
+      "ACS",
+      "DESC",
+      ""
+   ]
+}

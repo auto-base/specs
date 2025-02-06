@@ -1,0 +1,15 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-group-code",
+   "type": "string",
+   "enum": [
+      "",
+      "SPARE",
+      "REPLACEMENT",
+      "REPAIR",
+      "REMOVAL",
+      "PAINTING",
+      "VISUAL_CHECK",
+      "OTHER"
+   ]
+}

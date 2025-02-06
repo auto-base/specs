@@ -1,0 +1,29 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/find-ab-case-result",
+   "$ref": "#/contentSchema/FindAbCaseResult",
+   "contentSchema": {
+      "FindAbCaseResult": {
+         "properties": {
+            "error": {
+               "$ref": "../types/abcore_AbManagerError.json#/contentSchema/AbManagerError",
+               "type": "object"
+            },
+            "items": {
+               "items": {
+                  "$ref": "../types/abcore_Attachment.json#/contentSchema/Attachment",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Список дел",
+               "description": "Items - элементы результатов поиска"
+            }
+         },
+         "type": "object",
+         "required": [
+            "items"
+         ],
+         "description": "FindAbCaseResult - результат поиска вложений дела"
+      }
+   }
+}

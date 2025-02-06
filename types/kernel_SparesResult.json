@@ -1,0 +1,47 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/spares-result",
+   "$ref": "#/contentSchema/SparesResult",
+   "contentSchema": {
+      "SparesResult": {
+         "properties": {
+            "Original": {
+               "$ref": "#/contentSchema/SparesResult",
+               "description": "Original - исходные значения без применения корректировок"
+            },
+            "Code": {
+               "type": "string"
+            },
+            "Name": {
+               "type": "string"
+            },
+            "UnitPrice": {
+               "type": "number"
+            },
+            "Amount": {
+               "type": "integer"
+            },
+            "Price": {
+               "type": "number"
+            },
+            "RunOut": {
+               "type": "number"
+            },
+            "Discount": {
+               "type": "number"
+            },
+            "SparePriceWithRunOut": {
+               "type": "number"
+            },
+            "SparePriceWithDiscount": {
+               "type": "number"
+            },
+            "SparePriceWithDiscountAndRunOut": {
+               "type": "number"
+            }
+         },
+         "type": "object",
+         "description": "SparesResult - по детали"
+      }
+   }
+}

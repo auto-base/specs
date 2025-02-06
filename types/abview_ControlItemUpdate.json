@@ -1,0 +1,64 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-item-update",
+   "$ref": "#/contentSchema/ControlItemUpdate",
+   "contentSchema": {
+      "ControlItemUpdate": {
+         "properties": {
+            "t": {
+               "type": "string",
+               "title": "Название",
+               "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+            },
+            "rn": {
+               "type": "string",
+               "title": "Кастомный референсный код",
+               "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+            },
+            "s": {
+               "$ref": "../types/abview_ControlItemState.json",
+               "type": "string",
+               "title": "Состояние записи - A - активная"
+            },
+            "c": {
+               "type": "number",
+               "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа"
+            },
+            "n": {
+               "type": "number",
+               "title": "Норма (нормо-часов для работ; норма расхода для материалов)"
+            },
+            "am": {
+               "type": "number",
+               "title": "Количество (деталей шт)"
+            },
+            "ar": {
+               "type": "number",
+               "title": "Площадь окраски или применения материала"
+            },
+            "w": {
+               "type": "number",
+               "title": "Износ детали"
+            },
+            "up": {
+               "type": "number",
+               "title": "Стоимость единицы"
+            },
+            "id": {
+               "type": "string",
+               "title": "Уникальный идентификатор записи"
+            },
+            "nsp": {
+               "type": "boolean",
+               "title": "Признак нестандартной позиции"
+            },
+            "nspig": {
+               "type": "integer",
+               "title": "Идентификатор группы рем. воздействия в НСП"
+            }
+         },
+         "type": "object",
+         "description": "ControlItemUpdate - описатель обновления для отдельной строки контрольного списка"
+      }
+   }
+}

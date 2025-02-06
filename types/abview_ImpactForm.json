@@ -1,0 +1,32 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-form",
+   "$ref": "#/contentSchema/ImpactForm",
+   "contentSchema": {
+      "ImpactForm": {
+         "properties": {
+            "fields": {
+               "$ref": "../types/abview_ImpactFormFields.json#/contentSchema/ImpactFormFields",
+               "type": "object",
+               "title": "Значения полей формы"
+            },
+            "defaults": {
+               "$ref": "../types/abview_ImpactFormFields.json#/contentSchema/ImpactFormFields",
+               "type": "object",
+               "title": "Дефолтные значения полей формы"
+            },
+            "type": {
+               "$ref": "../types/abview_ImpactFormType.json",
+               "type": "string",
+               "title": "Тип формы"
+            },
+            "is_filled": {
+               "type": "boolean",
+               "title": "Признак заполнения формы"
+            }
+         },
+         "type": "object",
+         "description": "ImpactForm - форма с описанием параметров рем."
+      }
+   }
+}

@@ -1,0 +1,62 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-values",
+   "$ref": "#/contentSchema/ControlValues",
+   "contentSchema": {
+      "ControlValues": {
+         "properties": {
+            "c": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа"
+            },
+            "n": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Норма (нормо-часов для работ; норма расхода для материалов)"
+            },
+            "am": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Количество (деталей шт)"
+            },
+            "ar": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Площадь окраски или применения материала"
+            },
+            "w": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Износ детали"
+            },
+            "up": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Стоимость единицы"
+            },
+            "bp": {
+               "$ref": "../types/abview_ControlEvaluated.json#/contentSchema/ControlEvaluated",
+               "type": "object",
+               "title": "Базовая стоимость без учета износа и скидок"
+            },
+            "b": {
+               "$ref": "../types/abview_ControlEditable_float64.json#/contentSchema/ControlEditable_float64",
+               "type": "object",
+               "title": "Бонус"
+            },
+            "fp": {
+               "$ref": "../types/abview_ControlEvaluated.json#/contentSchema/ControlEvaluated",
+               "type": "object",
+               "title": "Итоговая стоимость с учетом износа и скидок"
+            },
+            "u": {
+               "type": "string",
+               "title": "Единица измерения ('шт.' для детали; 'н.ч.' для работы; из справочника для материала)"
+            }
+         },
+         "type": "object",
+         "description": "ControlValues - список редактируемых основных численных значений контрольного листа"
+      }
+   }
+}

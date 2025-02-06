@@ -1,0 +1,37 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/component-spare",
+   "$ref": "#/contentSchema/ComponentSpare",
+   "contentSchema": {
+      "ComponentSpare": {
+         "properties": {
+            "code": {
+               "type": "string",
+               "title": "Код запчасти"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название запчасти"
+            },
+            "impacts": {
+               "items": {
+                  "$ref": "../types/abview_ComponentImpact.json#/contentSchema/ComponentImpact",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Список рем. воздействий"
+            },
+            "id": {
+               "type": "integer",
+               "title": "ID запчасти"
+            },
+            "is_nsp": {
+               "type": "boolean",
+               "title": "Признак нестандартной детали"
+            }
+         },
+         "type": "object",
+         "description": "ComponentSpare - объект для представления запчасти"
+      }
+   }
+}

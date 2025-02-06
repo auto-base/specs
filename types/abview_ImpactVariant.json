@@ -1,0 +1,41 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-variant",
+   "$ref": "#/contentSchema/ImpactVariant",
+   "contentSchema": {
+      "ImpactVariant": {
+         "properties": {
+            "price": {
+               "type": "number",
+               "title": "Стоимость запасной части"
+            },
+            "id": {
+               "type": "string",
+               "title": "ID компонента"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код компонента"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название компонента"
+            },
+            "impact_groups": {
+               "items": {
+                  "$ref": "../types/abview_ImpactGroup.json#/contentSchema/ImpactGroup",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Группы рем. воздействий"
+            },
+            "has_alternatives": {
+               "type": "boolean",
+               "title": "Имеются альтернативные варианты"
+            }
+         },
+         "type": "object",
+         "description": "ImpactVariant - вариант представления компонента"
+      }
+   }
+}

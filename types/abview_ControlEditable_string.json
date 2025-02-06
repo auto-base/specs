@@ -1,0 +1,36 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-editable[string]",
+   "$ref": "#/contentSchema/ControlEditable_string",
+   "contentSchema": {
+      "ControlEditable_string": {
+         "properties": {
+            "d": {
+               "type": "string",
+               "title": "Значение по умолчанию - если null значит нет норматива"
+            },
+            "c": {
+               "type": "string",
+               "title": "Введенное пользователем значение"
+            },
+            "err": {
+               "type": "string",
+               "title": "Текст ошибки"
+            },
+            "r": {
+               "type": "boolean",
+               "title": "Обязательно должно быть заполнено"
+            },
+            "l": {
+               "type": "boolean",
+               "title": "Блокировка - режим readonly"
+            },
+            "eos": {
+               "type": "boolean",
+               "title": "Признак"
+            }
+         },
+         "type": "object"
+      }
+   }
+}

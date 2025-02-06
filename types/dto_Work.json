@@ -1,0 +1,90 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/work",
+   "$ref": "#/contentSchema/Work",
+   "contentSchema": {
+      "Work": {
+         "properties": {
+            "id": {
+               "type": "integer",
+               "title": "Уникальный идентификатор",
+               "description": "Id - Уникальный идентификатор (имя в старой базе - id)"
+            },
+            "code": {
+               "type": "string",
+               "title": "Уникальный мнемонический код",
+               "description": "Code - Уникальный мнемонический код"
+            },
+            "vehicle_family_id": {
+               "type": "integer",
+               "title": "Семейство ТС",
+               "description": "VehicleFamilyId - Семейство ТС (имя в старой базе - fam)"
+            },
+            "vehicle_family": {
+               "$ref": "../types/dto_VehicleFamily.json#/contentSchema/VehicleFamily",
+               "type": "object",
+               "title": "Семейство ТС",
+               "description": "VehicleFamily - объект, связанный через VehicleFamilyId"
+            },
+            "is_additional": {
+               "type": "boolean",
+               "title": "Дополнительная работа",
+               "description": "IsAdditional - Дополнительная работа"
+            },
+            "labor_number": {
+               "type": "string",
+               "title": "Номер работы по справочнику трудоемкостей",
+               "description": "LaborNumber - Номер работы по справочнику трудоемкостей (имя в старой базе - worknum)"
+            },
+            "spare_name": {
+               "type": "string",
+               "title": "Наименование детали",
+               "description": "SpareName - Наименование детали (имя в старой базе - sparename)"
+            },
+            "name": {
+               "type": "string",
+               "title": "Наименование работы",
+               "description": "Name - Наименование работы (имя в старой базе - workname)"
+            },
+            "comment": {
+               "type": "string",
+               "title": "Комментарий",
+               "description": "Comment - Комментарий (имя в старой базе - komment)"
+            },
+            "work_action_id": {
+               "type": "integer",
+               "title": "Номер операции",
+               "description": "WorkActionId - Номер операции (имя в старой базе - num_op)"
+            },
+            "work_type_id": {
+               "type": "integer",
+               "title": "Идентификатор технологической группы",
+               "description": "WorkTypeId - Идентификатор технологической группы (имя в старой базе - tehno_gr)"
+            },
+            "work_type": {
+               "$ref": "../types/dto_WorkType.json#/contentSchema/WorkType",
+               "type": "object",
+               "title": "Идентификатор технологической группы",
+               "description": "WorkType - объект, связанный через WorkTypeId"
+            },
+            "is_on_vehicle": {
+               "type": "boolean",
+               "title": "Признак выполнения работы на ТС",
+               "description": "IsOnVehicle - Признак выполнения работы на ТС (имя в старой базе - on_car)"
+            },
+            "is_enabled": {
+               "type": "boolean",
+               "title": "Признак видимости для пользователя",
+               "description": "IsEnabled - Признак видимости для пользователя (имя в старой базе - invis)"
+            },
+            "is_complex": {
+               "type": "boolean",
+               "title": "Комплексная работа",
+               "description": "IsComplex - Комплексная работа (имя в старой базе - cmplx_n)"
+            }
+         },
+         "type": "object",
+         "description": "Work - Работа имя в БД: norm.work исходная (legacy) таблица: autobase_norm.works"
+      }
+   }
+}

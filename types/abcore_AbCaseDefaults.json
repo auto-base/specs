@@ -1,0 +1,38 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/ab-case-defaults",
+   "$ref": "#/contentSchema/AbCaseDefaults",
+   "contentSchema": {
+      "AbCaseDefaults": {
+         "properties": {
+            "price_one_norm_hour": {
+               "type": "number",
+               "description": "PriceOneNormHour - Дефолтное значение цены нормо-часа 1"
+            },
+            "price_two_norm_hour": {
+               "type": "number",
+               "description": "PriceTwoNormHour - Дефолтное значение цены нормо-часа 2"
+            },
+            "painting_calc_method": {
+               "$ref": "../types/abcore_PaintingCalcMethod.json",
+               "type": "string",
+               "description": "PaintingCalcMethod - способ расчета окрасочных работ"
+            },
+            "add_code_42_value": {
+               "type": "number",
+               "description": "AddCode42Value - Дефолтное значение для кода 42"
+            },
+            "add_code_28_value": {
+               "type": "number",
+               "description": "AddCode28Value - Дефолтное значение для кода 28"
+            },
+            "add_code_20_value": {
+               "type": "number",
+               "description": "AddCode20Value - Дефолтное значение для кода 20"
+            }
+         },
+         "type": "object",
+         "description": "AbCaseDefaults - список дефолтов дела"
+      }
+   }
+}

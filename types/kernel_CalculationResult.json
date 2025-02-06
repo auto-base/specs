@@ -1,0 +1,81 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/calculation-result",
+   "$ref": "#/contentSchema/CalculationResult",
+   "contentSchema": {
+      "CalculationResult": {
+         "properties": {
+            "DictionariesInfo": {
+               "$ref": "../types/kernel_DictionaryInfoSet.json#/contentSchema/DictionaryInfoSet",
+               "type": "object"
+            },
+            "Summary": {
+               "$ref": "../types/kernel_SummarizedData.json#/contentSchema/SummarizedData",
+               "type": "object"
+            },
+            "Controls": {
+               "$ref": "../types/kernel_ControlList.json#/contentSchema/ControlList",
+               "type": "object"
+            },
+            "Inspection": {
+               "$ref": "../types/kernel_InspectionReport.json#/contentSchema/InspectionReport",
+               "type": "object"
+            },
+            "warn": {
+               "$ref": "../types/rest_RestError.json#/contentSchema/RestError",
+               "type": "object",
+               "title": "Предупреждения при выполнении калькуляции"
+            },
+            "error": {
+               "$ref": "../types/rest_RestError.json#/contentSchema/RestError",
+               "type": "object",
+               "title": "Ошибка при выполнении калькуляции"
+            },
+            "Spares": {
+               "items": {
+                  "$ref": "../types/kernel_SparesResult.json#/contentSchema/SparesResult",
+                  "type": "object"
+               },
+               "type": "array"
+            },
+            "Works": {
+               "items": {
+                  "$ref": "../types/kernel_WorksResult.json#/contentSchema/WorksResult",
+                  "type": "object"
+               },
+               "type": "array"
+            },
+            "Materials": {
+               "items": {
+                  "$ref": "../types/kernel_MaterialsResult.json#/contentSchema/MaterialsResult",
+                  "type": "object"
+               },
+               "type": "array"
+            },
+            "total_spare_price": {
+               "type": "number",
+               "title": "Общая стоимость деталей"
+            },
+            "total_spare_price_with_run_out": {
+               "type": "number",
+               "title": "Общая стоимость деталей  с учетом износа"
+            },
+            "TotalSparePriceWithDiscount": {
+               "type": "number"
+            },
+            "TotalSparePriceWithDiscountAndRunOut": {
+               "type": "number"
+            },
+            "TotalWorksPrice": {
+               "type": "number"
+            },
+            "TotalRunOut": {
+               "type": "number"
+            }
+         },
+         "type": "object",
+         "description": "CalculationResult - структура для представления результатов калькуляции"
+      }
+   },
+   "description": "CalculationResult - структура для представления результатов калькуляции"
+}

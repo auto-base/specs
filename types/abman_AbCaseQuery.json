@@ -1,0 +1,97 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/ab-case-query",
+   "$ref": "#/contentSchema/AbCaseQuery",
+   "contentSchema": {
+      "AbCaseQuery": {
+         "properties": {
+            "vin": {
+               "type": "string",
+               "description": "Идентификационный номер ТС"
+            },
+            "grz": {
+               "type": "string",
+               "description": "Регистрационный знак ТС"
+            },
+            "custom_uid": {
+               "type": "string",
+               "description": "Номер дела"
+            },
+            "assigned_user_uid": {
+               "type": "string",
+               "description": "Идентификатор пользователя, который в настоящий момент оперирует с делом"
+            },
+            "state": {
+               "$ref": "../types/abcore_CaseState.json",
+               "type": "string",
+               "description": "Состояние дела"
+            },
+            "state_phase": {
+               "$ref": "../types/abcore_CasePhase.json",
+               "type": "string",
+               "description": "Фаза дела"
+            },
+            "owner_client_uid": {
+               "type": "string",
+               "description": "Идентификатор клиента-владельца"
+            },
+            "must_owner_client": {
+               "type": "boolean",
+               "description": "Клиент-владелец должен/не должен равняться клиенту текущего пользователя"
+            },
+            "must_assigned_client": {
+               "type": "boolean",
+               "description": "Клиент у которого в настоящий момент находится дело должен/не должен равняться клиенту текущего пользователя"
+            },
+            "must_assigned_user": {
+               "type": "boolean",
+               "description": "Пользователь у которого в настоящий момент находится дело должен/не должен равняться текущему пользователю"
+            },
+            "assigned_client_uid": {
+               "type": "string",
+               "description": "Идентификатор клиента у которого в настоящий момент находится дело"
+            },
+            "start_date": {
+               "type": "string",
+               "description": "Дата начала выборки"
+            },
+            "end_date": {
+               "type": "string",
+               "description": "Дата окончания выборки"
+            },
+            "search": {
+               "type": "string",
+               "description": "Строка поиска дел"
+            },
+            "pagination": {
+               "$ref": "../types/abcore_Pagination.json#/contentSchema/Pagination",
+               "type": "object",
+               "description": "Параметры постраничной выдачи мз БД"
+            },
+            "order": {
+               "$ref": "../types/abcore_SortingOrder.json#/contentSchema/SortingOrder",
+               "type": "object",
+               "description": "Параметры сортировки выдачи из БД"
+            },
+            "calc_total": {
+               "type": "boolean",
+               "description": "Отдавать ли в ответе кол-во найденных элементов"
+            },
+            "calc_creator_info": {
+               "type": "boolean",
+               "description": "Отдавать ли в ответе информацию о создателе объектов"
+            },
+            "fields": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array",
+               "description": "Перечень полей, которые нужно отдавать в ответе"
+            }
+         },
+         "type": "object",
+         "description": "AbCaseQuery - объект для запроса дел"
+      }
+   },
+   "description": "AbCaseQuery - объект для запроса дел"
+}

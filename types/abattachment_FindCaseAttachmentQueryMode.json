@@ -1,0 +1,10 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/find-case-attachment-query-mode",
+   "type": "string",
+   "enum": [
+      "DOC",
+      "PHOTO",
+      "FILE"
+   ]
+}

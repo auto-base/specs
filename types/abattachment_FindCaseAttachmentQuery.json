@@ -1,0 +1,26 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/find-case-attachment-query",
+   "$ref": "#/contentSchema/FindCaseAttachmentQuery",
+   "contentSchema": {
+      "FindCaseAttachmentQuery": {
+         "properties": {
+            "case_uid": {
+               "type": "string",
+               "description": "CaseUid - идентификатор дела"
+            },
+            "stage_uid": {
+               "type": "string",
+               "description": "StageUid - идентификатор стадии дела"
+            },
+            "mode": {
+               "$ref": "../types/abattachment_FindCaseAttachmentQueryMode.json",
+               "type": "string",
+               "description": "Mode - вид вложения"
+            }
+         },
+         "type": "object",
+         "description": "FindCaseAttachmentQuery - запрос на поиск вложений дела"
+      }
+   }
+}

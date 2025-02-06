@@ -1,0 +1,44 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-tree-item",
+   "$ref": "#/contentSchema/ImpactTreeItem",
+   "contentSchema": {
+      "ImpactTreeItem": {
+         "properties": {
+            "parent_code": {
+               "type": "string",
+               "title": "Код родительского элемента"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код элемента"
+            },
+            "name": {
+               "type": "string",
+               "title": "Наименование элемента"
+            },
+            "items": {
+               "items": {
+                  "$ref": "#/contentSchema/ImpactTreeItem"
+               },
+               "type": "array",
+               "title": "Элементы дерева"
+            },
+            "image": {
+               "type": "string",
+               "title": "Адрес изображения"
+            },
+            "components": {
+               "items": {
+                  "$ref": "../types/abview_ImpactTreeComponent.json#/contentSchema/ImpactTreeComponent",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Список компонентов на изображении"
+            }
+         },
+         "type": "object",
+         "description": "ImpactTreeItem - элемент дерева изображений и компонентов"
+      }
+   }
+}

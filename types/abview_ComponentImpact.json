@@ -1,0 +1,33 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/component-impact",
+   "$ref": "#/contentSchema/ComponentImpact",
+   "contentSchema": {
+      "ComponentImpact": {
+         "properties": {
+            "uid": {
+               "type": "string",
+               "title": "UID рем. воздействия"
+            },
+            "work_code": {
+               "type": "string",
+               "title": "Код работы"
+            },
+            "work_name": {
+               "type": "string",
+               "title": "Название работы"
+            },
+            "is_nsr": {
+               "type": "boolean",
+               "title": "Признак нестандартной работы"
+            },
+            "is_nsp": {
+               "type": "boolean",
+               "title": "Признак нестандартной позизции"
+            }
+         },
+         "type": "object",
+         "description": "ComponentImpact - объект для представления рем."
+      }
+   }
+}

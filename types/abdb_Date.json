@@ -1,0 +1,12 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/date",
+   "$ref": "#/contentSchema/Date",
+   "contentSchema": {
+      "Date": {
+         "properties": {},
+         "type": "object",
+         "description": "Date - формат даты"
+      }
+   }
+}

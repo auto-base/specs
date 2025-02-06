@@ -1,0 +1,21 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/upload-case-attachment-result",
+   "$ref": "#/contentSchema/UploadCaseAttachmentResult",
+   "contentSchema": {
+      "UploadCaseAttachmentResult": {
+         "properties": {
+            "attachment": {
+               "$ref": "../types/abcore_Attachment.json#/contentSchema/Attachment",
+               "type": "object"
+            },
+            "error": {
+               "$ref": "../types/abcore_AbManagerError.json#/contentSchema/AbManagerError",
+               "type": "object"
+            }
+         },
+         "type": "object",
+         "description": "UploadCaseAttachmentResult - результат загрузки вложения дела"
+      }
+   }
+}

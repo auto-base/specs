@@ -1,0 +1,29 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/request-stats",
+   "$ref": "#/contentSchema/RequestStats",
+   "contentSchema": {
+      "RequestStats": {
+         "properties": {
+            "start": {
+               "type": "string",
+               "title": "Время начала запроса"
+            },
+            "finish": {
+               "type": "string",
+               "title": "Время окончания запроса"
+            },
+            "duration": {
+               "type": "integer",
+               "title": "Продолжительность запроса (ms)"
+            }
+         },
+         "type": "object",
+         "required": [
+            "start",
+            "finish",
+            "duration"
+         ]
+      }
+   }
+}

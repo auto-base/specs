@@ -1,0 +1,141 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/calc-in",
+   "$ref": "#/contentSchema/CalcIn",
+   "contentSchema": {
+      "CalcIn": {
+         "properties": {
+            "id": {
+               "type": "integer",
+               "title": "Уникальный идентификатор",
+               "description": "Id - Уникальный идентификатор (имя в старой базе - id0)"
+            },
+            "calc_id": {
+               "type": "integer",
+               "title": "Идентификатор калькуляции",
+               "description": "CalcId - Идентификатор калькуляции (имя в старой базе - calc_id)"
+            },
+            "line_type_id": {
+               "type": "integer",
+               "title": "Тип строки",
+               "description": "LineTypeId - Тип строки (имя в старой базе - typeline)"
+            },
+            "component_id": {
+               "type": "integer",
+               "title": "Идентификатор компонента",
+               "description": "ComponentId - Идентификатор компонента (имя в старой базе - det_kod_id)"
+            },
+            "spare_id": {
+               "type": "integer",
+               "title": "Идентификатор запчасти",
+               "description": "SpareId - Идентификатор запчасти (имя в старой базе - det_sp_id)"
+            },
+            "work_id": {
+               "type": "integer",
+               "title": "Идентификатор работы",
+               "description": "WorkId - Идентификатор работы (имя в старой базе - w_id)"
+            },
+            "material_id": {
+               "type": "integer",
+               "title": "Идентификатор материала",
+               "description": "MaterialId - Идентификатор материала (имя в старой базе - det_kod_id)"
+            },
+            "spare_code_custom": {
+               "type": "string",
+               "title": "Кастомизированный код детали или запчасти",
+               "description": "SpareCodeCustom - Кастомизированный код детали или запчасти (имя в старой базе - det_sp_nom)"
+            },
+            "spare_name_custom": {
+               "type": "string",
+               "title": "Кастомизированное название детали или запчасти",
+               "description": "SpareNameCustom - Кастомизированное название детали или запчасти (имя в старой базе - det_name)"
+            },
+            "labor_number": {
+               "type": "string",
+               "title": "Номер работы по справочнику трудоемкостей",
+               "description": "LaborNumber - Номер работы по справочнику трудоемкостей (имя в старой базе - worknum)"
+            },
+            "work_name_custom": {
+               "type": "string",
+               "title": "Кастомизированное название работы",
+               "description": "WorkNameCustom - Кастомизированное название работы"
+            },
+            "work_type_id": {
+               "type": "integer",
+               "title": "Идентификатор типа работы",
+               "description": "WorkTypeId - Идентификатор типа работы (имя в старой базе - teh_grup)"
+            },
+            "is_nsp": {
+               "type": "boolean",
+               "title": "Признак НСП",
+               "description": "IsNsp - Признак НСП"
+            },
+            "nsp_impact_group_id": {
+               "type": "integer",
+               "title": "Группа рем. воздействия для НСП",
+               "description": "NspImpactGroupId - Группа рем. воздействия для НСП"
+            },
+            "norm": {
+               "type": "number",
+               "title": "Норматив трудоемкости для работы или расхода для материала",
+               "description": "Norm - Норматив трудоемкости для работы или расхода для материала (имя в старой базе - norma)"
+            },
+            "price": {
+               "type": "number",
+               "title": "Стоимость детали; стоимость нормо-часа для работы/комплексаж стоимость единицы материала",
+               "description": "Price - Стоимость детали; стоимость нормо-часа для работы/комплексаж стоимость единицы материала (имя в старой базе - price)"
+            },
+            "amount_original": {
+               "type": "number",
+               "title": "Предусмотренное количество деталей",
+               "description": "AmountOriginal - Предусмотренное количество деталей, раз выполнения работы/комплекса. (имя в старой базе - amount_orig)"
+            },
+            "amount_manual": {
+               "type": "number",
+               "title": "Назначенное экспертом количество деталей",
+               "description": "AmountManual - Назначенное экспертом количество деталей, раз выполнения работы/комплекса. Первоначально совпадает с предусмотренным (имя в старой базе - amount)"
+            },
+            "wearout": {
+               "type": "number",
+               "title": "Износ детали",
+               "description": "Wearout - Износ детали (имя в старой базе - iznos)"
+            },
+            "surface_condition_id": {
+               "type": "integer",
+               "title": "Идентификатор состояния обрабатываемой поверхности",
+               "description": "SurfaceConditionId - Идентификатор состояния обрабатываемой поверхности (имя в старой базе - paint_type)"
+            },
+            "painting_area": {
+               "type": "number",
+               "title": "Площадь окраски детали",
+               "description": "PaintingArea - Площадь окраски детали (имя в старой базе - paint_s)"
+            },
+            "is_extra": {
+               "type": "boolean",
+               "title": "Признак того",
+               "description": "IsExtra - Признак того, что сущность обрабатывается по схеме extra"
+            },
+            "component": {
+               "$ref": "../types/dto_Component.json#/contentSchema/Component",
+               "type": "object",
+               "title": "Компонент",
+               "description": "Component - Компонент (имя в старой базе - component)"
+            },
+            "spare": {
+               "$ref": "../types/dto_Spare.json#/contentSchema/Spare",
+               "type": "object",
+               "title": "Деталь",
+               "description": "Spare - Деталь (имя в старой базе - spare)"
+            },
+            "work": {
+               "$ref": "../types/dto_Work.json#/contentSchema/Work",
+               "type": "object",
+               "title": "Работа",
+               "description": "Work - Работа (имя в старой базе - work)"
+            }
+         },
+         "type": "object",
+         "description": "CalcIn - Назначенные рем."
+      }
+   }
+}

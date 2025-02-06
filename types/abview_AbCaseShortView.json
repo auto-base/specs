@@ -1,0 +1,60 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/ab-case-short-view",
+   "$ref": "#/contentSchema/AbCaseShortView",
+   "contentSchema": {
+      "AbCaseShortView": {
+         "properties": {
+            "uid": {
+               "type": "string",
+               "title": "Уникальный идентификатор кейса"
+            },
+            "number": {
+               "type": "string",
+               "title": "Номер дела"
+            },
+            "name": {
+               "type": "string",
+               "title": "Наименование"
+            },
+            "type": {
+               "$ref": "../types/abcore_CaseType.json",
+               "type": "string",
+               "title": "Тип",
+               "description": "Тип дела"
+            },
+            "vehicle_id_type": {
+               "$ref": "../types/abcore_VehicleIdType.json",
+               "type": "string",
+               "title": "Тип ИД ТС",
+               "description": "Тип идентификатора ТС"
+            },
+            "vehicle_id": {
+               "type": "string",
+               "title": "ИД ТС",
+               "description": "Идентификатор ТС"
+            },
+            "grz": {
+               "type": "string",
+               "title": "ГРЗ",
+               "description": "Государственный регистрационный знак"
+            },
+            "is_available": {
+               "type": "boolean",
+               "title": "Доступность на редактирование",
+               "description": "Доступность дела на редактирование"
+            },
+            "last_calc_state": {
+               "type": "string",
+               "title": "Статус текущей (последней калькуляции)",
+               "description": "статус последней калькуляции для краткого вида"
+            }
+         },
+         "type": "object",
+         "required": [
+            "uid"
+         ],
+         "description": "AbCaseShortView - объект для краткого представления \"дела\", объект для отображения на фронте"
+      }
+   }
+}

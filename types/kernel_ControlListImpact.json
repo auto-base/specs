@@ -1,0 +1,74 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-list-impact",
+   "$ref": "#/contentSchema/ControlListImpact",
+   "contentSchema": {
+      "ControlListImpact": {
+         "properties": {
+            "SpareData": {
+               "$ref": "../types/kernel_SparesResult.json#/contentSchema/SparesResult",
+               "type": "object",
+               "description": "SpareData - деталь"
+            },
+            "Action": {
+               "$ref": "../types/kernel_ImpactAction.json#/contentSchema/ImpactAction",
+               "type": "object",
+               "description": "Action - внутреннее представление действий"
+            },
+            "Work": {
+               "$ref": "../types/abcore_RepairWork.json#/contentSchema/RepairWork",
+               "type": "object",
+               "description": "Work - работа"
+            },
+            "SpareCode": {
+               "type": "string",
+               "description": "SpareCode - код детали, обычно берется из source"
+            },
+            "ComponentCode": {
+               "type": "string",
+               "description": "ComponentCode - SNumber"
+            },
+            "Materials": {
+               "items": {
+                  "$ref": "../types/kernel_MaterialControl.json#/contentSchema/MaterialControl",
+                  "type": "object"
+               },
+               "type": "array",
+               "description": "ЛКМ"
+            },
+            "Subs": {
+               "items": {
+                  "$ref": "#/contentSchema/ControlListImpact"
+               },
+               "type": "array",
+               "description": "subs - вложенные воздействия (воздействия нижнего уровня)"
+            },
+            "SpareId": {
+               "type": "integer",
+               "description": "SpareId - код (id) детали внутренний (det_sp_id)"
+            },
+            "ComponentId": {
+               "type": "integer",
+               "description": "ComponentId - внутренний числовой ид от SNumber"
+            },
+            "Removed": {
+               "type": "boolean",
+               "description": "Removed - флаг был ли удален коррекцией"
+            },
+            "IsExtra": {
+               "type": "boolean",
+               "description": "IsExtra - признак записи extra"
+            },
+            "DuplicatesWorkIDs": {
+               "items": {
+                  "type": "integer"
+               },
+               "type": "array",
+               "description": "DuplicatesWorkIDs - список идентификаторов работ, которые являются дубликатами этого воздействия"
+            }
+         },
+         "type": "object",
+         "description": "ControlListImpact - рем."
+      }
+   }
+}

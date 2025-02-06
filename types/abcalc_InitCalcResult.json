@@ -1,0 +1,21 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/init-calc-result",
+   "$ref": "#/contentSchema/InitCalcResult",
+   "contentSchema": {
+      "InitCalcResult": {
+         "properties": {
+            "case_uid": {
+               "type": "string",
+               "description": "CaseUID - идентификатор кейса для которого надо высчитать калькуляцию"
+            },
+            "calc_id": {
+               "type": "integer",
+               "description": "CalcId - ИД новой калькуляции"
+            }
+         },
+         "type": "object",
+         "description": "InitCalcResult - результат инициирования нового расчета"
+      }
+   }
+}

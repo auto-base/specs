@@ -1,0 +1,57 @@
+{
+   "openapi": "3.1.0",
+   "info": {
+      "title": "Внешнее API проекта Автобаза 2.0",
+      "version": "0.1.0"
+   },
+   "servers": [
+      {
+         "url": "https://new.autobase.ru",
+         "description": "Autobase"
+      }
+   ],
+   "security": [
+      {
+         "basicAuth": [],
+         "localOpenId": []
+      }
+   ],
+   "tags": [
+      {
+         "name": "Case",
+         "description": "Группа ендпоинтов для работы с делами"
+      },
+      {
+         "name": "export",
+         "description": "Группа ендпоинтов для работы внешнего API"
+      }
+   ],
+   "paths": {
+      "/case/find": {
+         "$ref": "./endpoints/case@find.json"
+      },
+      "/export/calc/{calc_uid}/content/get": {
+         "$ref": "./endpoints/export@calc@(calc_uid)@content@get.json"
+      },
+      "/export/case/{case_uid}/last-calc/content/get": {
+         "$ref": "./endpoints/export@case@(case_uid)@last-calc@content@get.json"
+      }
+   },
+   "components": {
+      "securitySchemes": {
+         "basicAuth": {
+            "type": "http",
+            "scheme": "basic"
+         },
+         "localKeyCloak": {
+            "type": "oauth2",
+            "flows": {
+               "authorizationCode": {
+                  "authorizationUrl": "http://localhost:9098/realms/autobase/protocol/openid-connect/auth",
+                  "tokenUrl": "http://localhost:9098/realms/autobase/protocol/openid-connect/token"
+               }
+            }
+         }
+      }
+   }
+}

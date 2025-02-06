@@ -1,0 +1,53 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-view",
+   "$ref": "#/contentSchema/ControlView",
+   "contentSchema": {
+      "ControlView": {
+         "properties": {
+            "c42": {
+               "type": "number"
+            },
+            "c28": {
+               "type": "number"
+            },
+            "c28_use_wearout": {
+               "type": "boolean",
+               "description": "Code28UseWearout - признак использовать ли скидку с учетом 28 кода"
+            },
+            "c20": {
+               "type": "number"
+            },
+            "source": {
+               "$ref": "../types/kernel_ControlList.json#/contentSchema/ControlList",
+               "type": "object",
+               "title": "Исходный набор рем. воздействий"
+            },
+            "state": {
+               "$ref": "../types/abcore_CalcState.json",
+               "type": "string",
+               "title": "Состояние калькуляции"
+            },
+            "calc_uid": {
+               "type": "string",
+               "title": "Идентификатор калькуляции"
+            },
+            "case_type": {
+               "$ref": "../types/abcore_CaseType.json",
+               "type": "string",
+               "title": "Тип дела (ОСАГО"
+            },
+            "items": {
+               "items": {
+                  "$ref": "../types/abview_ControlItem.json#/contentSchema/ControlItem",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Набор элементов контрольного листа"
+            }
+         },
+         "type": "object",
+         "description": "ControlView - представление списка рем."
+      }
+   }
+}

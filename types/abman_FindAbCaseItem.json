@@ -1,0 +1,27 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/find-ab-case-item",
+   "$ref": "#/contentSchema/FindAbCaseItem",
+   "contentSchema": {
+      "FindAbCaseItem": {
+         "properties": {
+            "case": {
+               "$ref": "../types/abview_AbCaseView.json#/contentSchema/AbCaseView",
+               "type": "object",
+               "title": "Дело"
+            },
+            "meta": {
+               "$ref": "../types/abman_FindAbCaseMeta.json#/contentSchema/FindAbCaseMeta",
+               "type": "object",
+               "title": "Мета информация о деле"
+            }
+         },
+         "type": "object",
+         "required": [
+            "case",
+            "meta"
+         ],
+         "description": "FindAbCaseItem - элемент содержащий дело и мета информацию о нем"
+      }
+   }
+}

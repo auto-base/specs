@@ -1,0 +1,18 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-view",
+   "$ref": "#/contentSchema/ImpactView",
+   "contentSchema": {
+      "ImpactView": {
+         "properties": {
+            "form": {
+               "$ref": "../types/abview_ImpactForm.json#/contentSchema/ImpactForm",
+               "type": "object",
+               "title": "Форма с параметрами рем. воздействия"
+            }
+         },
+         "type": "object",
+         "description": "ImpactView - объект для представления рем."
+      }
+   }
+}

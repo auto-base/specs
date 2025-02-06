@@ -1,0 +1,102 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/attachment",
+   "$ref": "#/contentSchema/Attachment",
+   "contentSchema": {
+      "Attachment": {
+         "properties": {
+            "uid": {
+               "type": "string",
+               "title": "идентификатор записи",
+               "description": "Uid - идентификатор записи"
+            },
+            "name": {
+               "type": "string",
+               "title": "наименование",
+               "description": "Name - наименование"
+            },
+            "tags": {
+               "type": "string",
+               "title": "метки (тэги)",
+               "description": "Tags - метки (тэги)"
+            },
+            "created_at": {
+               "type": "string",
+               "title": "дата создания",
+               "description": "CreatedAt - дата создания"
+            },
+            "updated_at": {
+               "type": "string",
+               "title": "дата обновления",
+               "description": "UpdatedAt - дата обновления"
+            },
+            "created_by": {
+               "type": "string",
+               "title": "кем создано",
+               "description": "CreatedBy - кем создано"
+            },
+            "deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "Deleted - признак удаленной записи"
+            },
+            "client_uid": {
+               "type": "string",
+               "title": "идентификатор клиента",
+               "description": "ClientUid - идентификатор клиента"
+            },
+            "group_uid": {
+               "type": "string",
+               "title": "идентификатор группы",
+               "description": "GroupUid - идентификатор группы"
+            },
+            "case_uid": {
+               "type": "string",
+               "description": "CaseUid - идентификатор дела"
+            },
+            "stage_uid": {
+               "type": "string",
+               "description": "StageUid - идентификатор стадии дела"
+            },
+            "type": {
+               "type": "string",
+               "title": "тип",
+               "description": "Type - тип"
+            },
+            "content_type": {
+               "type": "string",
+               "title": "тип содержимого",
+               "description": "ContentType - тип содержимого"
+            },
+            "storage_uid": {
+               "type": "string",
+               "title": "идентификатор хранилища",
+               "description": "StorageUid - идентификатор хранилища"
+            },
+            "content_uid": {
+               "type": "string",
+               "title": "идентификатор контента вложения в хранилище",
+               "description": "ContentUid - идентификатор контента вложения в хранилище"
+            },
+            "fname": {
+               "type": "string",
+               "title": "имя исходного файла",
+               "description": "Fname - имя исходного файла"
+            },
+            "thumbnail": {
+               "type": "string",
+               "description": "Thumbnail - миниатюра (в base64)"
+            },
+            "comments": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array",
+               "description": "comments - комментарии"
+            }
+         },
+         "type": "object",
+         "description": "Attachment - Описатель вложения,"
+      }
+   }
+}

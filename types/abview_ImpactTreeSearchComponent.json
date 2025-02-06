@@ -1,0 +1,41 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-tree-search-component",
+   "$ref": "#/contentSchema/ImpactTreeSearchComponent",
+   "contentSchema": {
+      "ImpactTreeSearchComponent": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "title": "ID компонента"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код компонента"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название компонента"
+            },
+            "code_hl": {
+               "type": "string",
+               "title": "Код компонента с подсветкой"
+            },
+            "name_hl": {
+               "type": "string",
+               "title": "Название компонента с подсветкой"
+            },
+            "spares": {
+               "items": {
+                  "$ref": "../types/abview_ImpactTreeSearchSpare.json#/contentSchema/ImpactTreeSearchSpare",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Название компонента с подсветкой"
+            }
+         },
+         "type": "object",
+         "description": "ImpactTreeSearchComponent - компонент в результатах поиска"
+      }
+   }
+}

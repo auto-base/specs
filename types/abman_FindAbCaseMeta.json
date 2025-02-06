@@ -1,0 +1,20 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/find-ab-case-meta",
+   "$ref": "#/contentSchema/FindAbCaseMeta",
+   "contentSchema": {
+      "FindAbCaseMeta": {
+         "properties": {
+            "is_available": {
+               "type": "boolean",
+               "title": "Признак доступности дела"
+            }
+         },
+         "type": "object",
+         "required": [
+            "is_available"
+         ],
+         "description": "FindAbCaseMeta - мета информация о деле"
+      }
+   }
+}

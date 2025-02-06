@@ -1,0 +1,46 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/materials-result",
+   "$ref": "#/contentSchema/MaterialsResult",
+   "contentSchema": {
+      "MaterialsResult": {
+         "properties": {
+            "Original": {
+               "$ref": "#/contentSchema/MaterialsResult",
+               "description": "Original - исходные значения без применения корректировок"
+            },
+            "Name": {
+               "type": "string"
+            },
+            "SpareName": {
+               "type": "string"
+            },
+            "Norma": {
+               "type": "number"
+            },
+            "UnitPrice": {
+               "type": "number"
+            },
+            "Amount": {
+               "type": "number"
+            },
+            "Price": {
+               "type": "number"
+            },
+            "PriceBySpare": {
+               "type": "number"
+            },
+            "PerItem": {
+               "type": "boolean",
+               "description": "PerItem - считаем по штучно"
+            },
+            "NotPVM": {
+               "type": "boolean",
+               "description": "NotPVM - флаг того, что материал не является ЛКМ"
+            }
+         },
+         "type": "object",
+         "description": "MaterialsResult - по материалам"
+      }
+   }
+}

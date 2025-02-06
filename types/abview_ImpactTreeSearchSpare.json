@@ -1,0 +1,33 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-tree-search-spare",
+   "$ref": "#/contentSchema/ImpactTreeSearchSpare",
+   "contentSchema": {
+      "ImpactTreeSearchSpare": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "title": "ID запчасти"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код запчасти"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название запчасти"
+            },
+            "code_hl": {
+               "type": "string",
+               "title": "Код запчасти с подсветкой"
+            },
+            "name_hl": {
+               "type": "string",
+               "title": "Название запчасти с подсветкой"
+            }
+         },
+         "type": "object",
+         "description": "ImpactTreeSearchSpare - запчасть в результатах поиска"
+      }
+   }
+}

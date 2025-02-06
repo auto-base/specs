@@ -1,0 +1,26 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-component",
+   "$ref": "#/contentSchema/ImpactComponent",
+   "contentSchema": {
+      "ImpactComponent": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "title": "ID компонента",
+               "description": "фронту отсылаем именно строку, так как у них идет искажение больших `id` из `extra`"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код компонента"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название компонента"
+            }
+         },
+         "type": "object",
+         "description": "ImpactComponent - компонент для рем."
+      }
+   }
+}

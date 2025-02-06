@@ -1,0 +1,246 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/calc-dto",
+   "$ref": "#/contentSchema/CalcDTO",
+   "contentSchema": {
+      "CalcDTO": {
+         "properties": {
+            "id": {
+               "type": "integer",
+               "title": "Идентификатор калькуляции",
+               "description": "Id - Идентификатор калькуляции"
+            },
+            "case_uid": {
+               "type": "string",
+               "title": "Идентикатор дела в контексте которого производился расчет",
+               "description": "CaseUid - Идентикатор дела в контексте которого производился расчет"
+            },
+            "vehicle_modification_code": {
+               "type": "string",
+               "title": "Модификация ТС",
+               "description": "VehicleModificationCode - Модификация ТС, по которой производится расчет"
+            },
+            "painting_calc_method_code": {
+               "type": "string",
+               "title": "Способ расчета окрасочных работ",
+               "description": "PaintingCalcMethodCode - Способ расчета окрасочных работ"
+            },
+            "material_manufacturer_id": {
+               "type": "integer",
+               "title": "Идентификатор производителя ЛКМ",
+               "description": "MaterialManufacturerId - Идентификатор производителя ЛКМ"
+            },
+            "paint_type_id": {
+               "type": "integer",
+               "title": "Тип лакокрасочного покрытия",
+               "description": "PaintTypeId - Тип лакокрасочного покрытия"
+            },
+            "spares_coef": {
+               "type": "number",
+               "title": "Коэффициент для цен на детали",
+               "description": "SparesCoef - Коэффициент для цен на детали"
+            },
+            "consumables_coef": {
+               "type": "number",
+               "title": "Коэффициент для цен на расходники",
+               "description": "ConsumablesCoef - Коэффициент для цен на расходники"
+            },
+            "labor_coef": {
+               "type": "number",
+               "title": "Надбавка к трудоемкости",
+               "description": "LaborCoef - Надбавка к трудоемкости"
+            },
+            "total_cost": {
+               "type": "number",
+               "title": "Итоговая стоимость калькуляции без учета износа",
+               "description": "TotalCost - Итоговая стоимость калькуляции без учета износа"
+            },
+            "total_wearout_cost": {
+               "type": "number",
+               "title": "Итоговая стоимость калькуляции с учетом износа",
+               "description": "TotalWearoutCost - Итоговая стоимость калькуляции с учетом износа"
+            },
+            "wearout_expert": {
+               "type": "number",
+               "title": "Экспертный износ",
+               "description": "WearoutExpert - Экспертный износ"
+            },
+            "is_wearout_expert_manual": {
+               "type": "boolean",
+               "title": "Экспертная оценка износа выставлена вручную",
+               "description": "IsWearoutExpertManual - Экспертная оценка износа выставлена вручную"
+            },
+            "wearout_expert_body": {
+               "type": "number",
+               "title": "Экспертный износ кузова",
+               "description": "WearoutExpertBody - Экспертный износ кузова"
+            },
+            "wearout_expert_plastic": {
+               "type": "number",
+               "title": "Экспертный износ пластика",
+               "description": "WearoutExpertPlastic - Экспертный износ пластика"
+            },
+            "wearout_expert_tyres": {
+               "type": "number",
+               "title": "Экспертный износ шин",
+               "description": "WearoutExpertTyres - Экспертный износ шин"
+            },
+            "is_wearout_expert_tyres_manual": {
+               "type": "boolean",
+               "title": "Экспертная оценка износа шин выставлена вручную",
+               "description": "IsWearoutExpertTyresManual - Экспертная оценка износа шин выставлена вручную"
+            },
+            "wearout_expert_battery": {
+               "type": "number",
+               "title": "Экспертный износ АКБ",
+               "description": "WearoutExpertBattery - Экспертный износ АКБ"
+            },
+            "tyres_tread_high_new": {
+               "type": "number",
+               "title": "Высота протектора новых шин",
+               "description": "TyresTreadHighNew - Высота протектора новых шин"
+            },
+            "tyres_tread_high": {
+               "type": "number",
+               "title": "Фактическая высота протектора шин",
+               "description": "TyresTreadHigh - Фактическая высота протектора шин"
+            },
+            "tyres_tread_high_min": {
+               "type": "number",
+               "title": "Минимально допустимая высота протектора шин при которой допускается эксплуатация",
+               "description": "TyresTreadHighMin - Минимально допустимая высота протектора шин при которой допускается эксплуатация"
+            },
+            "battery_age": {
+               "type": "number",
+               "title": "Возраст АКБ",
+               "description": "BatteryAge - Возраст АКБ"
+            },
+            "battery_standard_life": {
+               "type": "number",
+               "title": "Нормативный срок службы АКБ",
+               "description": "BatteryStandardLife - Нормативный срок службы АКБ"
+            },
+            "tyres_age": {
+               "type": "number",
+               "title": "Возраст шин",
+               "description": "TyresAge - Возраст шин"
+            },
+            "standard_painting_price": {
+               "type": "number",
+               "title": "Стоимость покраски страндартной детали",
+               "description": "StandardPaintingPrice - Стоимость покраски страндартной детали"
+            },
+            "disassembly_coef": {
+               "type": "number",
+               "title": "Коэффициент для работ по сборке/разборке",
+               "description": "DisassemblyCoef - Коэффициент для работ по сборке/разборке"
+            },
+            "calc_base_version_id": {
+               "type": "integer",
+               "title": "Идентификатор нормативной базы",
+               "description": "CalcBaseVersionId - Идентификатор нормативной базы, в которой выполнен расчет"
+            },
+            "create_date": {
+               "type": "string",
+               "format": "date-time",
+               "title": "Дата и время создания (нажатие на кнопку расчет = создание расчета в деле)",
+               "description": "CreateDate - Дата и время создания (нажатие на кнопку расчет = создание расчета в деле)"
+            },
+            "geo_zone_code": {
+               "type": "string",
+               "title": "Регион для выборки цен",
+               "description": "GeoZoneCode - Регион для выборки цен"
+            },
+            "spare_price_ref_id": {
+               "type": "integer",
+               "title": "Справочник цен на деталей",
+               "description": "SparePriceRefId - Справочник цен на деталей"
+            },
+            "work_price_ref_id": {
+               "type": "integer",
+               "title": "Справочник цен на работы",
+               "description": "WorkPriceRefId - Справочник цен на работы"
+            },
+            "material_price_ref_id": {
+               "type": "integer",
+               "title": "Справочник цен на материалы",
+               "description": "MaterialPriceRefId - Справочник цен на материалы"
+            },
+            "is_draft": {
+               "type": "boolean",
+               "title": "Признак того",
+               "description": "IsDraft - Признак того, что калькуляция - черновик"
+            },
+            "inner_number": {
+               "type": "integer",
+               "title": "Порядковый номер в контексте дела",
+               "description": "InnerNumber - Порядковый номер в контексте дела, инкремент"
+            },
+            "is_hide_empty_additional_works": {
+               "type": "boolean",
+               "title": "Скрывать пустые дополнительные работы в расчетах",
+               "description": "IsHideEmptyAdditionalWorks - Скрывать пустые дополнительные работы в расчетах"
+            },
+            "case_type": {
+               "type": "string",
+               "title": "Тип дела",
+               "description": "CaseType - Тип дела"
+            },
+            "state": {
+               "type": "string",
+               "title": "Статус",
+               "description": "State - Статус"
+            },
+            "case_card": {
+               "type": "object",
+               "title": "Карточка дела",
+               "description": "CaseCard - Карточка дела"
+            },
+            "calc_out": {
+               "type": "object",
+               "title": "Результат расчета",
+               "description": "CalcOut - Результат расчета"
+            },
+            "calc_time": {
+               "type": "string",
+               "format": "date-time",
+               "title": "Время расчета",
+               "description": "CalcTime - Время расчета"
+            },
+            "calc_assignee_uid": {
+               "type": "string",
+               "title": "Исполнитель расчета (текущий клиент при выполнении расчета)",
+               "description": "CalcAssigneeUid - Исполнитель расчета (текущий клиент при выполнении расчета)"
+            },
+            "calc_customer_uid": {
+               "type": "string",
+               "title": "Заказчик расчета (берется из case)",
+               "description": "CalcCustomerUid - Заказчик расчета (берется из case)"
+            },
+            "calc_owner_uid": {
+               "type": "string",
+               "title": "Владелец расчета (из дела)",
+               "description": "CalcOwnerUid - Владелец расчета (из дела)"
+            },
+            "calc_user_uid": {
+               "type": "string",
+               "title": "UID пользователя",
+               "description": "CalcUserUid - UID пользователя, сформировавшего расчет"
+            },
+            "is_billable": {
+               "type": "boolean",
+               "title": "Признак того",
+               "description": "IsBillable - Признак того, что данный расчет входит в состав биллинга"
+            },
+            "created_at": {
+               "type": "string",
+               "format": "date-time",
+               "title": "время создания записи",
+               "description": "CreatedAt - время создания записи"
+            }
+         },
+         "type": "object",
+         "description": "CalcDTO - Переносимый вариант Calc, только поля, все `nullable` - используется в сценариях Insert/Update"
+      }
+   }
+}

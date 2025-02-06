@@ -1,0 +1,29 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/success-convert",
+   "$ref": "#/contentSchema/SuccessConvert",
+   "contentSchema": {
+      "SuccessConvert": {
+         "properties": {
+            "success": {
+               "type": "boolean",
+               "title": "Признак успешного завершения"
+            },
+            "http_code": {
+               "type": "integer",
+               "title": "Соответствующий HTTP код"
+            },
+            "http_code_name": {
+               "type": "string",
+               "title": "Имя соответствующего HTTP код"
+            },
+            "stats": {
+               "$ref": "../types/rest_RequestStats.json#/contentSchema/RequestStats",
+               "type": "object",
+               "title": "Статистика"
+            }
+         },
+         "type": "object"
+      }
+   }
+}

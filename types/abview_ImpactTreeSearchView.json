@@ -1,0 +1,21 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-tree-search-view",
+   "$ref": "#/contentSchema/ImpactTreeSearchView",
+   "contentSchema": {
+      "ImpactTreeSearchView": {
+         "properties": {
+            "items": {
+               "items": {
+                  "$ref": "../types/abview_ImpactTreeSearchComponent.json#/contentSchema/ImpactTreeSearchComponent",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Элементы результата поиска"
+            }
+         },
+         "type": "object",
+         "description": "ImpactTreeSearchView - объект для представления результатов поиска в дереве компонентов"
+      }
+   }
+}

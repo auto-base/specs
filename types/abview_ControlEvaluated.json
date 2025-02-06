@@ -1,0 +1,32 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/control-evaluated",
+   "$ref": "#/contentSchema/ControlEvaluated",
+   "contentSchema": {
+      "ControlEvaluated": {
+         "properties": {
+            "f": {
+               "type": "number",
+               "title": "Фиксированное значение - означает что просто надо использовать его"
+            },
+            "s": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array",
+               "title": "Для итоговых сумм - список номеров GUID или DOWN"
+            },
+            "d": {
+               "type": "boolean",
+               "title": "Полностью выключенное поле из контрольного листа"
+            },
+            "a": {
+               "type": "boolean",
+               "title": "Признак расчета как self + sum"
+            }
+         },
+         "type": "object",
+         "description": "ControlEvaluated - вычисляемое поле контрольного листа, формула сама дефолтная и содержится в коде frontend"
+      }
+   }
+}
