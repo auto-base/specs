@@ -24,6 +24,11 @@
                "type": "boolean",
                "title": "Признак того",
                "description": "IsPaint - Признак того, что тип работы связан с окрашиванием"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",

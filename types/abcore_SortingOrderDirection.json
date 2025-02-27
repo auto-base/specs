@@ -3,7 +3,7 @@
    "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/sorting-order-direction",
    "type": "string",
    "enum": [
-      "ACS",
+      "ASC",
       "DESC",
       ""
    ]

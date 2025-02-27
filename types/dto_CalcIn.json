@@ -132,6 +132,11 @@
                "type": "object",
                "title": "Работа",
                "description": "Work - Работа (имя в старой базе - work)"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",

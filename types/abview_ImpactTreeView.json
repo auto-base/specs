@@ -9,6 +9,9 @@
                "$ref": "../types/dto_VehicleModification.json#/contentSchema/VehicleModification",
                "type": "object"
             },
+            "editable_names": {
+               "type": "boolean"
+            },
             "items": {
                "items": {
                   "$ref": "../types/abview_ImpactTreeItem.json#/contentSchema/ImpactTreeItem",

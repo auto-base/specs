@@ -35,6 +35,11 @@
                "type": "number",
                "title": "Модификатор влияния пробега ТС на расчет износа",
                "description": "MileageModifier - Модификатор влияния пробега ТС на расчет износа (имя в старой базе - dl)"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",

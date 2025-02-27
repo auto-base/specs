@@ -6,7 +6,7 @@
    },
    "servers": [
       {
-         "url": "https://new.autobase.ru",
+         "url": "https://api.autobase.ru",
          "description": "Autobase"
       }
    ],
