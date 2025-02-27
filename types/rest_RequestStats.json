@@ -16,6 +16,14 @@
             "duration": {
                "type": "integer",
                "title": "Продолжительность запроса (ms)"
+            },
+            "version": {
+               "type": "string",
+               "title": "Версия приложения"
+            },
+            "env": {
+               "type": "string",
+               "title": "Среда приложения"
             }
          },
          "type": "object",

@@ -34,6 +34,11 @@
                "type": "string",
                "title": "Компонент ТС для отображения в дереве",
                "description": "VehicleComponentTreeCode - Компонент ТС для отображения в дереве"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",

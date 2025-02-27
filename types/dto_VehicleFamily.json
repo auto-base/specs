@@ -30,6 +30,11 @@
                "type": "object",
                "title": "Производитель ТС",
                "description": "VehicleManufacturer - объект, связанный через VehicleManufacturerId"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",

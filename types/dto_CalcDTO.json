@@ -237,6 +237,11 @@
                "format": "date-time",
                "title": "время создания записи",
                "description": "CreatedAt - время создания записи"
+            },
+            "is_deleted": {
+               "type": "boolean",
+               "title": "признак удаленной записи",
+               "description": "IsDeleted - признак удаленной записи"
             }
          },
          "type": "object",
