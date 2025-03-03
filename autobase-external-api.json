@@ -43,12 +43,12 @@
             "type": "http",
             "scheme": "basic"
          },
-         "localKeyCloak": {
+         "productionKeyCloak": {
             "type": "oauth2",
             "flows": {
                "authorizationCode": {
-                  "authorizationUrl": "http://localhost:9098/realms/autobase/protocol/openid-connect/auth",
-                  "tokenUrl": "http://localhost:9098/realms/autobase/protocol/openid-connect/token"
+                  "authorizationUrl": "https://auth.autobase.ru/realms/autobase/protocol/openid-connect/auth",
+                  "tokenUrl": "https://auth.autobase.ru/realms/autobase/protocol/openid-connect/token"
                }
             }
          }
