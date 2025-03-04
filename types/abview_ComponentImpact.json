@@ -17,6 +17,14 @@
                "type": "string",
                "title": "Название работы"
             },
+            "work_comment": {
+               "type": "string",
+               "title": "Комментарий к работе"
+            },
+            "work_is_complex": {
+               "type": "boolean",
+               "title": "Признак комплексной работы"
+            },
             "is_nsr": {
                "type": "boolean",
                "title": "Признак нестандартной работы"

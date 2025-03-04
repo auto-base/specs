@@ -12,8 +12,7 @@
    ],
    "security": [
       {
-         "basicAuth": [],
-         "localOpenId": []
+         "basicAuth": []
       }
    ],
    "tags": [
@@ -42,15 +41,6 @@
          "basicAuth": {
             "type": "http",
             "scheme": "basic"
-         },
-         "productionKeyCloak": {
-            "type": "oauth2",
-            "flows": {
-               "authorizationCode": {
-                  "authorizationUrl": "https://auth.autobase.ru/realms/autobase/protocol/openid-connect/auth",
-                  "tokenUrl": "https://auth.autobase.ru/realms/autobase/protocol/openid-connect/token"
-               }
-            }
          }
       }
    }
