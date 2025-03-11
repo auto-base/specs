@@ -1,0 +1,43 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/available-operations",
+   "$ref": "#/contentSchema/AvailableOperations",
+   "contentSchema": {
+      "AvailableOperations": {
+         "properties": {
+            "is_operation_open_case": {
+               "type": "boolean"
+            },
+            "is_operation_took_case": {
+               "type": "boolean"
+            },
+            "is_operation_send_case": {
+               "type": "boolean"
+            },
+            "is_operation_send_case_to_customer": {
+               "type": "boolean"
+            },
+            "is_operation_accept_case": {
+               "type": "boolean"
+            },
+            "is_operation_return_case": {
+               "type": "boolean"
+            },
+            "is_operation_deny_case": {
+               "type": "boolean"
+            },
+            "is_operation_show_report": {
+               "type": "boolean"
+            },
+            "is_allow_case_edit": {
+               "type": "boolean"
+            },
+            "is_allow_new_calc": {
+               "type": "boolean"
+            }
+         },
+         "type": "object",
+         "description": "AvailableOperations - доступные операции"
+      }
+   }
+}

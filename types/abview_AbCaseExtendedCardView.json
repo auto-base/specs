@@ -290,6 +290,11 @@
                "title": "Номер полиса",
                "description": "Номер полиса"
             },
+            "victim_insurance_policy_number": {
+               "type": "string",
+               "title": "Номер полиса потерпевшего",
+               "description": "Номер полиса Потерпевшего"
+            },
             "insurance_policy_start": {
                "type": "string",
                "title": "Начало действия полиса",
@@ -305,6 +310,11 @@
                "title": "Страховщик, компания",
                "description": "Страховщик, компания"
             },
+            "victim_insurer_company": {
+               "type": "string",
+               "title": "Страховщик, компания потерпевшего",
+               "description": "Страховщик, компания (потерпевший)"
+            },
             "insurer_name": {
                "type": "string",
                "title": "Страховщик, наименование",
@@ -315,15 +325,30 @@
                "title": "Страховщик: Индекс",
                "description": "Страховщик: Индекс"
             },
+            "victim_insurer_index": {
+               "type": "string",
+               "title": "Страховщик: Индекс потерпевшего",
+               "description": "Страховщик: Индекс (потерпевший)"
+            },
             "insurer_area": {
                "type": "string",
                "title": "Страховщик: Область",
                "description": "Страховщик: Область"
             },
+            "victim_insurer_area": {
+               "type": "string",
+               "title": "Страховщик: Область потерпевшего",
+               "description": "Страховщик: Область (потерпевший)"
+            },
             "insurer_city": {
                "type": "string",
                "title": "Страховщик: Город",
                "description": "Страховщик: Город"
+            },
+            "victim_insurer_city": {
+               "type": "string",
+               "title": "Страховщик: Город потерпевшего",
+               "description": "Страховщик: Город (потерпевший)"
             },
             "insurer_address": {
                "type": "string",
