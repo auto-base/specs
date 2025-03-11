@@ -38,6 +38,10 @@
                "type": "object",
                "title": "Список дефолтов дела"
             },
+            "calc_uid": {
+               "type": "string",
+               "title": "Идентификатор последней (текущей) калькуляции"
+            },
             "uid": {
                "type": "string",
                "title": "Уникальный идентификатор кейса"
@@ -202,6 +206,10 @@
             "assigned_user_name": {
                "type": "string",
                "description": "AssignedUserName - фио пользователя, который сейчас оперирует с делом"
+            },
+            "available_operations": {
+               "$ref": "../types/abcore_AvailableOperations.json#/contentSchema/AvailableOperations",
+               "type": "object"
             }
          },
          "type": "object",

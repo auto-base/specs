@@ -40,6 +40,10 @@
             "is_operation_show_report": {
                "type": "boolean",
                "title": "Доступна ли операция: сформировать отчет"
+            },
+            "is_allow_case_edit": {
+               "type": "boolean",
+               "title": "Можно ли редактировать дело"
             }
          },
          "type": "object",

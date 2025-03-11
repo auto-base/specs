@@ -56,6 +56,34 @@
             "assigned_user_name": {
                "type": "string",
                "title": "Фио пользователя у которого дело находится в работе"
+            },
+            "available_operations": {
+               "$ref": "../types/abcore_AvailableOperations.json#/contentSchema/AvailableOperations",
+               "type": "object"
+            },
+            "customer_code": {
+               "type": "string",
+               "description": "CustomerCode - код клиента (заказчик дела)"
+            },
+            "customer_name": {
+               "type": "string",
+               "description": "CustomerName - наименование клиента (заказчик дела)"
+            },
+            "owner_code": {
+               "type": "string",
+               "description": "OwnerCode - код клиента (владелец дела)"
+            },
+            "owner_name": {
+               "type": "string",
+               "description": "OwnerName - наименование клиента (владелец дела)"
+            },
+            "assigned_client_code": {
+               "type": "string",
+               "description": "AssignedClientCode - код клиента (оперирует с делом)"
+            },
+            "assigned_client_name": {
+               "type": "string",
+               "description": "AssignedClientName - наименование клиента (оперирует с делом)"
             }
          },
          "type": "object",
