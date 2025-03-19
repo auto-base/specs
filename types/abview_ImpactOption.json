@@ -9,6 +9,11 @@
                "type": "string",
                "title": "Название"
             },
+            "status": {
+               "$ref": "../types/abview_ImpactStatus.json",
+               "type": "string",
+               "title": "Статус опции"
+            },
             "defaults": {
                "$ref": "../types/abview_ImpactFormFields.json#/contentSchema/ImpactFormFields",
                "type": "object",

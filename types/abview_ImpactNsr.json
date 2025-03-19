@@ -1,0 +1,31 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-nsr",
+   "$ref": "#/contentSchema/ImpactNsr",
+   "contentSchema": {
+      "ImpactNsr": {
+         "properties": {
+            "uid": {
+               "type": "string",
+               "title": "UID рем. воздействия"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название НСР"
+            },
+            "impact_group": {
+               "$ref": "../types/abview_ImpactGroupNsr.json#/contentSchema/ImpactGroupNsr",
+               "type": "object",
+               "title": "Группа НСР"
+            },
+            "form": {
+               "$ref": "../types/abview_ImpactForm.json#/contentSchema/ImpactForm",
+               "type": "object",
+               "title": "Форма с параметрами НСР"
+            }
+         },
+         "type": "object",
+         "description": "ImpactNsr - нестандартное рем."
+      }
+   }
+}

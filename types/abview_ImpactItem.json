@@ -5,6 +5,19 @@
    "contentSchema": {
       "ImpactItem": {
          "properties": {
+            "uid": {
+               "type": "string",
+               "title": "UID рем. воздействия"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название рем. воздействия"
+            },
+            "status": {
+               "$ref": "../types/abview_ImpactStatus.json",
+               "type": "string",
+               "title": "Статус рем. воздействия"
+            },
             "impact_type": {
                "$ref": "../types/abview_ImpactType.json#/contentSchema/ImpactType",
                "type": "object",
@@ -24,27 +37,6 @@
                "$ref": "../types/abview_ImpactForm.json#/contentSchema/ImpactForm",
                "type": "object",
                "title": "Форма с параметрами рем. воздействия"
-            },
-            "uid": {
-               "type": "string",
-               "title": "UID рем. воздействия"
-            },
-            "name": {
-               "type": "string",
-               "title": "Название рем. воздействия"
-            },
-            "sub_name": {
-               "type": "string",
-               "title": "Дополнительное название"
-            },
-            "status": {
-               "$ref": "../types/abview_ImpactStatus.json",
-               "type": "string",
-               "title": "Статус рем. воздействия"
-            },
-            "show_form": {
-               "type": "boolean",
-               "title": "Показать форму редактирования параметров рем. воздействия"
             },
             "options": {
                "items": {

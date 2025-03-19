@@ -1,0 +1,21 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-group-nsr",
+   "$ref": "#/contentSchema/ImpactGroupNsr",
+   "contentSchema": {
+      "ImpactGroupNsr": {
+         "properties": {
+            "id": {
+               "type": "integer",
+               "title": "ID группы"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название группы"
+            }
+         },
+         "type": "object",
+         "description": "ImpactGroupNsr - группа нестандартного рем."
+      }
+   }
+}

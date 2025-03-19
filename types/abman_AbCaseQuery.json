@@ -95,6 +95,10 @@
             "all_clients": {
                "type": "boolean",
                "description": "Показывать ли все дела"
+            },
+            "with_deleted": {
+               "type": "boolean",
+               "description": "WithDeleted - с удаленными"
             }
          },
          "type": "object",

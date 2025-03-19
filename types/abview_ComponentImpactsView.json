@@ -10,17 +10,17 @@
                "type": "object",
                "title": "Описание компонента"
             },
-            "variants": {
+            "spares": {
                "items": {
-                  "$ref": "../types/abview_ImpactVariant.json#/contentSchema/ImpactVariant",
+                  "$ref": "../types/abview_ImpactSpare.json#/contentSchema/ImpactSpare",
                   "type": "object"
                },
                "type": "array",
-               "title": "Варианты компонента"
+               "title": "Детали компонента"
             },
             "has_variants": {
                "type": "boolean",
-               "title": "Компонент имеет несколько вариантов"
+               "title": "Компонент имеет несколько деталей"
             }
          },
          "type": "object",

@@ -5,6 +5,8 @@
    "enum": [
       "REPLACEMENT",
       "PAINTING",
+      "SPARE",
+      "MATERIAL",
       "COMMON"
    ]
 }

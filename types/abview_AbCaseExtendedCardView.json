@@ -451,6 +451,14 @@
             "add_code_20_value": {
                "type": "number",
                "description": "AddCode20Value - значение для кода 20"
+            },
+            "vehicle_doc_type": {
+               "type": "string",
+               "description": "VehicleDocType - тип документа о ТС (СТС/ПТС)"
+            },
+            "vehicle_doc_number": {
+               "type": "string",
+               "description": "VehicleDocNumber - номер документа о ТС"
             }
          },
          "type": "object",

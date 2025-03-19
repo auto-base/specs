@@ -17,6 +17,10 @@
                "type": "string",
                "title": "Название работы"
             },
+            "material_name": {
+               "type": "string",
+               "title": "Название материала"
+            },
             "amount": {
                "type": "number",
                "title": "Количество"
