@@ -29,6 +29,9 @@
       "/case/find": {
          "$ref": "./endpoints/case@find.json"
       },
+      "/case/{case_uid}/available-calcs": {
+         "$ref": "./endpoints/case@(case_uid)@available-calcs.json"
+      },
       "/export/calc/{calc_uid}/content/get": {
          "$ref": "./endpoints/export@calc@(calc_uid)@content@get.json"
       },

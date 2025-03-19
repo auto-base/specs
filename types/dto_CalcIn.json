@@ -60,6 +60,11 @@
                "title": "Кастомизированное название работы",
                "description": "WorkNameCustom - Кастомизированное название работы"
             },
+            "material_name_custom": {
+               "type": "string",
+               "title": "Кастомизированное название материала",
+               "description": "MaterialNameCustom - Кастомизированное название материала"
+            },
             "work_type_id": {
                "type": "integer",
                "title": "Идентификатор типа работы",

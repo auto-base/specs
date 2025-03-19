@@ -7,8 +7,7 @@
          "properties": {
             "id": {
                "type": "string",
-               "title": "ID компонента",
-               "description": "фронту отсылаем именно строку, так как у них идет искажение больших `id` из `extra`"
+               "title": "ID компонента"
             },
             "code": {
                "type": "string",
