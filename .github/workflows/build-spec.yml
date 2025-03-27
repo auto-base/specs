@@ -8,42 +8,16 @@ permissions:
   pages: write
 
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    name: 'Building api-spec'
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Copy Swagger Html
-        id: cp-swagger
-        run:
-          ARTIFACT=pages/swagger.html
-          echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
-
-      - name: Save artifact with build results
-        uses: actions/upload-artifact@v4
-        with:
-          name: spec
-          path: |
-            artifacts/${{ steps.cp-swagger.outputs.artifact }}
-          retention-days: 1
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: spec
-          path: artifacts
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -51,7 +25,7 @@ jobs:
       - name: Package and upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dir
+          path: pages/swagger.html
 
       - name: Deploy to GitHub Pages
         id: deployment
