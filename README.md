@@ -11,4 +11,4 @@ swagger), для просмотра спецификации вам необхо
 1. Клонировать репозиторий:
     - git clone https://github.com/auto-base/specs.git
     - либо же можно скачать данный репозиторий как .zip архив
-2. открыть файл [autobase-merged-external-api.json](autobase-merged-external-api.json).
+2. открыть файл [autobase-merged-external-api.json](pages/autobase-merged-external-api.json).
