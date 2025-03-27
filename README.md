@@ -5,9 +5,10 @@
 
 ### Использование
 
-Для использования публичной спецификации проекта "Автобаза 2.0" вам понадобится внешний open-api совместимый клиент (swagger), для просмотра спецификации вам необходимо: 
+Для использования публичной спецификации проекта "Автобаза 2.0" вам понадобится внешний open-api совместимый клиент (
+swagger), для просмотра спецификации вам необходимо:
 
 1. Клонировать репозиторий:
-   - git clone https://github.com/auto-base/specs.git
-   - либо же можно скачать данный репозиторий как .zip архив
-2. открыть файл [autobase-external-api.json](autobase-external-api.json).
+    - git clone https://github.com/auto-base/specs.git
+    - либо же можно скачать данный репозиторий как .zip архив
+2. открыть файл [autobase-merged-external-api.json](autobase-merged-external-api.json).
