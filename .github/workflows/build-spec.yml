@@ -25,7 +25,7 @@ jobs:
       - name: Package and upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: pages/swagger.html
+          path: pages
 
       - name: Deploy to GitHub Pages
         id: deployment
