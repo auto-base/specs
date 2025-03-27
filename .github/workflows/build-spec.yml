@@ -19,6 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Copy Swagger Html
+        id: cp-swagger
         run:
           ARTIFACT=pages/swagger.html
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
@@ -28,9 +29,7 @@ jobs:
         with:
           name: spec
           path: |
-            artifacts/${{ steps.define-ids.outputs.artifact }}
-            artifacts/report.json
-            artifacts/${{ steps.define-ids.outputs.algolia_artifact }}
+            artifacts/${{ steps.cp-swagger.outputs.artifact }}
           retention-days: 1
 
   deploy:
