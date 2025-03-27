@@ -1,0 +1,53 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/impact-spare",
+   "$ref": "#/contentSchema/ImpactSpare",
+   "contentSchema": {
+      "ImpactSpare": {
+         "properties": {
+            "id": {
+               "type": "string",
+               "title": "ID запчасти"
+            },
+            "code": {
+               "type": "string",
+               "title": "Код запчасти"
+            },
+            "name": {
+               "type": "string",
+               "title": "Название запчасти"
+            },
+            "price": {
+               "type": "number",
+               "title": "Стоимость запасной части"
+            },
+            "is_selected": {
+               "type": "boolean",
+               "title": "Выбранная деталь"
+            },
+            "has_alternatives": {
+               "type": "boolean",
+               "title": "Имеются альтернативные детали"
+            },
+            "impact_groups": {
+               "items": {
+                  "$ref": "../types/abview_ImpactGroup.json#/contentSchema/ImpactGroup",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Группы рем. воздействий"
+            },
+            "nsr": {
+               "items": {
+                  "$ref": "../types/abview_ImpactNsr.json#/contentSchema/ImpactNsr",
+                  "type": "object"
+               },
+               "type": "array",
+               "title": "Список НСР"
+            }
+         },
+         "type": "object",
+         "description": "ImpactSpare - вариант представления компонента"
+      }
+   }
+}

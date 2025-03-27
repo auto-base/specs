@@ -1,0 +1,21 @@
+{
+   "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "gitlab.spectrumdata.tech/ae/autobase/doc/api/list-value",
+   "$ref": "#/contentSchema/ListValue",
+   "contentSchema": {
+      "ListValue": {
+         "properties": {
+            "value": {
+               "type": "string",
+               "description": "Value - значение, которое должно быть отправлено при выборе"
+            },
+            "label": {
+               "type": "string",
+               "description": "Label - надпись на элементе списка"
+            }
+         },
+         "type": "object",
+         "description": "ListValue - значение из списка в форме"
+      }
+   }
+}
