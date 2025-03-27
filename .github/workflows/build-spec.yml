@@ -1,0 +1,59 @@
+on:
+  push:
+    branches: ['master']
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: 'Building api-spec'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy Swagger Html
+        run:
+          ARTIFACT=pages/swagger.html
+          echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
+
+      - name: Save artifact with build results
+        uses: actions/upload-artifact@v4
+        with:
+          name: spec
+          path: |
+            artifacts/${{ steps.define-ids.outputs.artifact }}
+            artifacts/report.json
+            artifacts/${{ steps.define-ids.outputs.algolia_artifact }}
+          retention-days: 1
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: spec
+          path: artifacts
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Package and upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dir
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
