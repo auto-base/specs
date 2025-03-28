@@ -2,7 +2,7 @@
    "openapi": "3.1.0",
    "info": {
       "title": "Внешнее API проекта Автобаза 2.0",
-      "version": "Autobase Spec 1.0.0"
+      "version": "Autobase Spec 1.0.1"
    },
    "servers": [
       {
@@ -37,11 +37,97 @@
                   "application/json;charset=utf-8": {
                      "schema": {
                         "$ref": "#/components/schemas/AbCaseQuery"
+                     },
+                     "examples": {
+                        "Все дела": {
+                           "value": {
+                              "all_clients": true,
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Дела моей организации": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Назначенные на меня": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_assigned_user": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        }
                      }
                   },
                   "text/yaml;charset=utf-8": {
                      "schema": {
                         "$ref": "#/components/schemas/AbCaseQuery"
+                     },
+                     "examples": {
+                        "Все дела": {
+                           "value": {
+                              "all_clients": true,
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Дела моей организации": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Назначенные на меня": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_assigned_user": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        }
                      }
                   }
                }
