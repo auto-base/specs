@@ -39,21 +39,7 @@
                         "$ref": "#/components/schemas/AbCaseQuery"
                      },
                      "examples": {
-                        "Все дела": {
-                           "value": {
-                              "all_clients": true,
-                              "must_assigned_client": true,
-                              "must_owner_client": null,
-                              "pagination": {
-                                 "limit": 10,
-                                 "offset": 0
-                              },
-                              "search": "",
-                              "state": null,
-                              "state_phase": "PROCESSING"
-                           }
-                        },
-                        "Дела моей организации": {
+                        "Дела в моей организации": {
                            "value": {
                               "must_assigned_client": true,
                               "must_owner_client": null,
@@ -68,7 +54,6 @@
                         },
                         "Назначенные на меня": {
                            "value": {
-                              "must_assigned_client": true,
                               "must_assigned_user": true,
                               "must_owner_client": null,
                               "pagination": {
@@ -87,21 +72,7 @@
                         "$ref": "#/components/schemas/AbCaseQuery"
                      },
                      "examples": {
-                        "Все дела": {
-                           "value": {
-                              "all_clients": true,
-                              "must_assigned_client": true,
-                              "must_owner_client": null,
-                              "pagination": {
-                                 "limit": 10,
-                                 "offset": 0
-                              },
-                              "search": "",
-                              "state": null,
-                              "state_phase": "PROCESSING"
-                           }
-                        },
-                        "Дела моей организации": {
+                        "Дела в моей организации": {
                            "value": {
                               "must_assigned_client": true,
                               "must_owner_client": null,
@@ -116,7 +87,6 @@
                         },
                         "Назначенные на меня": {
                            "value": {
-                              "must_assigned_client": true,
                               "must_assigned_user": true,
                               "must_owner_client": null,
                               "pagination": {
