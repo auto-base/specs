@@ -2,7 +2,7 @@
    "openapi": "3.1.0",
    "info": {
       "title": "Внешнее API проекта Автобаза 2.0",
-      "version": "Autobase Spec 1.0.1"
+      "version": "Autobase Spec 1.0.2"
    },
    "servers": [
       {
