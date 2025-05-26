@@ -52,6 +52,20 @@
                               "state_phase": "PROCESSING"
                            }
                         },
+                        "Дела в моей организации с дополнительной информацией по последней калькуляции": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING",
+                              "with_last_calc": true
+                           }
+                        },
                         "Назначенные на меня": {
                            "value": {
                               "must_assigned_user": true,
@@ -83,6 +97,20 @@
                               "search": "",
                               "state": null,
                               "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Дела в моей организации с дополнительной информацией по последней калькуляции": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING",
+                              "with_last_calc": true
                            }
                         },
                         "Назначенные на меня": {
@@ -346,6 +374,10 @@
                   "type": "number",
                   "description": "AddCode42Value - Дефолтное значение для кода 42"
                },
+               "add_code_91_value": {
+                  "type": "number",
+                  "description": "AddCode91Value - Дефолтное значение для кода 91"
+               },
                "painting_calc_method": {
                   "title": "",
                   "type": "string",
@@ -399,6 +431,14 @@
                "add_code_42_value": {
                   "type": "number",
                   "description": "AddCode42Value - значение для кода 42"
+               },
+               "add_code_91_use": {
+                  "type": "boolean",
+                  "description": "AddCode91Use - признак использования кода 91"
+               },
+               "add_code_91_value": {
+                  "type": "number",
+                  "description": "AddCode91Value - значение для кода 91"
                },
                "body": {
                   "title": "Номер кузова ТС",
@@ -926,6 +966,10 @@
                "with_deleted": {
                   "type": "boolean",
                   "description": "WithDeleted - с удаленными"
+               },
+               "with_last_calc": {
+                  "type": "boolean",
+                  "description": "WithLastCalc - с последними калькуляциями"
                }
             },
             "description": "AbCaseQuery - объект для запроса дел"
@@ -1147,6 +1191,12 @@
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/CalcDTO"
+               },
+               "last_calc_info": {
+                  "title": "",
+                  "type": "object",
+                  "description": "LastCalcInfo - информация по последней калькуляции",
+                  "$ref": "#/components/schemas/CalcInfoView"
                },
                "last_calc_state": {
                   "title": "Статус текущей (последней калькуляции)",
@@ -1372,6 +1422,14 @@
                "state": {
                   "type": "string",
                   "description": "State - статус калькуляции"
+               },
+               "state_title": {
+                  "type": "string",
+                  "description": "StateTitle - статус калькуляции (для отображения)"
+               },
+               "title": {
+                  "type": "string",
+                  "description": "Title - заголовок"
                },
                "total_materials_cost": {
                   "type": "number",
@@ -1725,10 +1783,25 @@
                   "type": "integer",
                   "description": "ComponentId - Идентификатор компонента (имя в старой базе - det_kod_id)"
                },
+               "discount": {
+                  "title": "Скидка (в процентах)",
+                  "type": "number",
+                  "description": "Discount - Скидка (в процентах)"
+               },
                "id": {
                   "title": "Уникальный идентификатор",
                   "type": "integer",
                   "description": "Id - Уникальный идентификатор (имя в старой базе - id0)"
+               },
+               "impact_group_id": {
+                  "title": "Группа рем. воздействия",
+                  "type": "integer",
+                  "description": "ImpactGroupId - Группа рем. воздействия"
+               },
+               "impact_type_id": {
+                  "title": "Тип рем. воздействия",
+                  "type": "integer",
+                  "description": "ImpactTypeId - Тип рем. воздействия"
                },
                "is_deleted": {
                   "title": "признак удаленной записи",
@@ -1769,11 +1842,6 @@
                   "title": "Норматив трудоемкости для работы или расхода для материала",
                   "type": "number",
                   "description": "Norm - Норматив трудоемкости для работы или расхода для материала (имя в старой базе - norma)"
-               },
-               "nsp_impact_group_id": {
-                  "title": "Группа рем. воздействия для НСП",
-                  "type": "integer",
-                  "description": "NspImpactGroupId - Группа рем. воздействия для НСП"
                },
                "painting_area": {
                   "title": "Площадь окраски детали",
@@ -1840,6 +1908,36 @@
             },
             "description": "CalcIn - Назначенные рем."
          },
+         "CalcInfoView": {
+            "type": "object",
+            "properties": {
+               "case_uid": {
+                  "type": "string"
+               },
+               "geo_zone": {
+                  "type": "string"
+               },
+               "geo_zone_code": {
+                  "type": "string"
+               },
+               "id": {
+                  "type": "integer"
+               },
+               "material_manufacturer": {
+                  "type": "string"
+               },
+               "material_manufacturer_id": {
+                  "type": "integer"
+               },
+               "paint_type": {
+                  "type": "string"
+               },
+               "paint_type_id": {
+                  "type": "integer"
+               }
+            },
+            "description": "CalcInfoView - представление информации по калькуляции"
+         },
          "CalcState": {
             "enum": [
                "DRAFT",
@@ -1850,17 +1948,20 @@
          "CalculationResult": {
             "type": "object",
             "properties": {
-               "Controls": {
+               "Checklist": {
                   "title": "",
                   "type": "object",
                   "description": "",
-                  "$ref": "#/components/schemas/ControlList"
+                  "$ref": "#/components/schemas/Checklist"
                },
                "DictionariesInfo": {
                   "title": "",
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/DictionaryInfoSet"
+               },
+               "Franchise": {
+                  "type": "number"
                },
                "Inspection": {
                   "title": "",
@@ -1958,6 +2059,786 @@
                ""
             ],
             "type": "string"
+         },
+         "Checklist": {
+            "type": "object",
+            "properties": {
+               "CalcUid": {
+                  "type": "string"
+               },
+               "Impacts": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ChecklistImpact"
+                  }
+               },
+               "State": {
+                  "title": "",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/CalcState"
+               }
+            },
+            "description": "Checklist - контрольный лист"
+         },
+         "ChecklistEditable_float64": {
+            "type": "object",
+            "properties": {
+               "c": {
+                  "title": "Введенное пользователем значение",
+                  "type": "number"
+               },
+               "d": {
+                  "title": "Значение по умолчанию - если null значит нет норматива",
+                  "type": "number"
+               },
+               "eos": {
+                  "title": "Признак",
+                  "type": "boolean"
+               },
+               "err": {
+                  "title": "Текст ошибки",
+                  "type": "string"
+               },
+               "l": {
+                  "title": "Блокировка - режим readonly",
+                  "type": "boolean"
+               },
+               "r": {
+                  "title": "Обязательно должно быть заполнено",
+                  "type": "boolean"
+               }
+            }
+         },
+         "ChecklistEditable_string": {
+            "type": "object",
+            "properties": {
+               "c": {
+                  "title": "Введенное пользователем значение",
+                  "type": "string"
+               },
+               "d": {
+                  "title": "Значение по умолчанию - если null значит нет норматива",
+                  "type": "string"
+               },
+               "eos": {
+                  "title": "Признак",
+                  "type": "boolean"
+               },
+               "err": {
+                  "title": "Текст ошибки",
+                  "type": "string"
+               },
+               "l": {
+                  "title": "Блокировка - режим readonly",
+                  "type": "boolean"
+               },
+               "r": {
+                  "title": "Обязательно должно быть заполнено",
+                  "type": "boolean"
+               }
+            }
+         },
+         "ChecklistEvaluated": {
+            "type": "object",
+            "properties": {
+               "a": {
+                  "title": "Признак расчета как self + sum",
+                  "type": "boolean"
+               },
+               "d": {
+                  "title": "Полностью выключенное поле из контрольного листа",
+                  "type": "boolean"
+               },
+               "f": {
+                  "title": "Фиксированное значение - означает что просто надо использовать его",
+                  "type": "number"
+               },
+               "s": {
+                  "title": "Для итоговых сумм - список номеров GUID или DOWN",
+                  "type": "array",
+                  "items": {
+                     "type": "string"
+                  }
+               }
+            },
+            "description": "ChecklistEvaluated - вычисляемое поле контрольного листа, формула сама дефолтная и содержится в коде frontend"
+         },
+         "ChecklistImpact": {
+            "type": "object",
+            "properties": {
+               "Action": {
+                  "title": "",
+                  "type": "object",
+                  "description": "Action - внутреннее представление действий",
+                  "$ref": "#/components/schemas/ImpactAction"
+               },
+               "ComponentCode": {
+                  "type": "string",
+                  "description": "ComponentCode - SNumber"
+               },
+               "ComponentId": {
+                  "type": "integer",
+                  "description": "ComponentId - внутренний числовой ид от SNumber"
+               },
+               "IsExtra": {
+                  "type": "boolean",
+                  "description": "IsExtra - признак записи extra"
+               },
+               "IsNsp": {
+                  "type": "boolean",
+                  "description": "IsNsp - признак НСП"
+               },
+               "Materials": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ChecklistMaterial"
+                  },
+                  "description": "ЛКМ"
+               },
+               "Removed": {
+                  "type": "boolean",
+                  "description": "Removed - флаг был ли удален коррекцией"
+               },
+               "SpareCode": {
+                  "type": "string",
+                  "description": "SpareCode - код детали, обычно берется из source"
+               },
+               "SpareData": {
+                  "title": "",
+                  "type": "object",
+                  "description": "SpareData - деталь",
+                  "$ref": "#/components/schemas/SparesResult"
+               },
+               "SpareId": {
+                  "type": "integer",
+                  "description": "SpareId - код (id) детали внутренний (det_sp_id)"
+               },
+               "Subs": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ChecklistImpact"
+                  },
+                  "description": "subs - вложенные воздействия (воздействия нижнего уровня)"
+               },
+               "SuppressedByWorkID": {
+                  "type": "integer",
+                  "description": "SuppressedByWorkID - идентификатор работы, которая глушит этого воздействие"
+               },
+               "Work": {
+                  "title": "",
+                  "type": "object",
+                  "description": "Work - работа",
+                  "$ref": "#/components/schemas/RepairWork"
+               }
+            },
+            "description": "ChecklistImpact - рем."
+         },
+         "ChecklistItem": {
+            "type": "object",
+            "properties": {
+               "a": {
+                  "title": "Признак производной автоматической записи",
+                  "type": "boolean"
+               },
+               "add": {
+                  "title": "Признак строки",
+                  "type": "boolean"
+               },
+               "ci": {
+                  "title": "ID компонента",
+                  "type": "string"
+               },
+               "du": {
+                  "title": "Идентификаторы записей",
+                  "type": "array",
+                  "items": {
+                     "type": "string"
+                  }
+               },
+               "id": {
+                  "title": "Уникальный идентификатор записи",
+                  "type": "string"
+               },
+               "l": {
+                  "title": "Уровень записи в таблице",
+                  "type": "integer"
+               },
+               "n": {
+                  "title": "Название (запчасти",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_string"
+               },
+               "nsp": {
+                  "title": "Признак нестандартной позиции",
+                  "type": "boolean"
+               },
+               "num": {
+                  "title": "Номер записи в таблице контрольного листа",
+                  "type": "string"
+               },
+               "r": {
+                  "title": "Ссылка на некий внешний идентификатор",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_string"
+               },
+               "s": {
+                  "title": "Состояние записи - A - активная",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistItemState"
+               },
+               "si": {
+                  "title": "ID запчасти",
+                  "type": "string"
+               },
+               "su": {
+                  "title": "Идентификатор записи",
+                  "type": "string"
+               },
+               "t": {
+                  "title": "Тип записи W-работа",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistItemType"
+               },
+               "v": {
+                  "title": "Основной набор численных значений",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistValues"
+               },
+               "wt": {
+                  "title": "Тип работы",
+                  "type": "string"
+               }
+            },
+            "description": "ChecklistItem - элемент контрольного листа"
+         },
+         "ChecklistItemState": {
+            "type": "string"
+         },
+         "ChecklistItemType": {
+            "type": "string"
+         },
+         "ChecklistItemUpdate": {
+            "type": "object",
+            "properties": {
+               "am": {
+                  "title": "Количество (деталей шт)",
+                  "type": "number"
+               },
+               "ar": {
+                  "title": "Площадь окраски или применения материала",
+                  "type": "number"
+               },
+               "c": {
+                  "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа",
+                  "type": "number"
+               },
+               "d": {
+                  "title": "Скидка",
+                  "type": "number"
+               },
+               "id": {
+                  "title": "Уникальный идентификатор записи",
+                  "type": "string"
+               },
+               "n": {
+                  "title": "Норма (нормо-часов для работ; норма расхода для материалов)",
+                  "type": "number"
+               },
+               "nsp": {
+                  "title": "Признак нестандартной позиции",
+                  "type": "boolean"
+               },
+               "rn": {
+                  "title": "Кастомный референсный код",
+                  "type": "string",
+                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+               },
+               "s": {
+                  "title": "Состояние записи - A - активная",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistItemState"
+               },
+               "t": {
+                  "title": "Название",
+                  "type": "string",
+                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+               },
+               "up": {
+                  "title": "Стоимость единицы",
+                  "type": "number"
+               },
+               "w": {
+                  "title": "Износ детали",
+                  "type": "number"
+               }
+            },
+            "description": "ChecklistItemUpdate - описатель обновления для отдельной строки контрольного списка"
+         },
+         "ChecklistItemUpdateBody": {
+            "type": "object",
+            "properties": {
+               "updates": {
+                  "title": "Список обновлений",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ChecklistItemUpdate"
+                  }
+               }
+            },
+            "description": "ChecklistItemUpdateBody - тело запроса на обновление из контрольного списка"
+         },
+         "ChecklistMaterial": {
+            "type": "object",
+            "properties": {
+               "Amount": {
+                  "type": "number",
+                  "description": "Amount - количество"
+               },
+               "CalculatedPrice": {
+                  "type": "number"
+               },
+               "Id": {
+                  "type": "integer",
+                  "description": "Id - идентификатор материала"
+               },
+               "Name": {
+                  "type": "string",
+                  "description": "Name - наименование материала"
+               },
+               "Norma": {
+                  "type": "number",
+                  "description": "Norma - норма"
+               },
+               "NotPVM": {
+                  "type": "boolean",
+                  "description": "NotPVM - флаг того, что материал не является ЛКМ"
+               },
+               "Original": {
+                  "title": "",
+                  "type": "object",
+                  "description": "Original - исходные значения без применения корректировок",
+                  "$ref": "#/components/schemas/PaintsVarnishesMaterial"
+               },
+               "PerItem": {
+                  "type": "boolean",
+                  "description": "PerItem - считаем по штучно"
+               },
+               "Price": {
+                  "type": "number",
+                  "description": "Price - цена"
+               },
+               "Removed": {
+                  "type": "boolean",
+                  "description": "Removed - флаг удаления"
+               },
+               "SpareCode": {
+                  "type": "string",
+                  "description": "SpareCode - код детали (det_kod)"
+               }
+            },
+            "description": "ChecklistMaterial - материал для контрольного листа"
+         },
+         "ChecklistValues": {
+            "type": "object",
+            "properties": {
+               "am": {
+                  "title": "Количество (деталей шт)",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "ar": {
+                  "title": "Площадь окраски или применения материала",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "bp": {
+                  "title": "Базовая стоимость без учета износа и скидок",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEvaluated"
+               },
+               "c": {
+                  "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "d": {
+                  "title": "Скидка",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "fp": {
+                  "title": "Итоговая стоимость с учетом износа и скидок",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEvaluated"
+               },
+               "n": {
+                  "title": "Норма (нормо-часов для работ; норма расхода для материалов)",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "u": {
+                  "title": "Единица измерения ('шт.' для детали; 'н.ч.' для работы; из справочника для материала)",
+                  "type": "string"
+               },
+               "up": {
+                  "title": "Стоимость единицы",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               },
+               "w": {
+                  "title": "Износ детали",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_float64"
+               }
+            },
+            "description": "ChecklistValues - список редактируемых основных численных значений контрольного листа"
+         },
+         "ChecklistView": {
+            "type": "object",
+            "properties": {
+               "c20": {
+                  "title": "Скидка на запасные части (КОД 20)",
+                  "type": "number"
+               },
+               "c28": {
+                  "type": "number"
+               },
+               "c28_use_wearout": {
+                  "type": "boolean",
+                  "description": "Code28UseWearout - признак использовать ли скидку с учетом 28 кода"
+               },
+               "c42": {
+                  "type": "number"
+               },
+               "c91": {
+                  "title": "Франшиза (КОД 91)",
+                  "type": "number"
+               },
+               "calc_uid": {
+                  "title": "Идентификатор калькуляции",
+                  "type": "string"
+               },
+               "case_type": {
+                  "title": "Тип дела (ОСАГО",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/CaseType"
+               },
+               "items": {
+                  "title": "Набор элементов контрольного листа",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ChecklistItem"
+                  }
+               },
+               "source": {
+                  "title": "Исходный набор рем. воздействий",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/Checklist"
+               },
+               "state": {
+                  "title": "Состояние калькуляции",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/CalcState"
+               }
+            },
+            "description": "ChecklistView - представление списка рем."
+         },
+         "CompareAttributes": {
+            "type": "object",
+            "properties": {
+               "vehicle_manufacturer": {
+                  "title": "Производитель",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_string"
+                  }
+               },
+               "vehicle_model": {
+                  "title": "Модель",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_string"
+                  }
+               },
+               "vehicle_modification": {
+                  "title": "Модификация",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_string"
+                  }
+               },
+               "vin": {
+                  "title": "VIN",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_string"
+                  }
+               }
+            },
+            "description": "CompareAttributes - Сведения"
+         },
+         "CompareCalcsQueryBody": {
+            "type": "object",
+            "properties": {
+               "calc_ids": {
+                  "title": "Список идентификаторов калькуляций для сравнения",
+                  "type": "array",
+                  "items": {
+                     "type": "integer"
+                  },
+                  "description": "CalcIDs - список идентификаторов калькуляций для сравнения"
+               }
+            },
+            "description": "CompareCalcsQueryBody - тело запроса на сравнение калькуляций"
+         },
+         "CompareCalcsResult": {
+            "type": "object",
+            "properties": {
+               "attributes": {
+                  "title": "Сведения",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/CompareAttributes"
+               },
+               "calc_ids": {
+                  "title": "Список идентификаторов калькуляций для сравнения",
+                  "type": "array",
+                  "items": {
+                     "type": "integer"
+                  }
+               },
+               "materials": {
+                  "title": "Материалы",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareMaterial"
+                  }
+               },
+               "spares": {
+                  "title": "Запчасти",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareSpare"
+                  }
+               },
+               "total": {
+                  "title": "Итого",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/CompareTotal"
+               },
+               "work_groups": {
+                  "title": "Группы работ",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareWorkGroup"
+                  }
+               }
+            },
+            "description": "CompareCalcsResult - результат сравнения калькуляций"
+         },
+         "CompareMaterial": {
+            "type": "object",
+            "properties": {
+               "final_price": {
+                  "title": "Итоговая стоимость",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "has_differences": {
+                  "title": "Есть отличающиеся значения",
+                  "type": "boolean"
+               },
+               "material_name": {
+                  "title": "Наименование",
+                  "type": "string"
+               },
+               "number": {
+                  "title": "Порядковый номер",
+                  "type": "integer"
+               }
+            },
+            "description": "CompareMaterial - Материал"
+         },
+         "CompareSpare": {
+            "type": "object",
+            "properties": {
+               "final_price": {
+                  "title": "Итоговая стоимость",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "has_differences": {
+                  "title": "Есть отличающиеся значения",
+                  "type": "boolean"
+               },
+               "number": {
+                  "title": "Порядковый номер",
+                  "type": "integer"
+               },
+               "spare_code": {
+                  "title": "Каталожный номер",
+                  "type": "string"
+               },
+               "spare_name": {
+                  "title": "Наименование",
+                  "type": "string"
+               }
+            },
+            "description": "CompareSpare - Запчасть"
+         },
+         "CompareState": {
+            "enum": [
+               "SAME",
+               "DIFFERENT",
+               "EMPTY"
+            ],
+            "type": "string"
+         },
+         "CompareTotal": {
+            "type": "object",
+            "properties": {
+               "materials": {
+                  "title": "Стоимость материалов",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "overall": {
+                  "title": "Общая (итоговая) стоимость",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "painting": {
+                  "title": "Стоимость окрасочных работ",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "repair": {
+                  "title": "Стоиомсть ремонтных работ",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "spares": {
+                  "title": "Стоимость деталей",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               }
+            },
+            "description": "CompareTotal - Итого"
+         },
+         "CompareValue_float64": {
+            "type": "object",
+            "properties": {
+               "state": {
+                  "title": "Результат сравнения",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/CompareState"
+               },
+               "value": {
+                  "title": "Значение",
+                  "type": "number"
+               }
+            }
+         },
+         "CompareValue_string": {
+            "type": "object",
+            "properties": {
+               "state": {
+                  "title": "Результат сравнения",
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/CompareState"
+               },
+               "value": {
+                  "title": "Значение",
+                  "type": "string"
+               }
+            }
+         },
+         "CompareWork": {
+            "type": "object",
+            "properties": {
+               "final_price": {
+                  "title": "Итоговая стоимость",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "has_differences": {
+                  "title": "Есть отличающиеся значения",
+                  "type": "boolean"
+               },
+               "norm": {
+                  "title": "Количество нормочасов",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue_float64"
+                  }
+               },
+               "number": {
+                  "title": "Порядковый номер",
+                  "type": "integer"
+               },
+               "work_name": {
+                  "title": "Наименование",
+                  "type": "string"
+               }
+            },
+            "description": "CompareWork - Работа"
+         },
+         "CompareWorkGroup": {
+            "type": "object",
+            "properties": {
+               "has_differences": {
+                  "title": "Есть отличающиеся значения",
+                  "type": "boolean"
+               },
+               "work_group_name": {
+                  "type": "string"
+               },
+               "works": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareWork"
+                  }
+               }
+            },
+            "description": "CompareWorkGroup - Группа работ"
          },
          "Component": {
             "type": "object",
@@ -2130,447 +3011,6 @@
             },
             "description": "ComponentsView - объект для представления списка выбранных компонентов"
          },
-         "ControlEditable_float64": {
-            "type": "object",
-            "properties": {
-               "c": {
-                  "title": "Введенное пользователем значение",
-                  "type": "number"
-               },
-               "d": {
-                  "title": "Значение по умолчанию - если null значит нет норматива",
-                  "type": "number"
-               },
-               "eos": {
-                  "title": "Признак",
-                  "type": "boolean"
-               },
-               "err": {
-                  "title": "Текст ошибки",
-                  "type": "string"
-               },
-               "l": {
-                  "title": "Блокировка - режим readonly",
-                  "type": "boolean"
-               },
-               "r": {
-                  "title": "Обязательно должно быть заполнено",
-                  "type": "boolean"
-               }
-            }
-         },
-         "ControlEditable_string": {
-            "type": "object",
-            "properties": {
-               "c": {
-                  "title": "Введенное пользователем значение",
-                  "type": "string"
-               },
-               "d": {
-                  "title": "Значение по умолчанию - если null значит нет норматива",
-                  "type": "string"
-               },
-               "eos": {
-                  "title": "Признак",
-                  "type": "boolean"
-               },
-               "err": {
-                  "title": "Текст ошибки",
-                  "type": "string"
-               },
-               "l": {
-                  "title": "Блокировка - режим readonly",
-                  "type": "boolean"
-               },
-               "r": {
-                  "title": "Обязательно должно быть заполнено",
-                  "type": "boolean"
-               }
-            }
-         },
-         "ControlEvaluated": {
-            "type": "object",
-            "properties": {
-               "a": {
-                  "title": "Признак расчета как self + sum",
-                  "type": "boolean"
-               },
-               "d": {
-                  "title": "Полностью выключенное поле из контрольного листа",
-                  "type": "boolean"
-               },
-               "f": {
-                  "title": "Фиксированное значение - означает что просто надо использовать его",
-                  "type": "number"
-               },
-               "s": {
-                  "title": "Для итоговых сумм - список номеров GUID или DOWN",
-                  "type": "array",
-                  "items": {
-                     "type": "string"
-                  }
-               }
-            },
-            "description": "ControlEvaluated - вычисляемое поле контрольного листа, формула сама дефолтная и содержится в коде frontend"
-         },
-         "ControlItem": {
-            "type": "object",
-            "properties": {
-               "a": {
-                  "title": "Признак производной автоматической записи",
-                  "type": "boolean"
-               },
-               "add": {
-                  "title": "Признак строки",
-                  "type": "boolean"
-               },
-               "ci": {
-                  "title": "ID компонента",
-                  "type": "string"
-               },
-               "dus": {
-                  "title": "Идентификаторы дублирующих записей",
-                  "type": "array",
-                  "items": {
-                     "type": "string"
-                  }
-               },
-               "id": {
-                  "title": "Уникальный идентификатор записи",
-                  "type": "string"
-               },
-               "l": {
-                  "title": "Уровень записи в таблице",
-                  "type": "integer"
-               },
-               "n": {
-                  "title": "Название (запчасти",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_string"
-               },
-               "nsp": {
-                  "title": "Признак нестандартной позиции",
-                  "type": "boolean"
-               },
-               "nspig": {
-                  "title": "Идентификатор группы рем. воздействия в НСП",
-                  "type": "integer"
-               },
-               "num": {
-                  "title": "Номер записи в таблице контрольного листа",
-                  "type": "string"
-               },
-               "r": {
-                  "title": "Ссылка на некий внешний идентификатор",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_string"
-               },
-               "s": {
-                  "title": "Состояние записи - A - активная",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlItemState"
-               },
-               "si": {
-                  "title": "ID запчасти",
-                  "type": "string"
-               },
-               "t": {
-                  "title": "Тип записи W-работа",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlItemType"
-               },
-               "v": {
-                  "title": "Основной набор численных значений",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlValues"
-               }
-            },
-            "description": "ControlItem - элемент контрольного листа"
-         },
-         "ControlItemState": {
-            "type": "string"
-         },
-         "ControlItemType": {
-            "type": "string"
-         },
-         "ControlItemUpdate": {
-            "type": "object",
-            "properties": {
-               "am": {
-                  "title": "Количество (деталей шт)",
-                  "type": "number"
-               },
-               "ar": {
-                  "title": "Площадь окраски или применения материала",
-                  "type": "number"
-               },
-               "c": {
-                  "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа",
-                  "type": "number"
-               },
-               "id": {
-                  "title": "Уникальный идентификатор записи",
-                  "type": "string"
-               },
-               "n": {
-                  "title": "Норма (нормо-часов для работ; норма расхода для материалов)",
-                  "type": "number"
-               },
-               "nsp": {
-                  "title": "Признак нестандартной позиции",
-                  "type": "boolean"
-               },
-               "nspig": {
-                  "title": "Идентификатор группы рем. воздействия в НСП",
-                  "type": "integer"
-               },
-               "rn": {
-                  "title": "Кастомный референсный код",
-                  "type": "string",
-                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
-               },
-               "s": {
-                  "title": "Состояние записи - A - активная",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlItemState"
-               },
-               "t": {
-                  "title": "Название",
-                  "type": "string",
-                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
-               },
-               "up": {
-                  "title": "Стоимость единицы",
-                  "type": "number"
-               },
-               "w": {
-                  "title": "Износ детали",
-                  "type": "number"
-               }
-            },
-            "description": "ControlItemUpdate - описатель обновления для отдельной строки контрольного списка"
-         },
-         "ControlItemUpdateBody": {
-            "type": "object",
-            "properties": {
-               "updates": {
-                  "title": "Список обновлений",
-                  "type": "array",
-                  "items": {
-                     "$ref": "#/components/schemas/ControlItemUpdate"
-                  }
-               }
-            },
-            "description": "ControlItemUpdateBody - тело запроса на обновление из контрольного списка"
-         },
-         "ControlList": {
-            "type": "object",
-            "properties": {
-               "CalcUid": {
-                  "type": "string"
-               },
-               "Impacts": {
-                  "type": "array",
-                  "items": {
-                     "$ref": "#/components/schemas/ControlListImpact"
-                  }
-               },
-               "State": {
-                  "title": "",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/CalcState"
-               }
-            },
-            "description": "ControlList - контрольный лист"
-         },
-         "ControlListImpact": {
-            "type": "object",
-            "properties": {
-               "Action": {
-                  "title": "",
-                  "type": "object",
-                  "description": "Action - внутреннее представление действий",
-                  "$ref": "#/components/schemas/ImpactAction"
-               },
-               "ComponentCode": {
-                  "type": "string",
-                  "description": "ComponentCode - SNumber"
-               },
-               "ComponentId": {
-                  "type": "integer",
-                  "description": "ComponentId - внутренний числовой ид от SNumber"
-               },
-               "DuplicatesWorkIDs": {
-                  "type": "array",
-                  "items": {
-                     "type": "integer"
-                  },
-                  "description": "DuplicatesWorkIDs - список идентификаторов работ, которые являются дубликатами этого воздействия"
-               },
-               "IsExtra": {
-                  "type": "boolean",
-                  "description": "IsExtra - признак записи extra"
-               },
-               "Materials": {
-                  "type": "array",
-                  "items": {
-                     "$ref": "#/components/schemas/MaterialControl"
-                  },
-                  "description": "ЛКМ"
-               },
-               "Removed": {
-                  "type": "boolean",
-                  "description": "Removed - флаг был ли удален коррекцией"
-               },
-               "SpareCode": {
-                  "type": "string",
-                  "description": "SpareCode - код детали, обычно берется из source"
-               },
-               "SpareData": {
-                  "title": "",
-                  "type": "object",
-                  "description": "SpareData - деталь",
-                  "$ref": "#/components/schemas/SparesResult"
-               },
-               "SpareId": {
-                  "type": "integer",
-                  "description": "SpareId - код (id) детали внутренний (det_sp_id)"
-               },
-               "Subs": {
-                  "type": "array",
-                  "items": {
-                     "$ref": "#/components/schemas/ControlListImpact"
-                  },
-                  "description": "subs - вложенные воздействия (воздействия нижнего уровня)"
-               },
-               "Work": {
-                  "title": "",
-                  "type": "object",
-                  "description": "Work - работа",
-                  "$ref": "#/components/schemas/RepairWork"
-               }
-            },
-            "description": "ControlListImpact - рем."
-         },
-         "ControlValues": {
-            "type": "object",
-            "properties": {
-               "am": {
-                  "title": "Количество (деталей шт)",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "ar": {
-                  "title": "Площадь окраски или применения материала",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "b": {
-                  "title": "Бонус",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "bp": {
-                  "title": "Базовая стоимость без учета износа и скидок",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEvaluated"
-               },
-               "c": {
-                  "title": "Коэффициент выполнения работы еще один множитель кроме нормо-часа",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "fp": {
-                  "title": "Итоговая стоимость с учетом износа и скидок",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEvaluated"
-               },
-               "n": {
-                  "title": "Норма (нормо-часов для работ; норма расхода для материалов)",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "u": {
-                  "title": "Единица измерения ('шт.' для детали; 'н.ч.' для работы; из справочника для материала)",
-                  "type": "string"
-               },
-               "up": {
-                  "title": "Стоимость единицы",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               },
-               "w": {
-                  "title": "Износ детали",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlEditable_float64"
-               }
-            },
-            "description": "ControlValues - список редактируемых основных численных значений контрольного листа"
-         },
-         "ControlView": {
-            "type": "object",
-            "properties": {
-               "c20": {
-                  "type": "number"
-               },
-               "c28": {
-                  "type": "number"
-               },
-               "c28_use_wearout": {
-                  "type": "boolean",
-                  "description": "Code28UseWearout - признак использовать ли скидку с учетом 28 кода"
-               },
-               "c42": {
-                  "type": "number"
-               },
-               "calc_uid": {
-                  "title": "Идентификатор калькуляции",
-                  "type": "string"
-               },
-               "case_type": {
-                  "title": "Тип дела (ОСАГО",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/CaseType"
-               },
-               "items": {
-                  "title": "Набор элементов контрольного листа",
-                  "type": "array",
-                  "items": {
-                     "$ref": "#/components/schemas/ControlItem"
-                  }
-               },
-               "source": {
-                  "title": "Исходный набор рем. воздействий",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ControlList"
-               },
-               "state": {
-                  "title": "Состояние калькуляции",
-                  "type": "string",
-                  "description": "",
-                  "$ref": "#/components/schemas/CalcState"
-               }
-            },
-            "description": "ControlView - представление списка рем."
-         },
          "DictionaryInfoSet": {
             "type": "object",
             "properties": {
@@ -2712,6 +3152,10 @@
                      "$ref": "#/components/schemas/Attachment"
                   },
                   "description": "Items - элементы результатов поиска"
+               },
+               "total": {
+                  "type": "integer",
+                  "description": "Total - общее кол-во вложений, найденых по запросу"
                }
             },
             "description": "FindAbCaseResult - результат поиска вложений дела"
@@ -2719,6 +3163,22 @@
          "FindCaseAttachmentQuery": {
             "type": "object",
             "properties": {
+               "IsCalcTotal": {
+                  "type": "boolean",
+                  "description": "IsCalcTotal - показывать ли кол-во вложений по запросу"
+               },
+               "Order": {
+                  "title": "",
+                  "type": "object",
+                  "description": "Order - сортировка выдачи из БД",
+                  "$ref": "#/components/schemas/SortingOrder"
+               },
+               "Pagination": {
+                  "title": "",
+                  "type": "object",
+                  "description": "Pagination - постраничная выдача мз БД",
+                  "$ref": "#/components/schemas/Pagination"
+               },
                "case_uid": {
                   "type": "string",
                   "description": "CaseUid - идентификатор дела"
@@ -2798,10 +3258,6 @@
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/ImpactFormFields"
-               },
-               "is_filled": {
-                  "title": "Признак заполнения формы",
-                  "type": "boolean"
                },
                "type": {
                   "title": "Тип формы",
@@ -3469,57 +3925,6 @@
             },
             "description": "ListValue - значение из списка в форме"
          },
-         "MaterialControl": {
-            "type": "object",
-            "properties": {
-               "Amount": {
-                  "type": "number",
-                  "description": "Amount - количество"
-               },
-               "CalculatedPrice": {
-                  "type": "number"
-               },
-               "Id": {
-                  "type": "integer",
-                  "description": "Id - идентификатор материала"
-               },
-               "Name": {
-                  "type": "string",
-                  "description": "Name - наименование материала"
-               },
-               "Norma": {
-                  "type": "number",
-                  "description": "Norma - норма"
-               },
-               "NotPVM": {
-                  "type": "boolean",
-                  "description": "NotPVM - флаг того, что материал не является ЛКМ"
-               },
-               "Original": {
-                  "title": "",
-                  "type": "object",
-                  "description": "Original - исходные значения без применения корректировок",
-                  "$ref": "#/components/schemas/PaintsVarnishesMaterial"
-               },
-               "PerItem": {
-                  "type": "boolean",
-                  "description": "PerItem - считаем по штучно"
-               },
-               "Price": {
-                  "type": "number",
-                  "description": "Price - цена"
-               },
-               "Removed": {
-                  "type": "boolean",
-                  "description": "Removed - флаг удаления"
-               },
-               "SpareCode": {
-                  "type": "string",
-                  "description": "SpareCode - код детали (det_kod)"
-               }
-            },
-            "description": "MaterialControl - материал для контрольного листа"
-         },
          "MaterialsResult": {
             "type": "object",
             "properties": {
@@ -3745,6 +4150,12 @@
                   "type": "number",
                   "description": "Kf - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
                },
+               "ModifiedByExpert": {
+                  "title": "",
+                  "type": "object",
+                  "description": "ModifiedByExpert -  поля, измененные экспертном",
+                  "$ref": "#/components/schemas/RepairWorksModifiedFields"
+               },
                "Name": {
                   "type": "string",
                   "description": "Name - имя работы"
@@ -3777,6 +4188,32 @@
                }
             },
             "description": "RepairWork - работа по ремонту, реализует ремонтные воздействия"
+         },
+         "RepairWorksModifiedFields": {
+            "type": "object",
+            "properties": {
+               "Amount": {
+                  "type": "boolean",
+                  "description": "Amount - количество"
+               },
+               "Kf": {
+                  "type": "boolean",
+                  "description": "Kf - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
+               },
+               "Norma": {
+                  "type": "boolean",
+                  "description": "Norma - в случае работ - количество условных часов"
+               },
+               "PaintS": {
+                  "type": "boolean",
+                  "description": "PaintS - площадь окрашивания"
+               },
+               "Price": {
+                  "type": "boolean",
+                  "description": "Price - цена"
+               }
+            },
+            "description": "RepairWorksModifiedFields - набор флагов об изменениях полей коррективами"
          },
          "ReportParameterForm": {
             "type": "object",
@@ -4014,6 +4451,12 @@
                "Discount": {
                   "type": "number"
                },
+               "ModifiedByExpert": {
+                  "title": "",
+                  "type": "object",
+                  "description": "ModifiedByExpert -  поля, измененные экспертном",
+                  "$ref": "#/components/schemas/SparesResultModifiedFields"
+               },
                "Name": {
                   "type": "string"
                },
@@ -4044,6 +4487,24 @@
             },
             "description": "SparesResult - по детали"
          },
+         "SparesResultModifiedFields": {
+            "type": "object",
+            "properties": {
+               "Amount": {
+                  "type": "boolean"
+               },
+               "Price": {
+                  "type": "boolean"
+               },
+               "RunOut": {
+                  "type": "boolean"
+               },
+               "UnitPrice": {
+                  "type": "boolean"
+               }
+            },
+            "description": "SparesResultModifiedFields - набор флагов об изменениях полей коррективами"
+         },
          "Status": {
             "type": "string"
          },
@@ -4073,6 +4534,10 @@
          "SummarizedData": {
             "type": "object",
             "properties": {
+               "Franchise": {
+                  "type": "number",
+                  "description": "Franchise - стоимость франшизы"
+               },
                "TotalMaterialsCost": {
                   "type": "number",
                   "description": "TotalMaterialsCost - общая стоимость материалов"
@@ -4347,6 +4812,11 @@
          "VehicleModification": {
             "type": "object",
             "properties": {
+               "body": {
+                  "title": "Тип кузова (суффикс для reference ID_BODY_TYPE_***)",
+                  "type": "string",
+                  "description": "Body - Тип кузова (суффикс для reference ID_BODY_TYPE_***)"
+               },
                "code": {
                   "title": "Уникальный мнемонический код",
                   "type": "string",
@@ -4361,6 +4831,21 @@
                   "title": "Модель ТС в понятиях агрегированных деталей",
                   "type": "string",
                   "description": "ComponentModelCode - Модель ТС в понятиях агрегированных деталей (имя в старой базе - i1model)"
+               },
+               "drive": {
+                  "title": "Тип привода (суффикс для reference ID_DRIVING_WHEELS_TYPE_***)",
+                  "type": "string",
+                  "description": "Drive - Тип привода (суффикс для reference ID_DRIVING_WHEELS_TYPE_***)"
+               },
+               "end_year": {
+                  "title": "Год прекращения выпуска",
+                  "type": "integer",
+                  "description": "EndYear - Год прекращения выпуска"
+               },
+               "fuel": {
+                  "title": "Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)",
+                  "type": "string",
+                  "description": "Fuel - Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)"
                },
                "is_deleted": {
                   "title": "признак удаленной записи",
@@ -4377,6 +4862,16 @@
                   "type": "boolean",
                   "description": "IsExtra - Признак того, что сущность обрабатывается по схеме extra"
                },
+               "power_hp": {
+                  "title": "Мощность в л.с.",
+                  "type": "number",
+                  "description": "PowerHp - Мощность в л.с."
+               },
+               "power_kw": {
+                  "title": "Мощность в kW",
+                  "type": "number",
+                  "description": "PowerKw - Мощность в kW"
+               },
                "published": {
                   "title": "Признак публикации",
                   "type": "boolean",
@@ -4386,6 +4881,16 @@
                   "title": "Модель ТС в понятиях заводских деталей",
                   "type": "string",
                   "description": "SpareModelCode - Модель ТС в понятиях заводских деталей (имя в старой базе - i2model)"
+               },
+               "start_year": {
+                  "title": "Год начала выпуска",
+                  "type": "integer",
+                  "description": "StartYear - Год начала выпуска"
+               },
+               "transmission": {
+                  "title": "Тип коробки передач (суффикс для reference ID_TRANSMISSION_TYPE_***)",
+                  "type": "string",
+                  "description": "Transmission - Тип коробки передач (суффикс для reference ID_TRANSMISSION_TYPE_***)"
                },
                "vehicle_internal_type": {
                   "title": "Тип ТС по внутренней классификации",
@@ -4413,6 +4918,11 @@
                   "title": "Модель ТС в понятиях нормативов",
                   "type": "string",
                   "description": "VehicleNormModelCode - Модель ТС в понятиях нормативов (имя в старой базе - nmodel)"
+               },
+               "volume": {
+                  "title": "Объем двигателя (cm2)",
+                  "type": "integer",
+                  "description": "Volume - Объем двигателя (cm2)"
                }
             },
             "description": "VehicleModification - Модификация ТС имя в БД: norm.vehicle_modification исходная (legacy) таблица: autobase_norm.modifs"
@@ -4578,10 +5088,19 @@
                   "type": "boolean",
                   "description": "IsAdditional - флаг того, что это работа и ее вложенности суммируются"
                },
+               "ModifiedByExpert": {
+                  "title": "",
+                  "type": "object",
+                  "description": "ModifiedByExpert -  поля, измененные экспертном",
+                  "$ref": "#/components/schemas/WorksResultModifiedFields"
+               },
                "Name": {
                   "type": "string"
                },
                "NormHour": {
+                  "type": "number"
+               },
+               "NormPart": {
                   "type": "number"
                },
                "Original": {
@@ -4598,6 +5117,27 @@
                }
             },
             "description": "WorksResult - по работе"
+         },
+         "WorksResultModifiedFields": {
+            "type": "object",
+            "properties": {
+               "Amount": {
+                  "type": "boolean"
+               },
+               "NormHour": {
+                  "type": "boolean"
+               },
+               "NormPart": {
+                  "type": "boolean"
+               },
+               "Price": {
+                  "type": "boolean"
+               },
+               "UnitPrice": {
+                  "type": "boolean"
+               }
+            },
+            "description": "WorksResultModifiedFields - набор флагов об изменениях полей коррективами"
          }
       },
       "securitySchemes": {
