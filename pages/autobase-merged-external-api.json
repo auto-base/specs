@@ -2,7 +2,7 @@
    "openapi": "3.1.0",
    "info": {
       "title": "Внешнее API проекта Автобаза 2.0",
-      "version": "Autobase Spec 1.0.2"
+      "version": "Autobase Spec 1.0.3"
    },
    "servers": [
       {
@@ -406,7 +406,15 @@
                "accident_date": {
                   "title": "Дата время ДТП",
                   "type": "string",
-                  "description": "Дата время ДТП"
+                  "description": "Дата ДТП"
+               },
+               "accident_place": {
+                  "type": "string",
+                  "description": "Место ДТП"
+               },
+               "accident_time": {
+                  "type": "string",
+                  "description": "Время ДТП"
                },
                "add_code_20_use": {
                   "type": "boolean",
@@ -439,6 +447,10 @@
                "add_code_91_value": {
                   "type": "number",
                   "description": "AddCode91Value - значение для кода 91"
+               },
+               "additional_medical_expenses": {
+                  "type": "boolean",
+                  "description": "AdditionalMedicalExpenses - Сведения об ином поврежденном имуществе: Дополнительные расходы на лечение"
                },
                "body": {
                   "title": "Номер кузова ТС",
@@ -481,8 +493,12 @@
                   "type": "string",
                   "description": "CustomModification - Модификация ТС, указанная экспертом"
                },
+               "custom_naming_by_analog_use": {
+                  "type": "boolean",
+                  "description": "CustomNamingByAnalogUse - признак переопределения наименования ТС при расчете по аналогу."
+               },
                "custom_vehicle_class": {
-                  "type": "string",
+                  "type": "integer",
                   "description": "CustomVehicleClass - Класс ТС, указанный экспертом"
                },
                "customer_address": {
@@ -534,6 +550,18 @@
                   "title": "Заказчик: Название",
                   "type": "string",
                   "description": "Заказчик: Название"
+               },
+               "damaged_property_ownership_doc": {
+                  "type": "string",
+                  "description": "DamagedPropertyOwnershipDoc - Сведения об ином поврежденном имуществе: Вид и реквизиты документа, подтверждающего право собственности на подтвержденное имущество"
+               },
+               "damaged_property_type": {
+                  "type": "string",
+                  "description": "DamagedPropertyType - Сведения об ином поврежденном имуществе: Вид поврежденного имущества"
+               },
+               "deceased_person_relationship": {
+                  "type": "string",
+                  "description": "DeceasedPersonRelationship - Сведения об ином поврежденном имуществе: Отношение к погибшему лицу (степень родства)"
                },
                "engine_number": {
                   "title": "Номер двигателя",
@@ -610,6 +638,10 @@
                   "type": "string",
                   "description": "Регистрационный знак ТС"
                },
+               "health_damage_degree": {
+                  "type": "string",
+                  "description": "HealthDamageDegree - Сведения об ином поврежденном имуществе: Характер и степень повреждения здоровья"
+               },
                "inspection_act_number": {
                   "title": "Акт осмотра, №",
                   "type": "string",
@@ -640,6 +672,12 @@
                   "type": "string",
                   "description": "Дата заявления страхового случая"
                },
+               "insurance_case_notification_type": {
+                  "title": "",
+                  "type": "string",
+                  "description": "Тип извещения",
+                  "$ref": "#/components/schemas/InsuranceCaseNotificationType"
+               },
                "insurance_policy_month_count": {
                   "title": "Кол-во месяцев действия полиса",
                   "type": "integer",
@@ -654,6 +692,10 @@
                   "title": "Начало действия полиса",
                   "type": "string",
                   "description": "Начало действия полиса"
+               },
+               "insured_event_circumstances": {
+                  "type": "string",
+                  "description": "InsuredEventCircumstances - Сведения о страховом случае: Обстоятельства страхового случая"
                },
                "insurer_address": {
                   "title": "Страховщик: Адрес",
@@ -700,6 +742,10 @@
                   "type": "integer",
                   "description": "Год выпуска"
                },
+               "lost_earnings": {
+                  "type": "boolean",
+                  "description": "LostEarnings - Сведения об ином поврежденном имуществе: Утраченный заработок"
+               },
                "mark": {
                   "title": "Производитель",
                   "type": "string",
@@ -719,6 +765,10 @@
                   "title": "Модификация ТС для документации",
                   "type": "string",
                   "description": "Модификация ТС для документации"
+               },
+               "original_vehicle_class": {
+                  "type": "integer",
+                  "description": "OriginalVehicleClass - Класс ТС, указанный изначально"
                },
                "owner_address": {
                   "title": "Собственник: Адрес",
@@ -770,16 +820,46 @@
                   "type": "string",
                   "description": "Собственник: Индекс"
                },
+               "owner_inn": {
+                  "type": "string",
+                  "description": "Собственник: инн организации"
+               },
+               "owner_kpp": {
+                  "type": "string",
+                  "description": "Собственник: кпп организации"
+               },
+               "owner_legal_address": {
+                  "type": "string",
+                  "description": "Собственник: юридический адрес"
+               },
+               "owner_name": {
+                  "type": "string",
+                  "description": "Собственник: наименование организации"
+               },
                "owner_phone": {
                   "title": "Собственник: Телефон",
                   "type": "string",
                   "description": "Собственник: Телефон"
+               },
+               "owner_proxy_number": {
+                  "type": "string",
+                  "description": "Собственник: номер доверенности"
+               },
+               "owner_type": {
+                  "title": "",
+                  "type": "string",
+                  "description": "Собственник: тип собственника",
+                  "$ref": "#/components/schemas/OwnerType"
                },
                "painting_calc_method": {
                   "title": "",
                   "type": "string",
                   "description": "PaintingCalcMethod - способ расчета окрасочных работ",
                   "$ref": "#/components/schemas/PaintingCalcMethod"
+               },
+               "person_has_been_damaged": {
+                  "type": "string",
+                  "description": "PersonHasBeenDamaged - Сведения об ином поврежденном имуществе: Лицо, жизни/здоровья которого причинен ущерб"
                },
                "price_one_norm_hour": {
                   "type": "number",
@@ -814,6 +894,18 @@
                   "type": "string",
                   "description": "Марка шин"
                },
+               "use_custom_vehicle_class": {
+                  "type": "boolean",
+                  "description": "UseCustomVehicleClass - признак использования класса ТС, указанного экспертом"
+               },
+               "use_customer_client_data": {
+                  "type": "boolean",
+                  "description": "UseCustomerClientData - флаг указывающий на использование параметров клиента для обработки блока Заказчик"
+               },
+               "vehicle_doc_issue_date": {
+                  "type": "string",
+                  "description": "Дата выдачи документа о ТС"
+               },
                "vehicle_doc_number": {
                   "type": "string",
                   "description": "VehicleDocNumber - номер документа о ТС"
@@ -821,6 +913,10 @@
                "vehicle_doc_type": {
                   "type": "string",
                   "description": "VehicleDocType - тип документа о ТС (СТС/ПТС)"
+               },
+               "vehicle_driver": {
+                  "type": "string",
+                  "description": "VehicleDriver - Сведения о страховом случае: Водитель управлявший транспортным средством"
                },
                "vehicle_type_in_doc": {
                   "title": "Тип транспортного средства ТС в документации, может не совпадать с типом ТС по которому производится расчёт",
@@ -1124,6 +1220,12 @@
                      "$ref": "#/components/schemas/CalcIn"
                   }
                },
+               "case_template": {
+                  "title": "",
+                  "type": "object",
+                  "description": "CaseTemplate - шаблон полей дела (сведения)",
+                  "$ref": "#/components/schemas/CaseTemplateView"
+               },
                "created_at": {
                   "title": "Создано",
                   "type": "string",
@@ -1247,6 +1349,9 @@
                   "title": "Компания получатель",
                   "type": "string"
                },
+               "stage": {
+                  "type": "string"
+               },
                "state": {
                   "title": "Состояние дела",
                   "type": "string",
@@ -1256,6 +1361,10 @@
                "tags": {
                   "title": "Метки (тэги)",
                   "type": "string"
+               },
+               "template_code": {
+                  "type": "string",
+                  "description": "TemplateCode - Код шаблона полей, на основе которого создано дело"
                },
                "type": {
                   "title": "Тип",
@@ -1292,6 +1401,20 @@
                }
             },
             "description": "AbCaseView - основной объект \"дела\", объект для отображения на фронте"
+         },
+         "AbCountResponseItem": {
+            "type": "object",
+            "properties": {
+               "amount": {
+                  "type": "integer",
+                  "description": "Amount - количество найденных дел"
+               },
+               "error": {
+                  "type": "object",
+                  "description": "Error - ошибка при подсчете"
+               }
+            },
+            "description": "AbCountResponseItem - результат выполнения одного count по делам"
          },
          "AbManagerError": {
             "type": "object",
@@ -1443,6 +1566,10 @@
                   "type": "number",
                   "description": "TotalRepairPrice - стоимость восстановительного ремонта"
                },
+               "total_repair_price_with_discount": {
+                  "type": "number",
+                  "description": "TotalRepairPriceWithDiscount - затраты на восстановительный ремонт(с учетом скидки)"
+               },
                "total_repair_price_with_run_out": {
                   "type": "number",
                   "description": "TotalRepairPriceWithRunOut - затраты на восстановительный ремонт(с учетом износа)"
@@ -1450,6 +1577,10 @@
                "total_spare_price": {
                   "type": "number",
                   "description": "TotalSparePrice - общая стоимость всех деталей"
+               },
+               "total_spare_price_with_discount": {
+                  "type": "number",
+                  "description": "TotalSparePriceWithDiscount - общая стоимость всех деталей с учетом скидки"
                },
                "total_spare_price_with_run_out": {
                   "type": "number",
@@ -1591,6 +1722,11 @@
                   "description": "CreatedAt - время создания записи",
                   "format": "date-time"
                },
+               "created_by": {
+                  "title": "автор создания записи",
+                  "type": "string",
+                  "description": "CreatedBy - автор создания записи"
+               },
                "disassembly_coef": {
                   "title": "Коэффициент для работ по сборке/разборке",
                   "type": "number",
@@ -1630,6 +1766,11 @@
                   "title": "Скрывать пустые дополнительные работы в расчетах",
                   "type": "boolean",
                   "description": "IsHideEmptyAdditionalWorks - Скрывать пустые дополнительные работы в расчетах"
+               },
+               "is_test": {
+                  "title": "Признак того",
+                  "type": "boolean",
+                  "description": "IsTest - Признак того, что данный расчет выполнен в тестовом режиме"
                },
                "is_wearout_expert_manual": {
                   "title": "Экспертная оценка износа выставлена вручную",
@@ -1716,6 +1857,17 @@
                   "type": "number",
                   "description": "TyresTreadHighNew - Высота протектора новых шин"
                },
+               "updated_at": {
+                  "title": "время последнего обновления записи",
+                  "type": "string",
+                  "description": "UpdatedAt - время последнего обновления записи",
+                  "format": "date-time"
+               },
+               "updated_by": {
+                  "title": "автор последнего обновления записи",
+                  "type": "string",
+                  "description": "UpdatedBy - автор последнего обновления записи"
+               },
                "vehicle_modification_code": {
                   "title": "Модификация ТС",
                   "type": "string",
@@ -1757,20 +1909,20 @@
          "CalcIn": {
             "type": "object",
             "properties": {
-               "amount_manual": {
-                  "title": "Назначенное экспертом количество деталей",
+               "amount": {
+                  "title": "Количество деталей",
                   "type": "number",
-                  "description": "AmountManual - Назначенное экспертом количество деталей, раз выполнения работы/комплекса. Первоначально совпадает с предусмотренным (имя в старой базе - amount)"
-               },
-               "amount_original": {
-                  "title": "Предусмотренное количество деталей",
-                  "type": "number",
-                  "description": "AmountOriginal - Предусмотренное количество деталей, раз выполнения работы/комплекса. (имя в старой базе - amount_orig)"
+                  "description": "Amount - Количество деталей, раз выполнения работы (имя в старой базе - amount)"
                },
                "calc_id": {
                   "title": "Идентификатор калькуляции",
                   "type": "integer",
                   "description": "CalcId - Идентификатор калькуляции (имя в старой базе - calc_id)"
+               },
+               "coef": {
+                  "title": "Коэффициент",
+                  "type": "number",
+                  "description": "Coef - Коэффициент"
                },
                "component": {
                   "title": "Компонент",
@@ -1782,6 +1934,17 @@
                   "title": "Идентификатор компонента",
                   "type": "integer",
                   "description": "ComponentId - Идентификатор компонента (имя в старой базе - det_kod_id)"
+               },
+               "created_at": {
+                  "title": "время создания записи",
+                  "type": "string",
+                  "description": "CreatedAt - время создания записи",
+                  "format": "date-time"
+               },
+               "created_by": {
+                  "title": "автор создания записи",
+                  "type": "string",
+                  "description": "CreatedBy - автор создания записи"
                },
                "discount": {
                   "title": "Скидка (в процентах)",
@@ -1833,10 +1996,10 @@
                   "type": "integer",
                   "description": "MaterialId - Идентификатор материала (имя в старой базе - det_kod_id)"
                },
-               "material_name_custom": {
-                  "title": "Кастомизированное название материала",
+               "material_name": {
+                  "title": "Название материала",
                   "type": "string",
-                  "description": "MaterialNameCustom - Кастомизированное название материала"
+                  "description": "MaterialName - Название материала"
                },
                "norm": {
                   "title": "Норматив трудоемкости для работы или расхода для материала",
@@ -1859,25 +2022,36 @@
                   "description": "Spare - Деталь (имя в старой базе - spare)",
                   "$ref": "#/components/schemas/Spare"
                },
-               "spare_code_custom": {
-                  "title": "Кастомизированный код детали или запчасти",
+               "spare_code": {
+                  "title": "Код детали или запчасти",
                   "type": "string",
-                  "description": "SpareCodeCustom - Кастомизированный код детали или запчасти (имя в старой базе - det_sp_nom)"
+                  "description": "SpareCode - Код детали или запчасти (имя в старой базе - det_sp_nom)"
                },
                "spare_id": {
                   "title": "Идентификатор запчасти",
                   "type": "integer",
                   "description": "SpareId - Идентификатор запчасти (имя в старой базе - det_sp_id)"
                },
-               "spare_name_custom": {
-                  "title": "Кастомизированное название детали или запчасти",
+               "spare_name": {
+                  "title": "Название детали или запчасти",
                   "type": "string",
-                  "description": "SpareNameCustom - Кастомизированное название детали или запчасти (имя в старой базе - det_name)"
+                  "description": "SpareName - Название детали или запчасти (имя в старой базе - det_name)"
                },
                "surface_condition_id": {
                   "title": "Идентификатор состояния обрабатываемой поверхности",
                   "type": "integer",
                   "description": "SurfaceConditionId - Идентификатор состояния обрабатываемой поверхности (имя в старой базе - paint_type)"
+               },
+               "updated_at": {
+                  "title": "время последнего обновления записи",
+                  "type": "string",
+                  "description": "UpdatedAt - время последнего обновления записи",
+                  "format": "date-time"
+               },
+               "updated_by": {
+                  "title": "автор последнего обновления записи",
+                  "type": "string",
+                  "description": "UpdatedBy - автор последнего обновления записи (имя в старой базе - updated_by)"
                },
                "wearout": {
                   "title": "Износ детали",
@@ -1895,10 +2069,10 @@
                   "type": "integer",
                   "description": "WorkId - Идентификатор работы (имя в старой базе - w_id)"
                },
-               "work_name_custom": {
-                  "title": "Кастомизированное название работы",
+               "work_name": {
+                  "title": "Название работы",
                   "type": "string",
-                  "description": "WorkNameCustom - Кастомизированное название работы"
+                  "description": "WorkName - Название работы"
                },
                "work_type_id": {
                   "title": "Идентификатор типа работы",
@@ -2052,6 +2226,136 @@
             ],
             "type": "string"
          },
+         "CaseTemplateBlock": {
+            "type": "object",
+            "properties": {
+               "deleted": {
+                  "type": "boolean"
+               },
+               "expanded": {
+                  "type": "boolean",
+                  "description": "Expanded - распахнутость раздела"
+               },
+               "ordinal_number": {
+                  "type": "integer",
+                  "description": "OrdinalNumber - порядковый номер раздела"
+               }
+            },
+            "description": "CaseTemplateBlock - структура раздела основных данных"
+         },
+         "CaseTemplateCombination": {
+            "type": "object",
+            "properties": {
+               "edited": {
+                  "type": "boolean",
+                  "description": "Edited - поле можно редактировать"
+               },
+               "fields": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CaseTemplateCombinationField"
+                  },
+                  "description": "Fields - список дополнительных полей и их значений"
+               },
+               "required": {
+                  "type": "boolean",
+                  "description": "Required - обязательно поля"
+               },
+               "visible": {
+                  "type": "boolean",
+                  "description": "Visible - видимость поля"
+               }
+            },
+            "description": "CaseTemplateCombination - возможная комбинация полей для запуска логики по конкретному полю"
+         },
+         "CaseTemplateCombinationField": {
+            "type": "object",
+            "properties": {
+               "field": {
+                  "type": "string",
+                  "description": "Field - название поля"
+               },
+               "value": {
+                  "type": "string",
+                  "description": "Value - значение поля"
+               }
+            },
+            "description": "CaseTemplateCombinationField - комбинация из дополнительного поля и его значения"
+         },
+         "CaseTemplateContentValue": {
+            "type": "object",
+            "properties": {
+               "blocks": {
+                  "type": "object",
+                  "additionalProperties": {
+                     "$ref": "#/components/schemas/CaseTemplateBlock"
+                  },
+                  "description": "Blocks - список разделов основных данных дела"
+               },
+               "deleted": {
+                  "type": "boolean"
+               },
+               "fields": {
+                  "type": "object",
+                  "additionalProperties": {
+                     "$ref": "#/components/schemas/CaseTemplateField"
+                  },
+                  "description": "Fields - список полей"
+               },
+               "init": {
+                  "type": "boolean",
+                  "description": "Init - изначальная стадия, которая выставляется делу при создании"
+               }
+            },
+            "description": "CaseTemplateContentValue - структура контента стадии"
+         },
+         "CaseTemplateField": {
+            "type": "object",
+            "properties": {
+               "combinations": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CaseTemplateCombination"
+                  },
+                  "description": "Combinations - возможная кобинация полей для запуска логики по конкретному полю"
+               },
+               "deleted": {
+                  "type": "boolean",
+                  "description": "Deleted - поле нужно удалить из итогового результата"
+               },
+               "edited": {
+                  "type": "boolean",
+                  "description": "Edited - поле можно редактировать"
+               },
+               "required": {
+                  "type": "boolean",
+                  "description": "Required - обязательность поля"
+               },
+               "visible": {
+                  "type": "boolean",
+                  "description": "Visible - видимость поля"
+               }
+            },
+            "description": "CaseTemplateField - структура поля"
+         },
+         "CaseTemplateView": {
+            "type": "object",
+            "properties": {
+               "code": {
+                  "type": "string"
+               },
+               "content": {
+                  "type": "object",
+                  "additionalProperties": {
+                     "$ref": "#/components/schemas/CaseTemplateContentValue"
+                  }
+               },
+               "parent_code": {
+                  "type": "string"
+               }
+            },
+            "description": "CaseTemplateView - структура шаблона полей дела"
+         },
          "CaseType": {
             "enum": [
                "KASKO",
@@ -2173,6 +2477,10 @@
                   "description": "Action - внутреннее представление действий",
                   "$ref": "#/components/schemas/ImpactAction"
                },
+               "CalcInId": {
+                  "type": "integer",
+                  "description": "CalcInId - идентификатор строки calc_in"
+               },
                "ComponentCode": {
                   "type": "string",
                   "description": "ComponentCode - SNumber"
@@ -2264,8 +2572,8 @@
                   "title": "Уровень записи в таблице",
                   "type": "integer"
                },
-               "n": {
-                  "title": "Название (запчасти",
+               "mn": {
+                  "title": "Название материала",
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/ChecklistEditable_string"
@@ -2278,11 +2586,9 @@
                   "title": "Номер записи в таблице контрольного листа",
                   "type": "string"
                },
-               "r": {
-                  "title": "Ссылка на некий внешний идентификатор",
-                  "type": "object",
-                  "description": "",
-                  "$ref": "#/components/schemas/ChecklistEditable_string"
+               "o": {
+                  "title": "Порядок сортировки",
+                  "type": "integer"
                },
                "s": {
                   "title": "Состояние записи - A - активная",
@@ -2290,9 +2596,21 @@
                   "description": "",
                   "$ref": "#/components/schemas/ChecklistItemState"
                },
+               "sc": {
+                  "title": "Код детали",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_string"
+               },
                "si": {
                   "title": "ID запчасти",
                   "type": "string"
+               },
+               "sn": {
+                  "title": "Название детали",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_string"
                },
                "su": {
                   "title": "Идентификатор записи",
@@ -2304,11 +2622,21 @@
                   "description": "",
                   "$ref": "#/components/schemas/ChecklistItemType"
                },
+               "tl": {
+                  "title": "Заголовок (нередактируемый)",
+                  "type": "string"
+               },
                "v": {
                   "title": "Основной набор численных значений",
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/ChecklistValues"
+               },
+               "wn": {
+                  "title": "Название работы",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/ChecklistEditable_string"
                },
                "wt": {
                   "title": "Тип работы",
@@ -2346,6 +2674,11 @@
                   "title": "Уникальный идентификатор записи",
                   "type": "string"
                },
+               "mn": {
+                  "title": "Название материала",
+                  "type": "string",
+                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+               },
                "n": {
                   "title": "Норма (нормо-часов для работ; норма расхода для материалов)",
                   "type": "number"
@@ -2354,19 +2687,19 @@
                   "title": "Признак нестандартной позиции",
                   "type": "boolean"
                },
-               "rn": {
-                  "title": "Кастомный референсный код",
-                  "type": "string",
-                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
-               },
                "s": {
                   "title": "Состояние записи - A - активная",
                   "type": "string",
                   "description": "",
                   "$ref": "#/components/schemas/ChecklistItemState"
                },
-               "t": {
-                  "title": "Название",
+               "sc": {
+                  "title": "Код детали",
+                  "type": "string",
+                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
+               },
+               "sn": {
+                  "title": "Название детали",
                   "type": "string",
                   "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
                },
@@ -2377,6 +2710,11 @@
                "w": {
                   "title": "Износ детали",
                   "type": "number"
+               },
+               "wn": {
+                  "title": "Название работы",
+                  "type": "string",
+                  "description": "тут не через omitempty, чтобы сбрасывать пустой строкой"
                }
             },
             "description": "ChecklistItemUpdate - описатель обновления для отдельной строки контрольного списка"
@@ -2879,12 +3217,17 @@
                   "description": "Name - Наименование (имя в старой базе - name)"
                },
                "spare_group_id": {
-                  "title": "ссылка на 'Группа деталей для оказания ремонтного воздействия'",
+                  "title": "ссылка на 'Группа деталей'",
                   "type": "integer",
-                  "description": "SpareGroupId - ссылка на `Группа деталей для оказания ремонтного воздействия` (имя в старой базе - body)"
+                  "description": "SpareGroupId - ссылка на `Группа деталей` (имя в старой базе - body)"
+               },
+               "wearout_type_id": {
+                  "title": "Тип износа по методике 2010 года",
+                  "type": "integer",
+                  "description": "WearoutTypeId - Тип износа по методике 2010 года"
                }
             },
-            "description": "Component - Компонент (бывший SNOMER) имя в БД: norm.component исходная (legacy) таблица: autobase_norm.snomer"
+            "description": "Component - Компонент (бывший S-номер) имя в БД: norm.component исходная (legacy) таблица: autobase_norm.snomer"
          },
          "ComponentImpact": {
             "type": "object",
@@ -3165,7 +3508,7 @@
             "properties": {
                "IsCalcTotal": {
                   "type": "boolean",
-                  "description": "IsCalcTotal - показывать ли кол-во вложений по запросу"
+                  "description": "IsCalcTotal - показывать ли кол-во вложений по запросу (отключено)"
                },
                "Order": {
                   "title": "",
@@ -3383,9 +3726,17 @@
                   "title": "Признак детализируемой группы",
                   "type": "boolean"
                },
+               "is_params_required": {
+                  "title": "Признак того",
+                  "type": "boolean"
+               },
                "name": {
                   "title": "Название рем. воздействия",
                   "type": "string"
+               },
+               "order": {
+                  "title": "Порядок отображения группы рем. воздействий",
+                  "type": "integer"
                },
                "show_form": {
                   "title": "Показать форму редактирования параметров рем. воздействия",
@@ -3471,6 +3822,10 @@
                   "type": "object",
                   "description": "",
                   "$ref": "#/components/schemas/ImpactType"
+               },
+               "is_params_required": {
+                  "title": "Признак того",
+                  "type": "boolean"
                },
                "name": {
                   "title": "Название рем. воздействия",
@@ -3657,6 +4012,10 @@
                   "title": "Адрес изображения",
                   "type": "string"
                },
+               "image_ts": {
+                  "title": "Время последнего обновления изображения",
+                  "type": "integer"
+               },
                "items": {
                   "title": "Элементы дерева",
                   "type": "array",
@@ -3774,7 +4133,9 @@
             "properties": {
                "id": {
                   "title": "ID типа рем. воздействия",
-                  "type": "integer"
+                  "type": "string",
+                  "description": "",
+                  "$ref": "#/components/schemas/ImpactTypeId"
                },
                "name": {
                   "title": "Название типа рем. воздействия",
@@ -3782,6 +4143,35 @@
                }
             },
             "description": "ImpactType - тип рем."
+         },
+         "ImpactTypeId": {
+            "enum": [
+               0,
+               1,
+               2,
+               3,
+               4,
+               5,
+               6,
+               7,
+               8,
+               9,
+               10,
+               11,
+               12,
+               13,
+               14,
+               15,
+               16,
+               17,
+               18,
+               19,
+               20,
+               90,
+               91,
+               99
+            ],
+            "type": "string"
          },
          "ImpactView": {
             "type": "object",
@@ -3911,6 +4301,15 @@
             },
             "description": "InspectionReportItem - строка таблицы Акта осмотра"
          },
+         "InsuranceCaseNotificationType": {
+            "enum": [
+               "GIBDD",
+               "EURO_PROTOCOL",
+               "EURO_PROTOCOL_GPS",
+               "GLONASS"
+            ],
+            "type": "string"
+         },
          "ListValue": {
             "type": "object",
             "properties": {
@@ -3930,6 +4329,14 @@
             "properties": {
                "Amount": {
                   "type": "number"
+               },
+               "Code": {
+                  "type": "string",
+                  "description": "Code - внутренний код materials result, для устранения дублирований."
+               },
+               "IsNsp": {
+                  "type": "boolean",
+                  "description": "IsNsp - флаг того, что материал является НСП"
                },
                "Name": {
                   "type": "string"
@@ -3970,6 +4377,9 @@
             "type": "string"
          },
          "OrderBillingType": {
+            "type": "string"
+         },
+         "OwnerType": {
             "type": "string"
          },
          "Pagination": {
@@ -4107,6 +4517,30 @@
                }
             }
          },
+         "RegisterCaseAttachmentQuery": {
+            "type": "object",
+            "properties": {
+               "attachment_data": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/RegisterCaseAttachmentQueryElem"
+                  }
+               }
+            },
+            "description": "RegisterCaseAttachmentQuery - запрос на переопределение идентификатора дела во вложениях"
+         },
+         "RegisterCaseAttachmentQueryElem": {
+            "type": "object",
+            "properties": {
+               "attachment_name": {
+                  "type": "string"
+               },
+               "attachment_uid": {
+                  "type": "string"
+               }
+            },
+            "description": "RegisterCaseAttachmentQueryElem - элемент запроса на переопределение идентификатора дела во вложениях"
+         },
          "RepairWork": {
             "type": "object",
             "properties": {
@@ -4121,18 +4555,6 @@
                "Code": {
                   "type": "string",
                   "description": "Code - идентификатор работы (то, что в ранее было worknum)"
-               },
-               "GroupCode": {
-                  "type": "string",
-                  "description": "GroupCode - код группы работ"
-               },
-               "GroupId": {
-                  "type": "integer",
-                  "description": "GroupId - ID группы работ"
-               },
-               "GroupName": {
-                  "type": "string",
-                  "description": "GroupName - название группы работ"
                },
                "Id": {
                   "type": "integer",
@@ -4185,6 +4607,18 @@
                "SpareName": {
                   "type": "string",
                   "description": "SpareName - название детали, к которой применяется работа"
+               },
+               "WorkTypeCode": {
+                  "type": "string",
+                  "description": "WorkTypeCode - код группы работ"
+               },
+               "WorkTypeId": {
+                  "type": "integer",
+                  "description": "WorkTypeId - ID группы работ"
+               },
+               "WorkTypeName": {
+                  "type": "string",
+                  "description": "WorkTypeName - название группы работ"
                }
             },
             "description": "RepairWork - работа по ремонту, реализует ремонтные воздействия"
@@ -4426,6 +4860,11 @@
                   "type": "integer",
                   "description": "SpareManufacturerId - Производитель (имя в старой базе - manafacture_id)"
                },
+               "ssn": {
+                  "title": "SSN-код для привязки запчастей к работам",
+                  "type": "string",
+                  "description": "Ssn - SSN-код для привязки запчастей к работам (имя в старой базе - ssn)"
+               },
                "vehicle_component_tree_code": {
                   "title": "Компонент ТС для отображения в дереве",
                   "type": "string",
@@ -4437,7 +4876,37 @@
                   "description": "WearoutTypeId - Тип износа по методике 2010 года (имя в старой базе - rul2010_izn)"
                }
             },
-            "description": "Spare - Деталь, запчасть имя в БД: norm.spare исходная (legacy) таблица: autobase_norm.spares"
+            "description": "Spare - Деталь имя в БД: norm.spare исходная (legacy) таблица: autobase_norm.spares"
+         },
+         "SparePaintingArea": {
+            "type": "object",
+            "properties": {
+               "outer": {
+                  "title": "Наружная площадь",
+                  "type": "number"
+               },
+               "overall": {
+                  "title": "Общая площадь",
+                  "type": "number"
+               }
+            },
+            "description": "SparePaintingArea - площадь окраски детали"
+         },
+         "SpareView": {
+            "type": "object",
+            "properties": {
+               "painting_area": {
+                  "title": "Площадь окраски",
+                  "type": "object",
+                  "description": "",
+                  "$ref": "#/components/schemas/SparePaintingArea"
+               },
+               "price": {
+                  "title": "Цена детали",
+                  "type": "number"
+               }
+            },
+            "description": "SpareView - объект для представления детали"
          },
          "SparesResult": {
             "type": "object",
@@ -4504,6 +4973,16 @@
                }
             },
             "description": "SparesResultModifiedFields - набор флагов об изменениях полей коррективами"
+         },
+         "StatCaseAttachmentItem": {
+            "type": "object",
+            "properties": {
+               "count": {
+                  "type": "integer",
+                  "description": "Count - количество вложений данного типа"
+               }
+            },
+            "description": "StatCaseAttachmentItem - элемент запроса на получение количества вложений"
          },
          "Status": {
             "type": "string"
@@ -4644,11 +5123,6 @@
          "VehicleFamily": {
             "type": "object",
             "properties": {
-               "code": {
-                  "title": "Уникальный мнемонический код",
-                  "type": "string",
-                  "description": "Code - Уникальный мнемонический код"
-               },
                "id": {
                   "title": "Уникальный идентификатор",
                   "type": "integer",
@@ -4713,11 +5187,6 @@
          "VehicleManufacturer": {
             "type": "object",
             "properties": {
-               "code": {
-                  "title": "Уникальный мнемонический код",
-                  "type": "string",
-                  "description": "Code - Уникальный мнемонический код"
-               },
                "id": {
                   "title": "Уникальный идентификатор",
                   "type": "integer",
@@ -4752,7 +5221,7 @@
                "id": {
                   "title": "Уникальный идентификатор",
                   "type": "integer",
-                  "description": "Id - Уникальный идентификатор"
+                  "description": "Id - Уникальный идентификатор (имя в старой базе - id)"
                },
                "image_path": {
                   "title": "Строка для генерации пути к изображению (старый путь)",
@@ -4780,9 +5249,9 @@
                   "description": "Published - Признак публикации"
                },
                "title": {
-                  "title": "Название модели",
+                  "title": "Полное название модели",
                   "type": "string",
-                  "description": "Title - Название модели (имя в старой базе - num)"
+                  "description": "Title - Полное название модели (имя в старой базе - title)"
                },
                "vehicle_class": {
                   "title": "Класс ТС по методике 2021",
@@ -4846,6 +5315,11 @@
                   "title": "Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)",
                   "type": "string",
                   "description": "Fuel - Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)"
+               },
+               "id": {
+                  "title": "Уникальный идентификатор",
+                  "type": "integer",
+                  "description": "Id - Уникальный идентификатор (имя в старой базе - id)"
                },
                "is_deleted": {
                   "title": "признак удаленной записи",
@@ -4912,7 +5386,7 @@
                "vehicle_model_id": {
                   "title": "Модель ТС",
                   "type": "integer",
-                  "description": "VehicleModelId - Модель ТС"
+                  "description": "VehicleModelId - Модель ТС (имя в старой базе - model_id)"
                },
                "vehicle_norm_model_code": {
                   "title": "Модель ТС в понятиях нормативов",
@@ -4971,6 +5445,11 @@
                   "type": "integer",
                   "description": "Id - Уникальный идентификатор (имя в старой базе - id)"
                },
+               "impact_type_id": {
+                  "title": "Тип ремонтного воздействия",
+                  "type": "integer",
+                  "description": "ImpactTypeId - Тип ремонтного воздействия"
+               },
                "is_additional": {
                   "title": "Дополнительная работа",
                   "type": "boolean",
@@ -5010,6 +5489,11 @@
                   "title": "Наименование детали",
                   "type": "string",
                   "description": "SpareName - Наименование детали (имя в старой базе - sparename)"
+               },
+               "ssn": {
+                  "title": "SSN-код для привязки запчастей к работам",
+                  "type": "string",
+                  "description": "Ssn - SSN-код для привязки запчастей к работам (имя в старой базе - ssn)"
                },
                "vehicle_family": {
                   "title": "Семейство ТС",
