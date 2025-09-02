@@ -11,12 +11,28 @@
 <div id="swagger-ui"></div>
 <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
 <script>
+    const txt = '(поддержка прекращена, будет удалено 02.10.2025)';
+
     window.onload = () => {
         window.ui = SwaggerUIBundle({
             url: './autobase-merged-external-api.json',
             dom_id: '#swagger-ui',
+            onComplete: function() {
+                const rows = document.getElementsByClassName('opblock-summary-description');
+                colorizeDeprecated(rows, txt);
+                const groups = document.getElementsByClassName('renderedMarkdown');
+                colorizeDeprecated(groups, txt);
+            }
         });
     };
+
+    function colorizeDeprecated(elems, text) {
+        for (let elem of elems) {
+            if (elem.innerText.includes(text)){
+                elem.style.color = 'red'
+            }
+        }
+    }
 </script>
 </body>
 </html>
