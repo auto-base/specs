@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Внешнее API проекта Автобаза 2.0",
-    "version": "Autobase Spec 1.0.4"
+    "version": "Autobase Spec 1.0.5"
   },
   "servers": [
     {
@@ -172,8 +172,7 @@
         "tags": [
           "Case"
         ],
-        "deprecated": true,
-        "summary": "Получение доступных для дела калькуляций (поддержка прекращена, будет удалено 02.10.2025)",
+        "summary": "Получение доступных для дела калькуляций",
         "parameters": [
           {
             "name": "case_uid",
@@ -202,7 +201,7 @@
                       "type": "object",
                       "properties": {
                         "data": {
-                          "$ref": "#/components/schemas/AvailableCalcResult[abview_AbCaseAvailableCalcView]"
+                          "$ref": "#/components/schemas/DefaultItemsResult[abview_AbCaseAvailableCalcView]"
                         }
                       }
                     }
@@ -253,6 +252,62 @@
                       "properties": {
                         "data": {
                           "$ref": "#/components/schemas/CalculationResult"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка при выполнении запроса",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorConvert"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/export/case": {
+      "post": {
+        "tags": [
+          "export"
+        ],
+        "summary": "Создание дела",
+        "requestBody": {
+          "content": {
+            "application/json;charset=utf-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseRequest"
+              }
+            },
+            "text/yaml;charset=utf-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Создание дела",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/SuccessConvert"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AbCaseExportView"
                         }
                       }
                     }
@@ -448,7 +503,7 @@
                       "type": "object",
                       "properties": {
                         "data": {
-                          "$ref": "#/components/schemas/AvailableCalcResult[abview_AbCaseExportAvailableCalcView]"
+                          "$ref": "#/components/schemas/DefaultItemsResult[abview_AbCaseExportAvailableCalcView]"
                         }
                       }
                     }
@@ -519,6 +574,86 @@
           }
         }
       }
+    },
+    "/export/dictionaries": {
+      "get": {
+        "tags": [
+          "export"
+        ],
+        "summary": "Получение словарей",
+        "parameters": [
+          {
+            "name": "including",
+            "in": "query",
+            "description": "Если требуются не все, то перечень словарей через запятую (regions, material_manufacturers, paint_types)",
+            "required": false
+          },
+          {
+            "name": "force_reload",
+            "in": "query",
+            "description": "Форсированный сброс кеша запрашиваемых словарей (только для maintainer)",
+            "required": false
+          },
+          {
+            "name": "manufacturer_id",
+            "in": "query",
+            "description": "Фильтр по идентификатору производителя ТС при явном запросе словаря модификаций",
+            "required": false
+          },
+          {
+            "name": "manufacturer_code",
+            "in": "query",
+            "description": "Фильтр по коду производителя ТС при явном запросе словаря модификаций",
+            "required": false
+          },
+          {
+            "name": "model_id",
+            "in": "query",
+            "description": "Фильтр по идентификатору модели ТС при явном запросе словаря модификаций",
+            "required": false
+          },
+          {
+            "name": "model_code",
+            "in": "query",
+            "description": "Фильтр по коду модели ТС при явном запросе словаря модификаций",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение словарей",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/SuccessConvert"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AbExportDictionaryView"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка при выполнении запроса",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorConvert"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -526,9 +661,17 @@
       "AbCaseActionQuery": {
         "type": "object",
         "properties": {
+          "assigned_user_uid": {
+            "type": "string",
+            "description": "AssignedUserUid - идентификатор назначенного к делу пользователя"
+          },
           "client_uid": {
             "type": "string",
             "description": "ClientUid - идентификатор клиента"
+          },
+          "group_uid": {
+            "type": "string",
+            "description": "GroupUid - идентификатор новой группы для дела"
           }
         },
         "description": "AbCaseActionQuery - запрос для ендпоинта действий над делом"
@@ -663,9 +806,27 @@
           "price_two_norm_hour": {
             "type": "number",
             "description": "PriceTwoNormHour - Дефолтное значение цены нормо-часа 2"
+          },
+          "wearout": {
+            "type": "number",
+            "description": "Износ в деле по умолчанию"
           }
         },
         "description": "AbCaseDefaults - список дефолтов дела"
+      },
+      "AbCaseDocumentsExportView": {
+        "type": "object",
+        "properties": {
+          "ptr": {
+            "title": "Значение поля ПТС",
+            "type": "string"
+          },
+          "sts": {
+            "title": "Значение поля СТС",
+            "type": "string"
+          }
+        },
+        "description": "AbCaseDocumentsExportView - документы по делу (стс и птс) для нужд внешнего API"
       },
       "AbCaseExportAvailableCalcView": {
         "type": "object",
@@ -756,16 +917,11 @@
             "title": "Идентификатор заказчика",
             "type": "string"
           },
-          "extended_card": {
-            "title": "Расширенная карточка дела",
+          "documents": {
+            "title": "Документы по делу",
             "type": "object",
             "description": "",
-            "$ref": "#/components/schemas/AbCaseExtendedCardView"
-          },
-          "grz": {
-            "title": "ГРЗ",
-            "type": "string",
-            "description": "Государственный регистрационный знак"
+            "$ref": "#/components/schemas/AbCaseDocumentsExportView"
           },
           "last_calc_info": {
             "title": "",
@@ -806,23 +962,15 @@
             "title": "Время обновления",
             "type": "string"
           },
-          "vehicle_age": {
-            "title": "Возраст автомобиля",
+          "vehicle": {
+            "title": "Данные по транспортному средству",
+            "type": "object",
+            "description": "",
+            "$ref": "#/components/schemas/AbCaseVehicleExportView"
+          },
+          "wearout": {
+            "title": "Износ в деле",
             "type": "number"
-          },
-          "vehicle_id": {
-            "title": "ИД ТС",
-            "type": "string",
-            "description": "Идентификатор ТС"
-          },
-          "vehicle_id_type": {
-            "title": "Тип ИД ТС",
-            "type": "string",
-            "description": "Тип идентификатора ТС"
-          },
-          "wearout_original": {
-            "type": "number",
-            "description": "Износ в деле по умолчанию"
           }
         },
         "description": "AbCaseExportView - основной объект \"дела\", объект для отображения во внешнем api"
@@ -1010,6 +1158,10 @@
             "type": "string",
             "description": "Рабочий объем двигателя"
           },
+          "exist_other_damage_property": {
+            "type": "boolean",
+            "description": "ExistOtherDamageProperty - Есть иное поврежденное имущество"
+          },
           "expert_opinion_contract_conditions": {
             "title": "Экспертное заключение. Условия контракта (номер)",
             "type": "string",
@@ -1162,10 +1314,19 @@
             "type": "boolean",
             "description": "Признак расчёта по аналогу"
           },
+          "is_foreign_grz": {
+            "title": "ГРЗ иностранного образца или отсутствует",
+            "type": "boolean",
+            "description": "IsForeignGRZ Регистрационный знак иностранного государства или отсутствует"
+          },
           "is_recognized_to_write_off": {
             "title": "Признать к списанию, стоимость восстановления превысило допустимый процент от стоимости рыночной цены ТС",
             "type": "boolean",
             "description": "Признать к списанию, стоимость восстановления превысило допустимый процент от стоимости рыночной цены ТС."
+          },
+          "is_wearout_manual": {
+            "title": "Экспертная оценка износа выставлена вручную",
+            "type": "boolean"
           },
           "issue_year": {
             "title": "Год выпуска",
@@ -1177,9 +1338,9 @@
             "description": "LostEarnings - Сведения об ином поврежденном имуществе: Утраченный заработок"
           },
           "mark": {
-            "title": "Производитель",
+            "title": "Марка ТС",
             "type": "string",
-            "description": "Марка ТС для документации"
+            "description": "DEPRECATED - use VehicleManufacturerName instead"
           },
           "millage": {
             "title": "Пробег",
@@ -1187,14 +1348,14 @@
             "description": "Пробег"
           },
           "model": {
-            "title": "Модель",
+            "title": "Модель ТС",
             "type": "string",
-            "description": "Модель ТС для документации"
+            "description": "DEPRECATED - use VehicleModelName instead"
           },
           "modification": {
-            "title": "Модификация ТС для документации",
+            "title": "Модификация ТС",
             "type": "string",
-            "description": "Модификация ТС для документации"
+            "description": "DEPRECATED - use VehicleModificationName instead"
           },
           "original_vehicle_class": {
             "type": "integer",
@@ -1219,6 +1380,14 @@
             "title": "Собственник: Город",
             "type": "string",
             "description": "Собственник: Город"
+          },
+          "owner_doc_issue_country": {
+            "type": "string",
+            "description": "OwnerDocIssueCountry - Собственник: Страна выдачи документа"
+          },
+          "owner_doc_issue_date": {
+            "type": "string",
+            "description": "OwnerDocIssueDate - Собственник: Дата выдачи документа"
           },
           "owner_doc_number": {
             "title": "Собственник: номер документа",
@@ -1310,6 +1479,10 @@
             "type": "string",
             "description": "Паспорт транспортного средства"
           },
+          "show_spare_codes": {
+            "type": "boolean",
+            "description": "ShowSpareCodes - показывать номера деталей"
+          },
           "sts": {
             "title": "Свидетельство о регистрации ТС",
             "type": "string",
@@ -1343,6 +1516,46 @@
           "vehicle_driver": {
             "type": "string",
             "description": "VehicleDriver - Сведения о страховом случае: Водитель управлявший транспортным средством"
+          },
+          "vehicle_family_id": {
+            "title": "Семейства ТС",
+            "type": "integer",
+            "description": "Семейство ТС"
+          },
+          "vehicle_family_name": {
+            "title": "Семейство ТС",
+            "type": "string",
+            "description": "Название семейства ТС"
+          },
+          "vehicle_manufacturer_id": {
+            "title": "Производитель ТС",
+            "type": "integer",
+            "description": "Производитель ТС"
+          },
+          "vehicle_manufacturer_name": {
+            "title": "Производитель ТС",
+            "type": "string",
+            "description": "Название производителя ТС"
+          },
+          "vehicle_model_id": {
+            "title": "Модель ТС",
+            "type": "integer",
+            "description": "Модель ТС"
+          },
+          "vehicle_model_name": {
+            "title": "Модель ТС",
+            "type": "string",
+            "description": "Название модели ТС"
+          },
+          "vehicle_modification_id": {
+            "title": "Модификация ТС",
+            "type": "integer",
+            "description": "Модификация ТС"
+          },
+          "vehicle_modification_name": {
+            "title": "Модификация ТС",
+            "type": "string",
+            "description": "Название модификации ТС"
           },
           "vehicle_type_in_doc": {
             "title": "Тип транспортного средства ТС в документации, может не совпадать с типом ТС по которому производится расчёт",
@@ -1383,9 +1596,35 @@
             "title": "Идентификационный номер ТС",
             "type": "string",
             "description": "Идентификационный номер ТС"
+          },
+          "wearout": {
+            "title": "Экспертный износ",
+            "type": "number"
           }
         },
         "description": "AbCaseExtendedCardView - карточка дела, расширенная информация, объект для отображения на фронте"
+      },
+      "AbCaseHistoryView": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "title": "Дата создания исторического события",
+            "type": "string"
+          },
+          "event_type": {
+            "title": "Тип исторического события",
+            "type": "string"
+          },
+          "recipient_client": {
+            "title": "Клиент получатель",
+            "type": "string"
+          },
+          "sender_client": {
+            "title": "Клиент отправитель",
+            "type": "string"
+          }
+        },
+        "description": "AbCaseHistoryView - Историческое событие по делу"
       },
       "AbCaseQuery": {
         "type": "object",
@@ -1432,6 +1671,10 @@
           "grz": {
             "type": "string",
             "description": "Регистрационный знак ТС"
+          },
+          "is_archive": {
+            "type": "boolean",
+            "description": "IsArchive - архивные дела"
           },
           "must_assigned_client": {
             "type": "boolean",
@@ -1563,6 +1806,20 @@
             "type": "string",
             "description": "OwnerName - наименование клиента (владелец дела)"
           },
+          "show_only_case_tabs": {
+            "title": "",
+            "type": "object",
+            "description": "ShowOnlyCaseTabs - показывать только определенные вкладки дела",
+            "$ref": "#/components/schemas/ShowOnlyCaseTabs"
+          },
+          "show_report_in_attachment_page": {
+            "type": "boolean",
+            "description": "ShowReportInAttachmentPage - в деле отсутствует вкладка расчеты"
+          },
+          "state": {
+            "title": "Состояние дела",
+            "type": "string"
+          },
           "type": {
             "title": "Тип",
             "type": "string",
@@ -1584,6 +1841,48 @@
           }
         },
         "description": "AbCaseShortView - объект для краткого представления \"дела\", объект для отображения на фронте"
+      },
+      "AbCaseVehicleExportView": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "chassis": {
+            "type": "string"
+          },
+          "engine_number": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "issue_year": {
+            "type": "integer"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "millage": {
+            "type": "integer"
+          },
+          "model": {
+            "type": "string"
+          },
+          "modification": {
+            "type": "string"
+          },
+          "vehicle_age": {
+            "type": "number"
+          },
+          "vin": {
+            "type": "string"
+          }
+        },
+        "description": "AbCaseVehicleExportView - представление описания транспортного средства для внешнего API"
       },
       "AbCaseView": {
         "required": [
@@ -1765,6 +2064,16 @@
             "title": "Компания получатель",
             "type": "string"
           },
+          "show_only_case_tabs": {
+            "title": "",
+            "type": "object",
+            "description": "ShowOnlyCaseTabs - показывать только определенные вкладки дела",
+            "$ref": "#/components/schemas/ShowOnlyCaseTabs"
+          },
+          "show_report_in_attachment_page": {
+            "type": "boolean",
+            "description": "ShowReportInAttachmentPage - в деле отсутствует вкладка расчеты"
+          },
           "stage": {
             "type": "string"
           },
@@ -1806,10 +2115,6 @@
             "title": "Тип ИД ТС",
             "type": "string",
             "description": "Тип идентификатора ТС"
-          },
-          "wearout_original": {
-            "type": "number",
-            "description": "Износ в деле по умолчанию"
           }
         },
         "description": "AbCaseView - основной объект \"дела\", объект для отображения на фронте"
@@ -1827,6 +2132,72 @@
           }
         },
         "description": "AbCountResponseItem - результат выполнения одного count по делам"
+      },
+      "AbExportDictionaryElem": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Код",
+            "type": "string"
+          },
+          "id": {
+            "title": "Идентификатор",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Наименование",
+            "type": "string"
+          }
+        },
+        "description": "AbExportDictionaryElem - минимальный вид представления для элемента словаря"
+      },
+      "AbExportDictionaryView": {
+        "type": "object",
+        "properties": {
+          "case_doc_types": {
+            "title": "Типы документов",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbExportDictionaryElem"
+            }
+          },
+          "marks": {
+            "title": "Марки автомобилей",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Mark"
+            }
+          },
+          "material_manufactures": {
+            "title": "Производители материалов",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbExportDictionaryElem"
+            }
+          },
+          "modifications": {
+            "title": "Модификации автомобилей",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Modification"
+            }
+          },
+          "paint_types": {
+            "title": "Типы покрытия",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbExportDictionaryElem"
+            }
+          },
+          "regions": {
+            "title": "Регионы (только субъекты)",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbExportDictionaryElem"
+            }
+          }
+        },
+        "description": "AbExportDictionaryView - публичное представление структуры DictionaryView"
       },
       "AbManagerError": {
         "type": "object",
@@ -1935,28 +2306,6 @@
         },
         "description": "Attachment - Описатель вложения,"
       },
-      "AvailableCalcResult[abview_AbCaseAvailableCalcView]": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AbCaseAvailableCalcView"
-            }
-          }
-        }
-      },
-      "AvailableCalcResult[abview_AbCaseExportAvailableCalcView]": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AbCaseExportAvailableCalcView"
-            }
-          }
-        }
-      },
       "AvailableOperations": {
         "type": "object",
         "properties": {
@@ -1969,13 +2318,22 @@
           "is_operation_accept_case": {
             "type": "boolean"
           },
+          "is_operation_change_group": {
+            "type": "boolean"
+          },
           "is_operation_deny_case": {
             "type": "boolean"
           },
           "is_operation_open_case": {
             "type": "boolean"
           },
+          "is_operation_pass_case": {
+            "type": "boolean"
+          },
           "is_operation_return_case": {
+            "type": "boolean"
+          },
+          "is_operation_return_from_archive": {
             "type": "boolean"
           },
           "is_operation_send_case": {
@@ -1984,10 +2342,16 @@
           "is_operation_send_case_to_customer": {
             "type": "boolean"
           },
+          "is_operation_send_to_archive": {
+            "type": "boolean"
+          },
           "is_operation_show_report": {
             "type": "boolean"
           },
           "is_operation_took_case": {
+            "type": "boolean"
+          },
+          "is_operation_withdraw_case": {
             "type": "boolean"
           }
         },
@@ -2221,9 +2585,14 @@
             "description": "UpdatedBy - автор последнего обновления записи"
           },
           "vehicle_modification_code": {
-            "title": "Модификация ТС",
+            "title": "Код модификации ТС",
             "type": "string",
-            "description": "VehicleModificationCode - Модификация ТС, по которой производится расчет"
+            "description": "VehicleModificationCode - Код модификации ТС, по которой производится расчет"
+          },
+          "vehicle_modification_id": {
+            "title": "Модификация ТС",
+            "type": "integer",
+            "description": "VehicleModificationId - Модификация ТС, по которой производится расчет"
           },
           "wearout_expert": {
             "title": "Экспертный износ",
@@ -2554,8 +2923,90 @@
         },
         "description": "CalculationResult - структура для представления результатов калькуляции"
       },
+      "CaseCommentCreateQuery": {
+        "type": "object",
+        "properties": {
+          "CaseUid": {
+            "type": "string"
+          },
+          "Text": {
+            "type": "string"
+          }
+        },
+        "description": "CaseCommentCreateQuery - данные для добавления комментария к делу"
+      },
+      "CaseCommentView": {
+        "type": "object",
+        "properties": {
+          "client_name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": "string"
+          }
+        },
+        "description": "CaseCommentView - комментарий к делу для вывода"
+      },
       "CaseFieldBlock": {
         "type": "string"
+      },
+      "CaseHistoryDictionary": {
+        "type": "object",
+        "properties": {
+          "event_type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "description": "CaseHistoryDictionary - словарь для EventType"
+      },
+      "CaseHistoryQuery": {
+        "type": "object",
+        "properties": {
+          "CaseUID": {
+            "type": "string",
+            "description": "CaseUID - идентификатор дела для которого надо получить список калькуляций"
+          },
+          "date_end": {
+            "type": "string"
+          },
+          "date_start": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "pagination": {
+            "title": "",
+            "type": "object",
+            "description": "Pagination - параметры постраничной выдачи",
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "recipient_client": {
+            "type": "string"
+          },
+          "sender_client": {
+            "type": "string"
+          },
+          "sorting_order": {
+            "title": "",
+            "type": "object",
+            "description": "SortingOrder - порядок сортировки",
+            "$ref": "#/components/schemas/SortingOrder"
+          }
+        },
+        "description": "CaseHistoryQuery - запрос на получение истории по делу"
       },
       "CasePhase": {
         "enum": [
@@ -2577,6 +3028,7 @@
           "DECISION_MAKING",
           "REPAIR",
           "COMPLETED",
+          "ARCHIVE",
           ""
         ],
         "type": "string"
@@ -2688,6 +3140,12 @@
           "init": {
             "type": "boolean",
             "description": "Init - изначальная стадия, которая выставляется делу при создании"
+          },
+          "pages": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CaseTemplatePage"
+            }
           }
         },
         "description": "CaseTemplateContentValue - структура контента стадии"
@@ -2736,6 +3194,24 @@
           }
         },
         "description": "CaseTemplateField - структура поля"
+      },
+      "CaseTemplatePage": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "boolean",
+            "description": "Deleted - поле нужно удалить из итогового результата"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order - порядок нахождения поля относительно строки"
+          },
+          "visible": {
+            "type": "boolean",
+            "description": "Visible - видимость поля"
+          }
+        },
+        "description": "CaseTemplatePage - структура страницы (таба, вкладки) дела"
       },
       "CaseTemplateView": {
         "type": "object",
@@ -3062,6 +3538,12 @@
             "description": "Action - внутреннее представление действий",
             "$ref": "#/components/schemas/ImpactAction"
           },
+          "ActionParam": {
+            "title": "",
+            "type": "object",
+            "description": "ActionParam - внутреннее представление параметров действий",
+            "$ref": "#/components/schemas/ImpactActionParam"
+          },
           "CalcInId": {
             "type": "integer",
             "description": "CalcInId - идентификатор строки calc_in"
@@ -3157,6 +3639,10 @@
             "title": "Уровень записи в таблице",
             "type": "integer"
           },
+          "ln": {
+            "title": "Номер работы",
+            "type": "string"
+          },
           "mn": {
             "title": "Название материала",
             "type": "object",
@@ -3184,6 +3670,10 @@
             "type": "object",
             "description": "",
             "$ref": "#/components/schemas/ChecklistEditable[string]"
+          },
+          "sci": {
+            "title": "ID состояния окрашиваемой детали",
+            "type": "integer"
           },
           "si": {
             "title": "ID запчасти",
@@ -3843,6 +4333,13 @@
             "title": "Компонент имеет несколько деталей",
             "type": "boolean"
           },
+          "is_by_analog": {
+            "title": "Признак что выбрана модель по аналогу",
+            "type": "boolean"
+          },
+          "show_spare_codes": {
+            "type": "boolean"
+          },
           "spares": {
             "title": "Детали компонента",
             "type": "array",
@@ -3924,6 +4421,146 @@
           }
         },
         "description": "ComponentsView - объект для представления списка выбранных компонентов"
+      },
+      "CreateCaseRequest": {
+        "type": "object",
+        "properties": {
+          "accident_date": {
+            "title": "Дата время ДТП",
+            "type": "string"
+          },
+          "custom_manufacturer": {
+            "title": "Наименование марки ТС",
+            "type": "string"
+          },
+          "custom_model": {
+            "title": "Наименование модели ТС",
+            "type": "string"
+          },
+          "custom_modification": {
+            "title": "Наименование модификации ТС",
+            "type": "string"
+          },
+          "first_reg_date": {
+            "title": "Дата первой регистрации ТС",
+            "type": "string"
+          },
+          "insurance_case_date": {
+            "title": "Дата заявления страхового случая",
+            "type": "string"
+          },
+          "is_custom_vehicle_name": {
+            "title": "Признак переопределения наименования ТС при расчете по аналогу",
+            "type": "boolean"
+          },
+          "is_foreign_license_plate": {
+            "title": "Признак",
+            "type": "boolean"
+          },
+          "issue_year": {
+            "title": "Год выпуска",
+            "type": "integer"
+          },
+          "license_plate": {
+            "title": "Государственный регистрационный знак",
+            "type": "string"
+          },
+          "millage": {
+            "title": "Пробег",
+            "type": "integer"
+          },
+          "number": {
+            "title": "Номер дела",
+            "type": "string"
+          },
+          "type": {
+            "title": "Тип страхования",
+            "type": "string"
+          },
+          "vehicle_doc_number": {
+            "title": "Номер документа о ТС",
+            "type": "string"
+          },
+          "vehicle_doc_type": {
+            "title": "Тип документа о ТС (СТС/ПТС)",
+            "type": "string"
+          },
+          "vehicle_id": {
+            "title": "Идентификатор ТС",
+            "type": "string"
+          },
+          "vehicle_id_type": {
+            "title": "Тип идентификатора ТС",
+            "type": "string"
+          },
+          "vehicle_manufacturer_id": {
+            "title": "Производитель ТС",
+            "type": "integer"
+          },
+          "vehicle_model_id": {
+            "title": "Модель ТС",
+            "type": "integer"
+          },
+          "vehicle_modification_id": {
+            "title": "Модификация ТС",
+            "type": "integer"
+          }
+        },
+        "description": "CreateCaseRequest - запрос на создание дела по внешнему API (первый этап)"
+      },
+      "DefaultItemsResult[abview_AbCaseAvailableCalcView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbCaseAvailableCalcView"
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "DefaultItemsResult[abview_AbCaseExportAvailableCalcView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbCaseExportAvailableCalcView"
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "DefaultItemsResult[abview_AbCaseHistoryView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbCaseHistoryView"
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeleteImpactsBody": {
+        "type": "object",
+        "properties": {
+          "impact_uids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "DeleteImpactsBody - тело запроса на удаления рем."
       },
       "DictionaryInfoSet": {
         "type": "object",
@@ -4034,6 +4671,10 @@
             "title": "Доступна ли операция: принять дело",
             "type": "boolean"
           },
+          "is_operation_change_group": {
+            "title": "Доступна ли операция: сменить группу у дела",
+            "type": "boolean"
+          },
           "is_operation_deny_case": {
             "title": "Доступна ли операция: отклонить дело",
             "type": "boolean"
@@ -4042,8 +4683,16 @@
             "title": "Доступна ли операция: открыть дело",
             "type": "boolean"
           },
+          "is_operation_pass_case": {
+            "title": "Доступна ли операция: передать дело другому пользователю",
+            "type": "boolean"
+          },
           "is_operation_return_case": {
             "title": "Доступна ли операция: вернуть дело",
+            "type": "boolean"
+          },
+          "is_operation_return_from_archive": {
+            "title": "Доступна ли операция: вернуть из архива",
             "type": "boolean"
           },
           "is_operation_send_case": {
@@ -4054,12 +4703,20 @@
             "title": "Доступна ли операция: передать дело заказчику",
             "type": "boolean"
           },
+          "is_operation_send_to_archive": {
+            "title": "Доступна ли операция: отправить в архив",
+            "type": "boolean"
+          },
           "is_operation_show_report": {
             "title": "Доступна ли операция: сформировать отчет",
             "type": "boolean"
           },
           "is_operation_took_case": {
             "title": "Доступна ли операция: забрать дело себе",
+            "type": "boolean"
+          },
+          "is_operation_withdraw_case": {
+            "title": "Доступна ли операция: отозвать дело",
             "type": "boolean"
           }
         },
@@ -4186,6 +4843,33 @@
         ],
         "type": "string"
       },
+      "GetClientsListQuery": {
+        "type": "object",
+        "properties": {
+          "CaseUID": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          }
+        },
+        "description": "GetClientsListQuery - запрос для получения клиентов учатсвующих в историческом событии"
+      },
+      "GetClientsListResult": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "description": "GetClientsListResult - результат получения участвующих в событии клиентов"
+      },
+      "HistoryEventType": {
+        "type": "string"
+      },
       "ImpactAction": {
         "type": "object",
         "properties": {
@@ -4195,6 +4879,16 @@
           }
         },
         "description": "ImpactAction - отдельное действие в рамках ремонтного воздействия"
+      },
+      "ImpactActionParam": {
+        "type": "object",
+        "properties": {
+          "surface_condition_id": {
+            "type": "integer",
+            "description": "SurfaceConditionId - id состояния детали под окраску"
+          }
+        },
+        "description": "ImpactActionParam - параметры воздействия"
       },
       "ImpactComponent": {
         "type": "object",
@@ -4545,6 +5239,10 @@
             "title": "Код запчасти",
             "type": "string"
           },
+          "custom_code": {
+            "title": "Кастомный код запчасти",
+            "type": "string"
+          },
           "has_alternatives": {
             "title": "Имеются альтернативные детали",
             "type": "boolean"
@@ -4661,6 +5359,57 @@
         },
         "description": "ImpactTreeItem - элемент дерева изображений и компонентов"
       },
+      "ImpactTreeNavigation": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Код навигационного изображения",
+            "type": "string"
+          },
+          "image": {
+            "title": "Адрес изображения",
+            "type": "string"
+          },
+          "image_ts": {
+            "title": "Время последнего обновления изображения",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Наименование навигационного изображения",
+            "type": "string"
+          },
+          "units": {
+            "title": "Навигационные узлы",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImpactTreeNavigationUnit"
+            }
+          }
+        },
+        "description": "ImpactTreeNavigation - сведения о навигационном изображении"
+      },
+      "ImpactTreeNavigationUnit": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Код навигационного узла",
+            "type": "string"
+          },
+          "item_code": {
+            "title": "Код элемента на изображении",
+            "type": "string"
+          },
+          "key": {
+            "title": "Ключ элемента на изображении",
+            "type": "string"
+          },
+          "name": {
+            "title": "Наименование навигационного узла",
+            "type": "string"
+          }
+        },
+        "description": "ImpactTreeNavigationUnit - сведения о навигационном узле"
+      },
       "ImpactTreeSearchComponent": {
         "type": "object",
         "properties": {
@@ -4745,6 +5494,12 @@
             "items": {
               "$ref": "#/components/schemas/ImpactTreeItem"
             }
+          },
+          "navigation": {
+            "title": "Сведения о навигационном изображении",
+            "type": "object",
+            "description": "",
+            "$ref": "#/components/schemas/ImpactTreeNavigation"
           },
           "vehicle_modification": {
             "title": "",
@@ -4947,6 +5702,37 @@
         },
         "description": "ListValue - значение из списка в форме"
       },
+      "Mark": {
+        "type": "object",
+        "properties": {
+          "class": {
+            "title": "Класс ТС",
+            "type": "object",
+            "description": "",
+            "$ref": "#/components/schemas/VehicleClass"
+          },
+          "id": {
+            "title": "ИД марки автомобиля",
+            "type": "integer"
+          },
+          "models": {
+            "title": "Модели данной марки автомобиля",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Model"
+            }
+          },
+          "name": {
+            "title": "Название марки автомобиля",
+            "type": "string"
+          },
+          "published": {
+            "title": "Признак публикации",
+            "type": "boolean"
+          }
+        },
+        "description": "Mark - марка, производитель для представления в интерфейсе"
+      },
       "MaterialsResult": {
         "type": "object",
         "properties": {
@@ -4995,6 +5781,66 @@
           }
         },
         "description": "MaterialsResult - по материалам"
+      },
+      "Model": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Код модели автомобиля",
+            "type": "string"
+          },
+          "end_year": {
+            "title": "Год прекращения выпуска",
+            "type": "integer"
+          },
+          "id": {
+            "title": "ИД модели автомобиля",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Название модели автомобиля",
+            "type": "string"
+          },
+          "published": {
+            "title": "Признак публикации",
+            "type": "boolean"
+          },
+          "start_year": {
+            "title": "Год начала выпуска",
+            "type": "integer"
+          }
+        },
+        "description": "Model - модель автомобиля для представления в интерфейсе"
+      },
+      "Modification": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Код модификации",
+            "type": "string"
+          },
+          "comment": {
+            "title": "Комментарий к модификации",
+            "type": "string"
+          },
+          "end_year": {
+            "title": "Год прекращения выпуска",
+            "type": "integer"
+          },
+          "id": {
+            "title": "ИД модификации",
+            "type": "integer"
+          },
+          "published": {
+            "title": "Признак публикации",
+            "type": "boolean"
+          },
+          "start_year": {
+            "title": "Год начала выпуска",
+            "type": "integer"
+          }
+        },
+        "description": "Modification - модификация автомобиля"
       },
       "NatureOfDamage": {
         "type": "string"
@@ -5179,6 +6025,10 @@
             "type": "number",
             "description": "Amount - количество"
           },
+          "Coef": {
+            "type": "number",
+            "description": "Coef - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
+          },
           "Id": {
             "type": "integer",
             "description": "Id - идентификатор работы (то, что в ранее было w_id)"
@@ -5191,9 +6041,9 @@
             "type": "boolean",
             "description": "IsIncluded - тип вхождения работы (true - входит, false - сопутствующая)"
           },
-          "Kf": {
-            "type": "number",
-            "description": "Kf - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
+          "LaborNumber": {
+            "type": "string",
+            "description": "LaborNumber - номер работы"
           },
           "ModifiedByExpert": {
             "title": "",
@@ -5253,9 +6103,9 @@
             "type": "boolean",
             "description": "Amount - количество"
           },
-          "Kf": {
+          "Coef": {
             "type": "boolean",
-            "description": "Kf - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
+            "description": "Coef - коэффициент работ - НЕПОНЯТНО - по идее это то, насколько работа в целом используется, это странный параметр с ним еще надо разобраться"
           },
           "Norma": {
             "type": "boolean",
@@ -5433,6 +6283,36 @@
         },
         "description": "SaveImpactBody - тело запроса на сохранение рем."
       },
+      "ShowOnlyCaseTabs": {
+        "type": "object",
+        "properties": {
+          "all_pages_switch_on": {
+            "type": "boolean"
+          },
+          "attachments": {
+            "type": "boolean"
+          },
+          "basic_information": {
+            "type": "boolean"
+          },
+          "calculations": {
+            "type": "boolean"
+          },
+          "checklist": {
+            "type": "boolean"
+          },
+          "comparison_of_calculations": {
+            "type": "boolean"
+          },
+          "damages": {
+            "type": "boolean"
+          },
+          "history": {
+            "type": "boolean"
+          }
+        },
+        "description": "ShowOnlyCaseTabs - структура для определения, какие вкладки дела нужно показывать"
+      },
       "SortingOrder": {
         "type": "object",
         "properties": {
@@ -5494,6 +6374,11 @@
             "title": "Наименование",
             "type": "string",
             "description": "Name - Наименование (имя в старой базе - name)"
+          },
+          "normalized_code": {
+            "title": "Нормализованное значение номера детали",
+            "type": "string",
+            "description": "NormalizedCode - Нормализованное значение номера детали (имя в старой базе - normalized_code)"
           },
           "spare_manufacturer_id": {
             "title": "Производитель",
@@ -5559,6 +6444,9 @@
           },
           "Discount": {
             "type": "number"
+          },
+          "HasCustomCode": {
+            "type": "boolean"
           },
           "ModifiedByExpert": {
             "title": "",
@@ -5739,44 +6627,16 @@
       "VehicleClass": {
         "type": "object",
         "properties": {
-          "age_modifier": {
-            "title": "Модификатор влияния возраста ТС на расчет износа",
-            "type": "number",
-            "description": "AgeModifier - Модификатор влияния возраста ТС на расчет износа (имя в старой базе - dt)"
-          },
           "id": {
-            "title": "Уникальный идентификатор",
-            "type": "integer",
-            "description": "Id - Уникальный идентификатор (имя в старой базе - id)"
-          },
-          "is_deleted": {
-            "title": "признак удаленной записи",
-            "type": "boolean",
-            "description": "IsDeleted - признак удаленной записи"
-          },
-          "mileage_modifier": {
-            "title": "Модификатор влияния пробега ТС на расчет износа",
-            "type": "number",
-            "description": "MileageModifier - Модификатор влияния пробега ТС на расчет износа (имя в старой базе - dl)"
+            "title": "ИД класса ТС",
+            "type": "integer"
           },
           "name": {
-            "title": "Наименование",
-            "type": "string",
-            "description": "Name - Наименование (имя в старой базе - t_desc)"
-          },
-          "vehicle_type": {
-            "title": "ссылка на 'Тип ТС'",
-            "type": "object",
-            "description": "VehicleType - объект, связанный через VehicleTypeId",
-            "$ref": "#/components/schemas/VehicleType"
-          },
-          "vehicle_type_id": {
-            "title": "ссылка на 'Тип ТС'",
-            "type": "integer",
-            "description": "VehicleTypeId - ссылка на `Тип ТС`"
+            "title": "Название класса ТС",
+            "type": "string"
           }
         },
-        "description": "VehicleClass - Классификация ТС по Единой методике 2021 г."
+        "description": "VehicleClass - класс ТС"
       },
       "VehicleFamily": {
         "type": "object",
@@ -5973,11 +6833,6 @@
             "title": "Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)",
             "type": "string",
             "description": "Fuel - Тип топлива (суффикс для reference ID_ENGINE_TYPE_***)"
-          },
-          "hide_nested_materials": {
-            "title": "Признак скрытия материалов для вложенных работ",
-            "type": "boolean",
-            "description": "HideNestedMaterials - Признак скрытия материалов для вложенных работ"
           },
           "id": {
             "title": "Уникальный идентификатор",
