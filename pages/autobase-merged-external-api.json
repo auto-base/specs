@@ -18,7 +18,7 @@
   "tags": [
     {
       "name": "Case",
-      "description": "Группа ендпоинтов для работы с делами (поддержка прекращена, будет удалено 02.10.2025)"
+      "description": "Группа ендпоинтов для работы с делами"
     },
     {
       "name": "export",
@@ -31,8 +31,8 @@
         "tags": [
           "Case"
         ],
+        "summary": "Поиск дел по заданому запросу",
         "deprecated": true,
-        "summary": "Поиск дел по заданому запросу (поддержка прекращена, будет удалено 02.10.2025)",
         "requestBody": {
           "content": {
             "application/json;charset=utf-8": {
@@ -173,7 +173,7 @@
           "Case"
         ],
         "deprecated": true,
-        "summary": "Получение доступных для дела калькуляций (поддержка прекращена, будет удалено 02.10.2025)",
+        "summary": "Получение доступных для дела калькуляций",
         "parameters": [
           {
             "name": "case_uid",
@@ -662,6 +662,10 @@
       "AbCaseActionQuery": {
         "type": "object",
         "properties": {
+          "assigned_group_uid": {
+            "type": "string",
+            "description": "AssignedGroupUid - идентификатор назначенной к делу группы"
+          },
           "assigned_user_uid": {
             "type": "string",
             "description": "AssignedUserUid - идентификатор назначенного к делу пользователя"
@@ -670,9 +674,9 @@
             "type": "string",
             "description": "ClientUid - идентификатор клиента"
           },
-          "group_uid": {
+          "owner_group_uid": {
             "type": "string",
-            "description": "GroupUid - идентификатор новой группы для дела"
+            "description": "OwnerGroupUid - идентификатор группы-владельца дела"
           }
         },
         "description": "AbCaseActionQuery - запрос для ендпоинта действий над делом"
@@ -1208,6 +1212,11 @@
             "type": "string",
             "description": "Дата первой регистрации ТС"
           },
+          "frame": {
+            "title": "Frame ТС",
+            "type": "string",
+            "description": "Frame ТС"
+          },
           "gibdd_certificate_date": {
             "title": "Дата справки ГИБДД",
             "type": "string",
@@ -1732,6 +1741,10 @@
           "with_last_calc": {
             "type": "boolean",
             "description": "WithLastCalc - с последними калькуляциями"
+          },
+          "without_total_cost": {
+            "type": "boolean",
+            "description": "WithoutTotalCost - без расчета общей стоимости в ответе"
           }
         },
         "description": "AbCaseQuery - объект для запроса дел"
@@ -1856,6 +1869,9 @@
             "type": "string"
           },
           "family": {
+            "type": "string"
+          },
+          "frame": {
             "type": "string"
           },
           "issue_year": {
@@ -2631,6 +2647,11 @@
       "CalcIn": {
         "type": "object",
         "properties": {
+          "additional_data": {
+            "title": "Дополнительные данные",
+            "type": "object",
+            "description": "AdditionalData - Дополнительные данные"
+          },
           "amount": {
             "title": "Количество деталей",
             "type": "number",
@@ -4273,6 +4294,11 @@
             "type": "boolean",
             "description": "IsPseudo - Признак псевдо-компонент, используемый только для увязки логики, реальных деталей при этом не назначается, не закупается (имя в старой базе - fict)"
           },
+          "mj_spare_type_id": {
+            "title": "ссылка на 'Тип детали по методике Минюста'",
+            "type": "integer",
+            "description": "MjSpareTypeId - ссылка на `Тип детали по методике Минюста`"
+          },
           "name": {
             "title": "Наименование",
             "type": "string",
@@ -4551,6 +4577,20 @@
           }
         }
       },
+      "DefaultItemsResult[abview_CaseCommentView]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaseCommentView"
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
       "DeleteImpactsBody": {
         "type": "object",
         "properties": {
@@ -4719,6 +4759,10 @@
           "is_operation_withdraw_case": {
             "title": "Доступна ли операция: отозвать дело",
             "type": "boolean"
+          },
+          "total_cost": {
+            "title": "Общая стоимость",
+            "type": "number"
           }
         },
         "description": "FindAbCaseMeta - мета информация о деле"
@@ -6302,6 +6346,9 @@
           "checklist": {
             "type": "boolean"
           },
+          "comments": {
+            "type": "boolean"
+          },
           "comparison_of_calculations": {
             "type": "boolean"
           },
@@ -6678,7 +6725,8 @@
           "CHASSIS",
           "ABSENT",
           "ENGINE_NUMBER",
-          ""
+          "",
+          "FRAME"
         ],
         "type": "string"
       },
@@ -6782,6 +6830,11 @@
             "title": "Класс ТС по методике 2021",
             "type": "integer",
             "description": "VehicleClassId - Класс ТС по методике 2021"
+          },
+          "vehicle_cu_category_code": {
+            "title": "ссылка на 'Категория транспортного средства по техническому регламенту Таможенного союза'",
+            "type": "string",
+            "description": "VehicleCuCategoryCode - ссылка на `Категория транспортного средства по техническому регламенту Таможенного союза`"
           },
           "vehicle_family": {
             "title": "Семейство ТС",
