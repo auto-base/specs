@@ -799,6 +799,12 @@
       }
    },
    "components": {
+      "securitySchemes": {
+         "basicAuth": {
+            "type": "http",
+            "scheme": "basic"
+         }
+      },
       "schemas": {
          "AbCaseActionQuery": {
             "type": "object",
