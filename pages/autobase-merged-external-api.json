@@ -8255,6 +8255,12 @@
             },
             "description": "WorksResultModifiedFields - набор флагов об изменениях полей коррективами"
          }
+      },
+      "securitySchemes": {
+         "basicAuth": {
+            "type": "http",
+            "scheme": "basic"
+         }
       }
    }
 }
