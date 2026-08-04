@@ -1,8 +1,8 @@
 {
    "openapi": "3.1.0",
    "info": {
-      "title": "Внешнее API проекта Автобаза 2.0",
-      "version": "Autobase Spec 1.0.7"
+      "title": "Внешнее API проекта Автобаза",
+      "version": "1.0.8"
    },
    "servers": [
       {
@@ -17,11 +17,211 @@
    ],
    "tags": [
       {
+         "name": "Case",
+         "description": "Группа ендпоинтов для работы с делами"
+      },
+      {
          "name": "export",
          "description": "Группа ендпоинтов для работы внешнего API"
       }
    ],
    "paths": {
+      "/case/find": {
+         "post": {
+            "tags": [
+               "Case"
+            ],
+            "summary": "Поиск дел по заданому запросу",
+            "requestBody": {
+               "content": {
+                  "application/json;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AbCaseQuery"
+                     },
+                     "examples": {
+                        "Дела в моей организации": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Дела в моей организации с дополнительной информацией по последней калькуляции": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING",
+                              "with_last_calc": true
+                           }
+                        },
+                        "Назначенные на меня": {
+                           "value": {
+                              "must_assigned_user": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        }
+                     }
+                  },
+                  "text/yaml;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AbCaseQuery"
+                     },
+                     "examples": {
+                        "Дела в моей организации": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        },
+                        "Дела в моей организации с дополнительной информацией по последней калькуляции": {
+                           "value": {
+                              "must_assigned_client": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING",
+                              "with_last_calc": true
+                           }
+                        },
+                        "Назначенные на меня": {
+                           "value": {
+                              "must_assigned_user": true,
+                              "must_owner_client": null,
+                              "pagination": {
+                                 "limit": 10,
+                                 "offset": 0
+                              },
+                              "search": "",
+                              "state": null,
+                              "state_phase": "PROCESSING"
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Поиск дел по заданому запросу",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "$ref": "#/components/schemas/FindAbCaseResult[abview_AbCaseView]"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/case/{case_uid}/available-calcs": {
+         "get": {
+            "tags": [
+               "Case"
+            ],
+            "summary": "Получение доступных для дела калькуляций",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               },
+               {
+                  "name": "order_direction",
+                  "in": "query",
+                  "description": "Порядок сортировки ",
+                  "required": false
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Получение доступных для дела калькуляций",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "$ref": "#/components/schemas/DefaultItemsResult[abview_AbCaseAvailableCalcView]"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/export/calc/{calc_uid}/content/get": {
          "get": {
             "tags": [
@@ -311,6 +511,79 @@
                                  "properties": {
                                     "data": {
                                        "$ref": "#/components/schemas/FindAbCaseAttachmentResult"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/export/case/{case_uid}/attachment/upload": {
+         "post": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Загрузка вложения по делу",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               },
+               {
+                  "name": "attachment_name",
+                  "in": "query",
+                  "description": "Название вложения",
+                  "required": true
+               },
+               {
+                  "name": "attachment_type",
+                  "in": "query",
+                  "description": "Тип вложения",
+                  "required": true
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/x-www-form-urlencoded": {
+                     "schema": {
+                        "properties": {
+                           "file": {}
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Загрузка вложения по делу",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "$ref": "#/components/schemas/UploadAttachmentResult"
                                     }
                                  }
                               }
@@ -1259,6 +1532,14 @@
                   "type": "string",
                   "description": "Виновник ДТП"
                },
+               "culprit_vehicle_mark_model": {
+                  "title": "Виновник ДТП: Марка и модель",
+                  "type": "string"
+               },
+               "culprit_vehicle_registration_number": {
+                  "title": "Виновник ДТП: Регистрационный номер",
+                  "type": "string"
+               },
                "custom_mark": {
                   "type": "string",
                   "description": "CustomMark - марка ТС, указанная экспертом"
@@ -1658,6 +1939,10 @@
                   "type": "string",
                   "description": "Собственник: наименование организации"
                },
+               "owner_ogrn": {
+                  "type": "string",
+                  "description": "Собственник: ОГРН организации"
+               },
                "owner_phone": {
                   "title": "Собственник: Телефон",
                   "type": "string",
@@ -1900,16 +2185,6 @@
                   "type": "string",
                   "description": "Номер полиса Такси+ (потерпевший)"
                },
-               "victim_vehicle_mark_model": {
-                  "title": "Марка и модель",
-                  "type": "string",
-                  "description": "Марка и модель ТС потерпевшего"
-               },
-               "victim_vehicle_registration_number": {
-                  "title": "Регистрационный номер",
-                  "type": "string",
-                  "description": "Регистрационный номер ТС потерпевшего"
-               },
                "vin": {
                   "title": "Идентификационный номер ТС",
                   "type": "string",
@@ -2146,6 +2421,10 @@
             ],
             "type": "object",
             "properties": {
+               "alternative_name_for_case_view_type": {
+                  "type": "string",
+                  "description": "AlternativeNameForCaseViewType - альтернативное название типа отображения дела заказчика"
+               },
                "assigned_client_code": {
                   "type": "string",
                   "description": "AssignedClientCode - код клиента (оперирует с делом)"
@@ -2345,6 +2624,10 @@
             ],
             "type": "object",
             "properties": {
+               "alternative_name_for_case_view_type": {
+                  "type": "string",
+                  "description": "AlternativeNameForCaseViewType - альтернативное название типа отображения дела заказчика"
+               },
                "assigned_client_code": {
                   "type": "string",
                   "description": "AssignedClientCode - код клиента (оперирует с делом)"
@@ -2603,6 +2886,10 @@
                   "title": "Тип отображения",
                   "type": "string",
                   "description": "Тип отображения"
+               },
+               "view_type_label": {
+                  "title": "Название типа отображения дела",
+                  "type": "string"
                }
             },
             "description": "AbCaseView - основной объект \"дела\", объект для отображения на фронте"
@@ -2864,9 +3151,6 @@
                "is_operation_copy_case": {
                   "type": "boolean"
                },
-               "is_operation_create_repairs_history_report": {
-                  "type": "boolean"
-               },
                "is_operation_deny_case": {
                   "type": "boolean"
                },
@@ -2876,7 +3160,13 @@
                "is_operation_pass_case": {
                   "type": "boolean"
                },
+               "is_operation_restore_impacts": {
+                  "type": "boolean"
+               },
                "is_operation_return_case": {
+                  "type": "boolean"
+               },
+               "is_operation_return_case_to_creator": {
                   "type": "boolean"
                },
                "is_operation_return_from_archive": {
@@ -2917,6 +3207,42 @@
                }
             },
             "description": "B2bReportMakeResponse - ответ на запрос на создание b2b отчета"
+         },
+         "B2bReportTypeAvailabilityItem": {
+            "type": "object",
+            "properties": {
+               "can_run": {
+                  "type": "boolean"
+               },
+               "code": {
+                  "type": "string"
+               },
+               "disabled_reason": {
+                  "type": "string"
+               },
+               "is_paid": {
+                  "type": "boolean"
+               },
+               "max_runs_per_case": {
+                  "type": "integer"
+               },
+               "name": {
+                  "type": "string"
+               }
+            },
+            "description": "B2bReportTypeAvailabilityItem описывает доступность типа B2B-отчёта в деле."
+         },
+         "B2bReportTypeAvailabilityResponse": {
+            "type": "object",
+            "properties": {
+               "items": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/B2bReportTypeAvailabilityItem"
+                  }
+               }
+            },
+            "description": "B2bReportTypeAvailabilityResponse описывает список доступных в деле типов B2B-отчётов."
          },
          "CalcDTO": {
             "type": "object",
@@ -5546,10 +5872,6 @@
                   "title": "Доступна ли операция: копировать дело",
                   "type": "boolean"
                },
-               "is_operation_create_repairs_history_report": {
-                  "title": "Доступна ли операция: создать очтет - История рем. работ",
-                  "type": "boolean"
-               },
                "is_operation_deny_case": {
                   "title": "Доступна ли операция: отклонить дело",
                   "type": "boolean"
@@ -5564,6 +5886,10 @@
                },
                "is_operation_return_case": {
                   "title": "Доступна ли операция: вернуть дело",
+                  "type": "boolean"
+               },
+               "is_operation_return_case_to_creator": {
+                  "title": "Доступна ли операция: вернуть дело создателю",
                   "type": "boolean"
                },
                "is_operation_return_from_archive": {
@@ -7311,7 +7637,7 @@
                "history": {
                   "type": "boolean"
                },
-               "repair_history": {
+               "vehicle_reports": {
                   "type": "boolean"
                }
             },
@@ -7645,6 +7971,16 @@
                }
             },
             "description": "UpdateCaseAttachmentQuery - запрос на обновление вложений дела"
+         },
+         "UploadAttachmentResult": {
+            "type": "object",
+            "properties": {
+               "uid": {
+                  "title": "Идентификатор вложения",
+                  "type": "string"
+               }
+            },
+            "description": "UploadAttachmentResult - результат загрузки вложения к делу."
          },
          "UploadCaseAttachmentResult": {
             "type": "object",
