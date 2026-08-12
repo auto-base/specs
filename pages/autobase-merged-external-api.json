@@ -2,7 +2,7 @@
    "openapi": "3.1.0",
    "info": {
       "title": "Внешнее API проекта Автобаза",
-      "version": "1.0.8"
+      "version": "1.0.9"
    },
    "servers": [
       {
@@ -447,6 +447,70 @@
                                  "properties": {
                                     "data": {
                                        "$ref": "#/components/schemas/FindAbCaseResult[abview_AbCaseExportView]"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/export/case/{case_uid}": {
+         "put": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Обновление дела",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "Идентификатор дела",
+                  "required": true
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/json;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AbCaseExportView"
+                     }
+                  },
+                  "text/yaml;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AbCaseExportView"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Обновление дела",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "$ref": "#/components/schemas/AbCaseExportView"
                                     }
                                  }
                               }
@@ -1250,6 +1314,10 @@
             ],
             "type": "object",
             "properties": {
+               "business_status": {
+                  "title": "Бизнес-статус дела",
+                  "type": "string"
+               },
                "created_at": {
                   "title": "Создано",
                   "type": "string",
@@ -3193,6 +3261,45 @@
             },
             "description": "AvailableOperations - доступные операции"
          },
+         "B2bReportListItem": {
+            "type": "object",
+            "properties": {
+               "created_at": {
+                  "type": "string"
+               },
+               "document_name": {
+                  "type": "string"
+               },
+               "report_type_code": {
+                  "type": "string"
+               },
+               "report_type_name": {
+                  "type": "string"
+               },
+               "status": {
+                  "type": "string"
+               },
+               "uid": {
+                  "type": "string"
+               },
+               "user_name": {
+                  "type": "string"
+               }
+            },
+            "description": "B2bReportListItem описывает созданный B2B-отчёт для отображения в деле."
+         },
+         "B2bReportListResponse": {
+            "type": "object",
+            "properties": {
+               "items": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/B2bReportListItem"
+                  }
+               }
+            },
+            "description": "B2bReportListResponse содержит созданные B2B-отчёты дела."
+         },
          "B2bReportMakeResponse": {
             "type": "object",
             "properties": {
@@ -3908,6 +4015,18 @@
                }
             },
             "description": "CaseCommentView - комментарий к делу для вывода"
+         },
+         "CaseComponentsTreeView": {
+            "type": "object",
+            "properties": {
+               "groups": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ComponentTreeGroupView"
+                  }
+               }
+            },
+            "description": "CaseComponentsTreeView - дерево групп и компонентов, применимых к ТС в деле."
          },
          "CaseFieldBlock": {
             "type": "string"
@@ -4863,6 +4982,10 @@
                   "type": "integer",
                   "description": "Id - идентификатор материала"
                },
+               "IsGlueKit": {
+                  "type": "boolean",
+                  "description": "IsGlueKit - флаг того, что материал является комплектом для вклейки"
+               },
                "IsNsp": {
                   "type": "boolean",
                   "description": "IsNsp - флаг того, что материал является НСП"
@@ -5040,6 +5163,13 @@
          "CompareAttributes": {
             "type": "object",
             "properties": {
+               "use_market_prices": {
+                  "title": "Признак использования рыночных цен",
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/CompareValue[bool]"
+                  }
+               },
                "vehicle_manufacturer": {
                   "title": "Производитель",
                   "type": "array",
@@ -5237,6 +5367,19 @@
                }
             },
             "description": "CompareTotal - Итого"
+         },
+         "CompareValue[bool]": {
+            "type": "object",
+            "properties": {
+               "state": {
+                  "title": "Результат сравнения",
+                  "type": "string"
+               },
+               "value": {
+                  "title": "Значение",
+                  "type": "boolean"
+               }
+            }
          },
          "CompareValue[float64]": {
             "type": "object",
@@ -5489,6 +5632,45 @@
             },
             "description": "ComponentSpare - объект для представления запчасти"
          },
+         "ComponentTreeGroupView": {
+            "type": "object",
+            "properties": {
+               "children": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ComponentTreeGroupView"
+                  }
+               },
+               "code": {
+                  "type": "string"
+               },
+               "components": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ComponentTreeItemView"
+                  }
+               },
+               "name": {
+                  "type": "string"
+               }
+            },
+            "description": "ComponentTreeGroupView - группа компонентов в дереве."
+         },
+         "ComponentTreeItemView": {
+            "type": "object",
+            "properties": {
+               "code": {
+                  "type": "string"
+               },
+               "id": {
+                  "type": "integer"
+               },
+               "name": {
+                  "type": "string"
+               }
+            },
+            "description": "ComponentTreeItemView - компонент в дереве."
+         },
          "ComponentView": {
             "type": "object",
             "properties": {
@@ -5636,7 +5818,7 @@
                   "type": "integer"
                }
             },
-            "description": "CreateCaseRequest - запрос на создание дела по внешнему API (первый этап)"
+            "description": "CreateCaseRequest - запрос на создание дела по внешнему API (первый этап)."
          },
          "DefaultItemsResult[abview_AbCaseAvailableCalcView]": {
             "type": "object",
@@ -7139,6 +7321,10 @@
                   "type": "integer",
                   "description": "Id - идентификатор материала"
                },
+               "IsGlueKit": {
+                  "type": "boolean",
+                  "description": "IsGlueKit - флаг того, что материал является комплектом для вклейки"
+               },
                "IsNsp": {
                   "type": "boolean",
                   "description": "IsNsp - флаг того, что материал является НСП"
@@ -7474,6 +7660,10 @@
                "use_form": {
                   "title": "Признак того является ли отчёт динамическим",
                   "type": "boolean"
+               },
+               "view_type": {
+                  "title": "Тип отображения дела",
+                  "type": "string"
                }
             },
             "description": "ReportType - типы отчетов"
