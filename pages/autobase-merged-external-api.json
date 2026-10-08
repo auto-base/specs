@@ -339,6 +339,70 @@
             }
          }
       },
+      "/export/case/{case_uid}/assign": {
+         "post": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Назначение исполнителя делу по email; для входящих дел (SENT) принимает и назначает одним событием",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/json;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SetAssignedUserQuery"
+                     }
+                  },
+                  "text/yaml;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SetAssignedUserQuery"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Назначение исполнителя делу по email; для входящих дел (SENT) принимает и назначает одним событием",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "type": "boolean"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/export/case/{case_uid}/attachment/find": {
          "post": {
             "tags": [
@@ -2992,6 +3056,22 @@
                }
             },
             "description": "SendCaseRequest - запрос на отправку дела партнёру"
+         },
+         "SetAssignedUserQuery": {
+            "type": "object",
+            "properties": {
+               "case_uid": {
+                  "title": "Идентификатор дела",
+                  "type": "string",
+                  "description": "Идентификатор дела"
+               },
+               "email": {
+                  "title": "Email пользователя",
+                  "type": "string",
+                  "description": "Email пользователя"
+               }
+            },
+            "description": "SetAssignedUserQuery - запрос на назначение пользователя делу по email во внешнем API"
          },
          "SignatureStatus": {
             "type": "string"
