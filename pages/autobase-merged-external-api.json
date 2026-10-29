@@ -2,7 +2,7 @@
    "openapi": "3.1.0",
    "info": {
       "title": "Внешнее API проекта Автобаза",
-      "version": "1.0.10"
+      "version": "1.0.11"
    },
    "servers": [
       {
@@ -482,6 +482,12 @@
                   "schema": {
                      "$ref": "#/components/schemas/CaseAttachmentBuiltinType"
                   }
+               },
+               {
+                  "name": "email",
+                  "in": "query",
+                  "description": "Email автора вложения",
+                  "required": false
                }
             ],
             "requestBody": {
@@ -591,6 +597,74 @@
                      "application/json;charset=utf-8": {
                         "schema": {
                            "$ref": "#/components/schemas/SuccessConvert[DefaultItemsResult[abview_AbCaseExportAvailableCalcView]]"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/export/case/{case_uid}/business-statuses": {
+         "get": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Получение бизнес-статусов дела",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Получение бизнес-статусов дела",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SuccessConvert[DefaultItemsResult[abview_ExportCaseBusinessStatusView]]"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Некорректные входные данные",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "403": {
+                  "description": "Получение бизнес-статусов дела",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Данные не найдены",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SuccessConvert"
                         }
                      }
                   }
@@ -880,6 +954,242 @@
             }
          }
       },
+      "/export/case/{case_uid}/status": {
+         "get": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Возможные статусы модели на деле для сервисной учётной записи заказчика",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               },
+               {
+                  "name": "model_code",
+                  "in": "query",
+                  "description": "Код статусной модели",
+                  "required": true
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Возможные статусы модели на деле для сервисной учётной записи заказчика",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "type": "array",
+                                       "items": {
+                                          "$ref": "#/components/schemas/ExportCaseStatusTargetView"
+                                       }
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Некорректные входные данные",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "403": {
+                  "description": "Возможные статусы модели на деле для сервисной учётной записи заказчика",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Данные не найдены",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SuccessConvert"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "post": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Смена статуса модели на деле для сервисной учётной записи заказчика",
+            "parameters": [
+               {
+                  "name": "case_uid",
+                  "in": "path",
+                  "description": "UID дела",
+                  "required": true
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/json;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SetCaseStatusQuery"
+                     }
+                  },
+                  "text/yaml;charset=utf-8": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SetCaseStatusQuery"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Смена статуса модели на деле для сервисной учётной записи заказчика",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "type": "boolean"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Некорректные входные данные",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "403": {
+                  "description": "Смена статуса модели на деле для сервисной учётной записи заказчика",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Данные не найдены",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SuccessConvert"
+                        }
+                     }
+                  }
+               },
+               "409": {
+                  "description": "Смена статуса модели на деле для сервисной учётной записи заказчика",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/export/customers": {
+         "get": {
+            "tags": [
+               "export"
+            ],
+            "summary": "Получение списка заказчиков текущего клиента",
+            "responses": {
+               "200": {
+                  "description": "Получение списка заказчиков текущего клиента",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "allOf": [
+                              {
+                                 "$ref": "#/components/schemas/SuccessConvert"
+                              },
+                              {
+                                 "type": "object",
+                                 "properties": {
+                                    "data": {
+                                       "type": "array",
+                                       "items": {
+                                          "$ref": "#/components/schemas/ExportCustomerView"
+                                       }
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Ошибка при выполнении запроса",
+                  "content": {
+                     "application/json;charset=utf-8": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorConvert"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/export/dictionaries": {
          "get": {
             "tags": [
@@ -952,6 +1262,10 @@
                "add_code_21_use": {
                   "type": "boolean",
                   "description": "AddCode21Use - признак использования кода 21"
+               },
+               "add_code_51_use": {
+                  "type": "boolean",
+                  "description": "AddCode51Use - признак использования кода 51"
                },
                "calc_id": {
                   "type": "integer",
@@ -1293,6 +1607,13 @@
                "state_phase": {
                   "type": "string",
                   "description": "Фаза дела"
+               },
+               "status_uids": {
+                  "type": "array",
+                  "items": {
+                     "type": "string"
+                  },
+                  "description": "Текущие статусы моделей, хотя бы один из которых стоит на деле"
                },
                "vehicle_owner_fio": {
                   "type": "string",
@@ -1777,6 +2098,15 @@
             },
             "description": "CalculationResult - структура для представления результатов калькуляции"
          },
+         "CarServiceBusinessStatus": {
+            "enum": [
+               "absent",
+               "defect_inspection_done",
+               "car_service_calc_prepared",
+               "repair_completed"
+            ],
+            "type": "string"
+         },
          "CaseAttachmentBuiltinType": {
             "enum": [
                "APPLICATION",
@@ -2131,6 +2461,20 @@
                }
             }
          },
+         "DefaultItemsResult[abview_ExportCaseBusinessStatusView]": {
+            "type": "object",
+            "properties": {
+               "items": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/ExportCaseBusinessStatusView"
+                  }
+               },
+               "total": {
+                  "type": "integer"
+               }
+            }
+         },
          "DefaultItemsResult[abview_ExportCaseCommentView]": {
             "type": "object",
             "properties": {
@@ -2213,9 +2557,30 @@
                }
             }
          },
+         "ExportCaseBusinessStatusView": {
+            "type": "object",
+            "properties": {
+               "business_status": {
+                  "title": "Бизнес-статус дела",
+                  "type": "string",
+                  "description": "Бизнес-статус дела"
+               },
+               "business_status_title": {
+                  "title": "Наименование бизнес-статуса дела",
+                  "type": "string",
+                  "description": "Наименование бизнес-статуса дела"
+               }
+            },
+            "description": "ExportCaseBusinessStatusView - текущий бизнес-статус дела для внешнего API."
+         },
          "ExportCaseCommentCreateQuery": {
             "type": "object",
             "properties": {
+               "email": {
+                  "title": "Email автора",
+                  "type": "string",
+                  "description": "Email автора"
+               },
                "text": {
                   "title": "Текст комментария",
                   "type": "string",
@@ -2330,6 +2695,38 @@
                }
             },
             "description": "ExportCaseHistoryView - событие журнала по делу для внешнего API."
+         },
+         "ExportCaseStatusTargetView": {
+            "type": "object",
+            "properties": {
+               "status_code": {
+                  "title": "Код статуса",
+                  "type": "string",
+                  "description": "Код статуса"
+               },
+               "title": {
+                  "title": "Название статуса",
+                  "type": "string",
+                  "description": "Название статуса"
+               }
+            },
+            "description": "ExportCaseStatusTargetView - статус, в который можно перейти внешней сменой."
+         },
+         "ExportCustomerView": {
+            "type": "object",
+            "properties": {
+               "name": {
+                  "title": "Наименование заказчика",
+                  "type": "string",
+                  "description": "Наименование заказчика"
+               },
+               "uid": {
+                  "title": "Идентификатор заказчика",
+                  "type": "string",
+                  "description": "Идентификатор заказчика"
+               }
+            },
+            "description": "ExportCustomerView - заказчик для внешнего API."
          },
          "FindAbCaseItem[abview_AbCaseExportView]": {
             "required": [
@@ -3073,6 +3470,32 @@
             },
             "description": "SetAssignedUserQuery - запрос на назначение пользователя делу по email во внешнем API"
          },
+         "SetCaseStatusQuery": {
+            "type": "object",
+            "properties": {
+               "case_uid": {
+                  "title": "Идентификатор дела",
+                  "type": "string",
+                  "description": "Идентификатор дела"
+               },
+               "email": {
+                  "title": "Email пользователя",
+                  "type": "string",
+                  "description": "Email пользователя"
+               },
+               "model_code": {
+                  "title": "Код статусной модели",
+                  "type": "string",
+                  "description": "Код статусной модели"
+               },
+               "status_code": {
+                  "title": "Код статуса",
+                  "type": "string",
+                  "description": "Код статуса"
+               }
+            },
+            "description": "SetCaseStatusQuery - запрос смены статуса модели на деле во внешнем API."
+         },
          "SignatureStatus": {
             "type": "string"
          },
@@ -3145,6 +3568,14 @@
                },
                "Code": {
                   "type": "string"
+               },
+               "ComponentCode": {
+                  "type": "string",
+                  "description": "ComponentCode - код компонента"
+               },
+               "ComponentName": {
+                  "type": "string",
+                  "description": "ComponentName - название компонента"
                },
                "Discount": {
                   "type": "number"
@@ -3314,6 +3745,21 @@
                   "properties": {
                      "data": {
                         "$ref": "#/components/schemas/DefaultItemsResult[abview_AbCaseExportAvailableCalcView]"
+                     }
+                  }
+               }
+            ]
+         },
+         "SuccessConvert[DefaultItemsResult[abview_ExportCaseBusinessStatusView]]": {
+            "allOf": [
+               {
+                  "$ref": "#/components/schemas/SuccessConvert"
+               },
+               {
+                  "type": "object",
+                  "properties": {
+                     "data": {
+                        "$ref": "#/components/schemas/DefaultItemsResult[abview_ExportCaseBusinessStatusView]"
                      }
                   }
                }
